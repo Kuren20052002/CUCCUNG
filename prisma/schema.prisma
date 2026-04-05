@@ -70,7 +70,8 @@ model Post {
   metaTitle       String
   metaDescription String
   metaImage       String?  // URL của ảnh đại diện
-  featuredImageAlt String?  // Sản phẩm của SEO
+  featuredImageAlt String?  // Alt text cho SEO ảnh đại diện
+  images          Json?    // Danh sách ảnh trong bài viết: [{url: string, alt: string, name: string}]
   isIndexed       Boolean  @default(true)
   canonicalUrl    String?
 

@@ -8,7 +8,7 @@ import Link from 'next/link';
 
 import { slugify } from '@/lib/utils/slugify';
 import { SEOLiveFeedback } from './SEOLiveFeedback';
-import { ImageUpload } from './ImageUpload';
+import { ImageGallery } from './ImageGallery';
 import { MarkdownEditor } from './MarkdownEditor';
 
 interface Category {
@@ -35,6 +35,7 @@ export const PostForm: React.FC<PostFormProps> = ({ initialData, categories }) =
     categoryId: initialData?.categoryId || '',
     metaImage: initialData?.metaImage || '',
     featuredImageAlt: initialData?.featuredImageAlt || '',
+    images: (initialData?.images as any[]) || [],
     published: initialData?.published || false,
   });
 
@@ -48,6 +49,17 @@ export const PostForm: React.FC<PostFormProps> = ({ initialData, categories }) =
   // H2 Heading Check
   const h2Count = (formData.content.match(/^##\s/gm) || []).length;
   const isH2Valid = h2Count >= 3;
+
+  const handleGalleryUpdate = (images: any[]) => {
+    setFormData(prev => ({ ...prev, images }));
+  };
+
+  const handleSetFeatured = (url: string, alt: string, showToast = true) => {
+    setFormData(prev => ({ ...prev, metaImage: url, featuredImageAlt: alt }));
+    if (url && showToast) {
+      toast.success('Đã đặt làm ảnh đại diện SEO');
+    }
+  };
 
   const handleSubmit = async (publish: boolean) => {
     // Validation
@@ -176,6 +188,16 @@ export const PostForm: React.FC<PostFormProps> = ({ initialData, categories }) =
               </div>
             )}
           </div>
+
+          {/* Moved Media Assets Gallery here */}
+          <div className="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm shadow-slate-200/50">
+            <ImageGallery
+              images={formData.images}
+              featuredUrl={formData.metaImage}
+              onUpdate={handleGalleryUpdate}
+              onSetFeatured={(url, alt) => handleSetFeatured(url, alt, url !== formData.metaImage)}
+            />
+          </div>
         </div>
 
         {/* Sidebar Controls */}
@@ -217,15 +239,6 @@ export const PostForm: React.FC<PostFormProps> = ({ initialData, categories }) =
             </div>
           </div>
 
-          {/* Featured Image */}
-          <div className="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm shadow-slate-200/50">
-            <ImageUpload
-              value={formData.metaImage}
-              alt={formData.featuredImageAlt}
-              onChange={(url) => setFormData(prev => ({ ...prev, metaImage: url }))}
-              onAltChange={(alt) => setFormData(prev => ({ ...prev, featuredImageAlt: alt }))}
-            />
-          </div>
 
           {/* Category Selection */}
           <div className="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm shadow-slate-200/50 space-y-4">
