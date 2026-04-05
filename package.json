@@ -49,8 +49,5 @@
   },
   "prisma": {
     "seed": "node prisma/seed.js"
-  },
-  "overrides": {
-    "@auth/core": "0.41.0"
   }
 }
