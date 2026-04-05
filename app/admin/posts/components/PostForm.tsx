@@ -83,8 +83,11 @@ export const PostForm: React.FC<PostFormProps> = ({ initialData, categories }) =
       });
 
       if (!res.ok) {
-        const error = await res.json();
-        throw new Error(error.error || 'Failed to save post');
+        const errorData = await res.json();
+        const errorMessage = errorData.details 
+          ? `${errorData.error}: ${errorData.details}` 
+          : (errorData.error || 'Failed to save post');
+        throw new Error(errorMessage);
       }
 
       toast.success(publish ? 'Bài viết đã được xuất bản!' : 'Đã lưu bản nháp');

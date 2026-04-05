@@ -24,6 +24,48 @@ async function main() {
   })
 
   console.log({ admin })
+
+  // TEST POST CREATION TO VERIFY SCHEMA
+  try {
+    const testPost = await prisma.post.findFirst({ where: { slug: 'test-schema-sync' } });
+    if (!testPost) {
+      await prisma.post.create({
+        data: {
+          title: 'Test Schema Sync',
+          slug: 'test-schema-sync',
+          content: 'Testing if featuredImageAlt and images work.',
+          metaTitle: 'Test',
+          metaDescription: 'Test Description',
+          featuredImageAlt: 'Test Alt',
+          images: [{ id: '1', url: '/test.png', alt: 'Test', name: 'test.png' }],
+          authorId: admin.id,
+        }
+      });
+      console.log('✅ Prisma Client is in sync: Post created successfully.');
+    }
+  } catch (e) {
+    console.error('❌ Prisma Client SYNC ERROR:', e.message);
+  }
+
+  const categories = [
+    { name: 'Thai kỳ & Sinh con', slug: 'thai-ky-va-sinh-con', description: 'Kiến thức về thai kỳ và chuẩn bị sinh con.' },
+    { name: 'Chăm sóc bé sơ sinh', slug: 'cham-soc-be-so-sinh', description: 'Hướng dẫn chăm sóc bé trong những tháng đầu đời.' },
+    { name: 'Dinh dưỡng & Ăn dặm', slug: 'dinh-duong-va-an-dam', description: 'Chế độ dinh dưỡng và hành trình ăn dặm của bé.' },
+    { name: 'Review & Kinh nghiệm chọn đồ', slug: 'review-va-kinh-nghiem-chon-do', description: 'Đánh giá sản phẩm và kinh nghiệm mua sắm cho mẹ & bé.' },
+  ]
+
+  for (const cat of categories) {
+    const category = await prisma.category.upsert({
+      where: { slug: cat.slug },
+      update: { name: cat.name, description: cat.description },
+      create: {
+        name: cat.name,
+        slug: cat.slug,
+        description: cat.description
+      },
+    })
+    console.log(`Created/Updated category: ${category.name}`)
+  }
 }
 
 main()

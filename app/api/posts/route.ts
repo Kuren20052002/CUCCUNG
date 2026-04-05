@@ -20,6 +20,7 @@ export async function POST(req: NextRequest) {
       categoryId, 
       metaImage, 
       featuredImageAlt,
+      images,
       published 
     } = data;
 
@@ -47,6 +48,7 @@ export async function POST(req: NextRequest) {
         metaDescription,
         metaImage,
         featuredImageAlt,
+        images,
         published: !!published,
         categoryId,
         authorId: session.user.id!,
@@ -57,9 +59,12 @@ export async function POST(req: NextRequest) {
     });
 
     return NextResponse.json(post, { status: 201 });
-  } catch (error) {
-    console.error('Error creating post:', error);
-    return NextResponse.json({ error: 'Failed to create post' }, { status: 500 });
+  } catch (error: any) {
+    console.error('CRITICAL: Error creating post:', error);
+    return NextResponse.json({ 
+      error: 'Failed to create post', 
+      details: error.message || String(error)
+    }, { status: 500 });
   }
 }
 
@@ -82,6 +87,7 @@ export async function PUT(req: NextRequest) {
       categoryId, 
       metaImage, 
       featuredImageAlt,
+      images,
       published 
     } = data;
 
@@ -119,6 +125,7 @@ export async function PUT(req: NextRequest) {
         metaDescription,
         metaImage,
         featuredImageAlt,
+        images,
         published: published !== undefined ? published : existingPost.published,
         categoryId,
       },
@@ -128,8 +135,11 @@ export async function PUT(req: NextRequest) {
     });
 
     return NextResponse.json(post);
-  } catch (error) {
-    console.error('Error updating post:', error);
-    return NextResponse.json({ error: 'Failed to update post' }, { status: 500 });
+  } catch (error: any) {
+    console.error('CRITICAL: Error updating post:', error);
+    return NextResponse.json({ 
+      error: 'Failed to update post',
+      details: error.message || String(error)
+    }, { status: 500 });
   }
 }
