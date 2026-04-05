@@ -63,14 +63,13 @@ export const PostForm: React.FC<PostFormProps> = ({ initialData, categories }) =
 
   const handleSubmit = async (publish: boolean) => {
     // Validation
-    if (!formData.title || !formData.slug || !formData.content || !formData.categoryId) {
-      toast.error('Vui lòng điền đầy đủ các trường bắt buộc');
-      return;
-    }
-
+    if (!formData.title) return toast.error('Vui lòng nhập tiêu đề bài viết');
+    if (!formData.slug) return toast.error('Lỗi: Chưa có đường dẫn bài viết');
+    if (!formData.categoryId) return toast.error('Vui lòng chọn chủ đề (Silo Structure)');
+    if (!formData.content) return toast.error('Vui lòng nhập nội dung bài viết');
+    
     if (!formData.metaImage || !formData.featuredImageAlt) {
-      toast.error('Ảnh đại diện và Alt text là bắt buộc cho SEO');
-      return;
+      return toast.error('Ảnh đại diện và Alt text là bắt buộc cho SEO');
     }
 
     setLoading(true);
@@ -211,7 +210,10 @@ export const PostForm: React.FC<PostFormProps> = ({ initialData, categories }) =
 
             <div className="space-y-5">
               <div className="space-y-1.5">
-                <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Meta Title</label>
+                <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest flex items-center justify-between">
+                  Meta Title
+                  <span className="text-rose-500 font-black">*</span>
+                </label>
                 <input
                   type="text"
                   value={formData.metaTitle}
@@ -222,7 +224,10 @@ export const PostForm: React.FC<PostFormProps> = ({ initialData, categories }) =
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Meta Description</label>
+                <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest flex items-center justify-between">
+                  Meta Description
+                  <span className="text-rose-500 font-black">*</span>
+                </label>
                 <textarea
                   value={formData.metaDescription}
                   onChange={(e) => setFormData(prev => ({ ...prev, metaDescription: e.target.value }))}
@@ -242,7 +247,10 @@ export const PostForm: React.FC<PostFormProps> = ({ initialData, categories }) =
 
           {/* Category Selection */}
           <div className="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm shadow-slate-200/50 space-y-4">
-            <label className="text-xs font-bold text-slate-800 uppercase tracking-widest">Silo Structure (Category)</label>
+            <label className="text-xs font-bold text-slate-800 uppercase tracking-widest flex items-center justify-between">
+              Silo Structure (Category)
+              <span className="text-rose-500 font-black">*</span>
+            </label>
             <div className="relative">
               <select
                 value={formData.categoryId}

@@ -2,9 +2,9 @@
 
 import React, { useState, useRef } from 'react';
 import Image from 'next/image';
-import { 
-  Upload, X, Image as ImageIcon, Copy, Check, 
-  Star, Trash2, FileText, Plus, AlertCircle 
+import {
+  Upload, X, Image as ImageIcon, Copy, Check,
+  Star, Trash2, FileText, Plus, AlertCircle
 } from 'lucide-react';
 import { toast } from 'sonner';
 
@@ -22,11 +22,11 @@ interface ImageGalleryProps {
   onSetFeatured: (url: string, alt: string) => void;
 }
 
-export const ImageGallery: React.FC<ImageGalleryProps> = ({ 
-  images, 
-  featuredUrl, 
-  onUpdate, 
-  onSetFeatured 
+export const ImageGallery: React.FC<ImageGalleryProps> = ({
+  images,
+  featuredUrl,
+  onUpdate,
+  onSetFeatured
 }) => {
   const [uploading, setUploading] = useState(false);
   const [copiedUrl, setCopiedUrl] = useState<string | null>(null);
@@ -40,7 +40,7 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({
       e.preventDefault();
       files = Array.from(e.dataTransfer.files);
     }
-    
+
     if (files.length === 0) return;
 
     // Validate
@@ -73,7 +73,7 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({
           console.error('Upload API Error:', errorData);
           throw new Error(errorData.error || `Lỗi tải ảnh ${file.name}`);
         }
-        
+
         const data = await res.json();
         const imgId = Math.random().toString(36).substring(7);
         const imgObj = {
@@ -83,7 +83,7 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({
           name: file.name
         };
         currentImages.push(imgObj);
-        
+
         // Auto-set as featured if none exists
         if (!featuredUrl && currentImages.length === 1) {
           onSetFeatured(imgObj.url, imgObj.alt);
@@ -104,10 +104,10 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({
     const newImages = [...images];
     newImages[index].alt = newAlt;
     onUpdate(newImages);
-    
+
     // If this is the featured image, update its alt in parent state WITHOUT toast
     if (newImages[index].url === featuredUrl) {
-      onSetFeatured(featuredUrl, newAlt); 
+      onSetFeatured(featuredUrl, newAlt);
     }
   };
 
@@ -115,7 +115,7 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({
     const imageToRemove = images[index];
     const newImages = images.filter((_, i) => i !== index);
     onUpdate(newImages);
-    
+
     // If we removed the featured image, reset it
     if (imageToRemove.url === featuredUrl) {
       onSetFeatured('', '');
@@ -141,7 +141,7 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({
           </h3>
           <p className="text-[10px] text-slate-400 mt-1 uppercase font-bold tracking-tight">Thư viện ảnh đính kèm trong bài viết</p>
         </div>
-        
+
         {images.length > 0 && (
           <button
             type="button"
@@ -169,7 +169,7 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({
       />
 
       {images.length === 0 ? (
-        <div 
+        <div
           onDragOver={(e) => { e.preventDefault(); e.currentTarget.classList.add('bg-emerald-50/50', 'border-emerald-300'); }}
           onDragLeave={(e) => { e.preventDefault(); e.currentTarget.classList.remove('bg-emerald-50/50', 'border-emerald-300'); }}
           onDrop={(e) => { handleUpload(e); e.currentTarget.classList.remove('bg-emerald-50/50', 'border-emerald-300'); }}
@@ -187,8 +187,8 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({
       ) : (
         <div className="space-y-6">
           {images.map((img, index) => (
-            <div 
-              key={img.id || img.url} 
+            <div
+              key={img.id || img.url}
               className={`
                 group relative bg-white border-2 rounded-[2rem] p-6 flex flex-col md:flex-row gap-6 transition-all duration-500 hover:shadow-2xl hover:shadow-emerald-500/10
                 ${img.url === featuredUrl ? 'border-emerald-500 shadow-xl shadow-emerald-500/5' : 'border-slate-50'}
@@ -247,35 +247,33 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({
                     </div>
                   </div>
                 </div>
-                
+
                 <div className="flex items-center gap-3 mt-4">
                   <button
                     type="button"
                     onClick={() => onSetFeatured(img.url, img.alt)}
-                    className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-2xl border-2 transition-all text-[10px] font-black uppercase tracking-widest ${
-                      img.url === featuredUrl 
-                      ? 'bg-amber-100 text-amber-600 border-amber-300 shadow-sm' 
-                      : 'bg-slate-50 text-slate-400 border-slate-50 hover:bg-amber-50 hover:text-amber-600 hover:border-amber-200'
-                    }`}
+                    className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-2xl border-2 transition-all text-[10px] font-black uppercase tracking-widest ${img.url === featuredUrl
+                        ? 'bg-amber-100 text-amber-600 border-amber-300 shadow-sm'
+                        : 'bg-slate-50 text-slate-400 border-slate-50 hover:bg-amber-50 hover:text-amber-600 hover:border-amber-200'
+                      }`}
                   >
                     <Star className={`w-4 h-4 ${img.url === featuredUrl ? 'fill-current' : ''}`} />
-                    {img.url === featuredUrl ? "Featured Image (SEO)" : "Set as Featured"}
+                    {img.url === featuredUrl ? "Featured Image" : "Set as Featured"}
                   </button>
                   <button
                     type="button"
                     onClick={() => copyMarkdown(img)}
-                    className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-2xl border-2 transition-all text-[10px] font-black uppercase tracking-widest ${
-                      copiedUrl === img.url 
-                      ? 'bg-emerald-600 text-white border-emerald-600 shadow-lg' 
-                      : 'bg-white text-emerald-600 border-emerald-100 hover:bg-emerald-600 hover:text-white hover:border-emerald-600 shadow-sm'
-                    }`}
+                    className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-2xl border-2 transition-all text-[10px] font-black uppercase tracking-widest ${copiedUrl === img.url
+                        ? 'bg-emerald-600 text-white border-emerald-600 shadow-lg'
+                        : 'bg-white text-emerald-600 border-emerald-100 hover:bg-emerald-600 hover:text-white hover:border-emerald-600 shadow-sm'
+                      }`}
                   >
                     {copiedUrl === img.url ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                     Copy Markdown
                   </button>
                 </div>
               </div>
-              
+
               {img.url === featuredUrl && (
                 <div className="absolute -top-4 -left-4 bg-amber-500 text-white text-[9px] font-black uppercase px-4 py-2 rounded-full border-4 border-white shadow-2xl z-10 transition-transform group-hover:scale-105">
                   Main SEO Image
@@ -285,7 +283,7 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({
           ))}
         </div>
       )}
-      
+
       <p className="text-[10px] text-slate-400 italic bg-emerald-50/30 p-4 rounded-2xl border border-emerald-100/30 leading-relaxed">
         * Mẹo: Click <b>Copy Markdown</b> để nhận mã chèn vào văn bản. Chọn <b>Featured Image</b> để dùng làm ảnh đại diện cho Google Search.
       </p>
