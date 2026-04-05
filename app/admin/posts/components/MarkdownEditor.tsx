@@ -16,10 +16,21 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = ({ value, onChange 
   return (
     <div className="space-y-0.5 prose-emerald max-w-none font-sans">
       <div className="px-6 py-4 flex items-center justify-between bg-slate-50/50">
-        <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
-          Nội dung bài viết
-          <span className="text-rose-500 font-black">*</span>
-        </label>
+        <div className="flex items-center gap-4">
+          <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
+            Nội dung bài viết
+            <span className="text-rose-500 font-black">*</span>
+          </label>
+          <a
+            href="/markdown-guide.md"
+            download="Huong-dan-soan-thao-Cuccung.md"
+            className="flex items-center gap-1.5 px-3 py-1 bg-emerald-50 text-emerald-600 border border-emerald-100 rounded-lg text-[10px] font-bold hover:bg-emerald-100 transition-all"
+            title="Tải tệp hướng dẫn sử dụng Markdown"
+          >
+            <PenLine className="w-3 h-3" />
+            Tải Hướng dẫn (MD)
+          </a>
+        </div>
         
         {/* Write/Preview Toggles */}
         <div className="flex p-1 bg-slate-100 rounded-xl">
