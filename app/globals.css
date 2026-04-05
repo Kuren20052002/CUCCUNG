@@ -1,37 +1,38 @@
-html {
-  scrollbar-gutter: stable;
-}
-
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
+
 /* Import plugin Typography cho v4 */
 @plugin "@tailwindcss/typography";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+  --background: #fcfdfd;
+  /* Off-white with a hint of emerald */
+  --foreground: #022c22;
+  /* Very dark emerald */
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --primary: #059669;
+  /* Emerald 600 */
+  --primary-foreground: #ffffff;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+  --secondary: #d97706;
+  /* Amber 600 instead of 500 for better contrast on white */
+  --secondary-foreground: #ffffff;
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  --card: #ffffff;
+  --card-border: #e2e8f0;
 }
 
 @theme {
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --font-sans: "Be Vietnam Pro", "Inter", ui-sans-serif, system-ui, sans-serif;
+
   @keyframes blob {
     0% {
       transform: translate(0px, 0px) scale(1);
@@ -87,4 +88,27 @@ body {
       transform: translateX(5px);
     }
   }
+}
+
+/* Force light mode styles even if system is dark */
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Override dark mode media queries if present or forced by system */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #fcfdfd;
+    --foreground: #022c22;
+  }
+}
+
+.prose {
+  --tw-prose-headings: #064e3b;
+  --tw-prose-body: #065f46;
+  --tw-prose-links: #059669;
+  --tw-prose-bold: #064e3b;
 }

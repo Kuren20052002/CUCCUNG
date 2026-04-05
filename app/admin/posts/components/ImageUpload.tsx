@@ -51,24 +51,25 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({ value, alt, onChange, 
   };
 
   return (
-    <div className="space-y-4">
-      <label className="text-sm font-semibold text-zinc-700 dark:text-zinc-300">
-        Ảnh đại diện bài viết (Featured Image) <span className="text-rose-500">*</span>
+    <div className="space-y-4 font-sans">
+      <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center justify-between">
+        Ảnh đại diện (Featured Image)
+        <span className="text-rose-500 font-black">*</span>
       </label>
 
       {value ? (
-        <div className="relative aspect-video rounded-xl overflow-hidden border-2 border-zinc-200 dark:border-zinc-800 group">
+        <div className="relative aspect-video rounded-3xl overflow-hidden border border-slate-100 group shadow-sm">
           <Image
             src={value}
             alt={alt || 'Featured image'}
             fill
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            className="object-cover transition-transform duration-700 group-hover:scale-110"
           />
-          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+          <div className="absolute inset-0 bg-emerald-900/40 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center gap-3 backdrop-blur-[2px]">
             <button
               type="button"
               onClick={() => fileInputRef.current?.click()}
-              className="p-2 bg-white/10 backdrop-blur-md rounded-full hover:bg-white/20 transition"
+              className="p-3 bg-white/20 backdrop-blur-md rounded-2xl hover:bg-white/40 transition-colors shadow-xl"
               title="Đổi ảnh"
             >
               <Upload className="w-5 h-5 text-white" />
@@ -76,15 +77,15 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({ value, alt, onChange, 
             <button
               type="button"
               onClick={() => onChange('')}
-              className="p-2 bg-rose-500/20 backdrop-blur-md rounded-full hover:bg-rose-500/40 transition"
+              className="p-3 bg-rose-500/20 backdrop-blur-md rounded-2xl hover:bg-rose-500/40 transition-colors shadow-xl"
               title="Xóa ảnh"
             >
-              <X className="w-5 h-5 text-rose-500" />
+              <X className="w-5 h-5 text-rose-100" />
             </button>
           </div>
           {uploading && (
-            <div className="absolute inset-0 bg-white/80 dark:bg-zinc-900/80 flex items-center justify-center">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500" />
+            <div className="absolute inset-0 bg-white/60 backdrop-blur-sm flex items-center justify-center">
+              <div className="animate-spin rounded-full h-8 w-8 border-2 border-emerald-500 border-t-transparent" />
             </div>
           )}
         </div>
@@ -92,21 +93,21 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({ value, alt, onChange, 
         <div 
           onClick={() => fileInputRef.current?.click()}
           className={`
-            aspect-video border-2 border-dashed rounded-xl flex flex-col items-center justify-center gap-3 cursor-pointer
-            transition-all duration-300
-            ${uploading ? 'bg-zinc-50 border-zinc-200 cursor-not-allowed' : 'bg-zinc-50/50 hover:bg-zinc-50 border-zinc-300 dark:bg-zinc-900/30 dark:border-zinc-800 dark:hover:bg-zinc-900/50'}
+            aspect-video border-2 border-dashed rounded-3xl flex flex-col items-center justify-center gap-4 cursor-pointer
+            transition-all duration-500 group
+            ${uploading ? 'bg-slate-50 border-slate-200 cursor-not-allowed' : 'bg-slate-50/50 hover:bg-emerald-50/30 border-slate-200 hover:border-emerald-300 hover:shadow-xl hover:shadow-emerald-500/5'}
           `}
         >
           {uploading ? (
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500" />
+            <div className="animate-spin rounded-full h-8 w-8 border-2 border-emerald-500 border-t-transparent" />
           ) : (
             <>
-              <div className="p-3 bg-white dark:bg-zinc-800 rounded-full shadow-sm">
-                <ImageIcon className="w-6 h-6 text-zinc-400" />
+              <div className="p-4 bg-white rounded-2xl shadow-sm border border-slate-100 group-hover:scale-110 transition-transform duration-500">
+                <ImageIcon className="w-6 h-6 text-emerald-400" />
               </div>
-              <div className="text-center">
-                <p className="text-sm font-medium text-zinc-700 dark:text-zinc-300">Nhấn để tải ảnh hoặc kéo thả</p>
-                <p className="text-xs text-zinc-400 mt-1">Nên dùng WebP, PNG, JPG (Max 2MB)</p>
+              <div className="text-center px-4">
+                <p className="text-xs font-bold text-slate-600 group-hover:text-emerald-700 transition-colors">Tải ảnh đại diện lên</p>
+                <p className="text-[10px] text-slate-400 mt-1 uppercase tracking-tight font-medium">WebP, PNG, JPG • Max 2MB</p>
               </div>
             </>
           )}
@@ -123,27 +124,29 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({ value, alt, onChange, 
       />
 
       {/* Alt Text Input */}
-      <div className="space-y-1.5">
-        <label className="text-xs font-semibold text-zinc-500 uppercase tracking-wider flex items-center justify-between">
-          <span>Alt Text (Bắt buộc cho SEO)</span>
+      <div className="space-y-2 pt-2">
+        <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center justify-between">
+          <span>Alt Text (SEO Mandatory)</span>
           {alt.trim().length > 0 ? (
             <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
           ) : (
-            <AlertCircle className="w-3.5 h-3.5 text-rose-500" />
+            <AlertCircle className="w-3.5 h-3.5 text-amber-500" />
           )}
         </label>
-        <input
-          type="text"
-          value={alt}
-          onChange={(e) => onAltChange(e.target.value)}
-          placeholder="Ví dụ: Cách chăm sóc trẻ sơ sinh ngày đầu tiên"
-          className={`
-            w-full px-4 py-2 bg-white dark:bg-zinc-950 border rounded-lg text-sm focus:outline-none transition-all
-            ${alt.trim().length === 0 ? 'border-amber-200 focus:border-amber-500' : 'border-zinc-200 dark:border-zinc-800 focus:border-blue-500 dark:focus:border-blue-400'}
-          `}
-        />
-        <p className="text-[11px] text-zinc-500">
-           Mô tả ngắn gọn nội dung của ảnh để Google hiểu và hiển thị trong Google Images.
+        <div className="relative">
+          <input
+            type="text"
+            value={alt}
+            onChange={(e) => onAltChange(e.target.value)}
+            placeholder="Mô tả nội dung ảnh cho Google..."
+            className={`
+              w-full px-4 py-2.5 bg-slate-50 border rounded-xl text-sm focus:outline-none transition-all pr-10 placeholder:text-slate-400
+              ${alt.trim().length === 0 ? 'border-amber-100 focus:border-amber-400 focus:bg-white' : 'border-slate-100 focus:border-emerald-500 focus:bg-white'}
+            `}
+          />
+        </div>
+        <p className="text-[9px] text-slate-400 leading-relaxed italic">
+          * Giúp tăng khả năng hiển thị trên Google Image Search.
         </p>
       </div>
     </div>

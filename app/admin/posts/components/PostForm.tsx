@@ -24,7 +24,6 @@ interface PostFormProps {
 export const PostForm: React.FC<PostFormProps> = ({ initialData, categories }) => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const [isAutoSlug, setIsAutoSlug] = useState(!initialData);
 
   const [formData, setFormData] = useState({
     id: initialData?.id || '',
@@ -41,10 +40,10 @@ export const PostForm: React.FC<PostFormProps> = ({ initialData, categories }) =
 
   // Auto-generate slug from title
   useEffect(() => {
-    if (isAutoSlug && formData.title) {
+    if (formData.title) {
       setFormData(prev => ({ ...prev, slug: slugify(formData.title) }));
     }
-  }, [formData.title, isAutoSlug]);
+  }, [formData.title]);
 
   // H2 Heading Check
   const h2Count = (formData.content.match(/^##\s/gm) || []).length;
@@ -64,7 +63,7 @@ export const PostForm: React.FC<PostFormProps> = ({ initialData, categories }) =
 
     setLoading(true);
     const method = initialData ? 'PUT' : 'POST';
-    
+
     try {
       const res = await fetch('/api/posts', {
         method,
@@ -88,21 +87,20 @@ export const PostForm: React.FC<PostFormProps> = ({ initialData, categories }) =
   };
 
   return (
-    <div className="max-w-6xl mx-auto space-y-8 pb-20">
+    <div className="max-w-6xl mx-auto space-y-8 pb-20 font-sans">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 sticky top-0 z-20 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md py-4 border-b border-zinc-100 dark:border-zinc-900">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 sticky top-0 z-20 bg-white/90 backdrop-blur-md py-4 border-b border-slate-100 shadow-sm transition-all">
         <div className="flex items-center gap-4">
-          <Link 
+          <Link
             href="/admin/posts"
-            className="p-2 hover:bg-zinc-100 dark:hover:bg-zinc-900 rounded-full transition"
+            className="p-2 hover:bg-slate-100 rounded-full transition-colors active:scale-95"
           >
-            <ChevronLeft className="w-5 h-5 text-zinc-500" />
+            <ChevronLeft className="w-5 h-5 text-slate-500" />
           </Link>
           <div>
-            <h1 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 italic">
+            <h1 className="text-xl font-extrabold text-slate-900 tracking-tight">
               {initialData ? 'Chỉnh sửa bài viết' : 'Tạo bài viết mới'}
             </h1>
-            <p className="text-xs text-zinc-500 font-medium uppercase tracking-tight">Post Editor — Cuccung SEO System</p>
           </div>
         </div>
 
@@ -110,7 +108,7 @@ export const PostForm: React.FC<PostFormProps> = ({ initialData, categories }) =
           <button
             onClick={() => handleSubmit(false)}
             disabled={loading}
-            className="px-4 py-2 text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-900 rounded-lg transition disabled:opacity-50 flex items-center gap-2 border border-zinc-200 dark:border-zinc-800"
+            className="px-4 py-2 text-sm font-semibold text-slate-600 hover:bg-slate-50 rounded-xl transition-all disabled:opacity-50 flex items-center gap-2 border border-slate-200 active:scale-95 "
           >
             <Save className="w-4 h-4" />
             Lưu nháp
@@ -118,63 +116,61 @@ export const PostForm: React.FC<PostFormProps> = ({ initialData, categories }) =
           <button
             onClick={() => handleSubmit(true)}
             disabled={loading}
-            className="px-6 py-2 text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition disabled:opacity-50 flex items-center gap-2 shadow-lg shadow-blue-500/20"
+            className="px-6 py-2 text-sm font-extrabold text-white bg-primary hover:bg-emerald-700 rounded-xl transition-all disabled:opacity-50 flex items-center gap-2 shadow-lg shadow-emerald-500/25 active:scale-95 mr-[30px]"
           >
-            <Send className="w-4 h-4" />
-            Xuất bản
+            <Send className="w-4 h-4 mg-r-30" />
+            Xuất bản bài viết
           </button>
         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Main Content Area */}
-        <div className="lg:col-span-2 space-y-8">
+        <div className="lg:col-span-2 space-y-8 animate-fade-in-down">
           {/* Title Section */}
-          <div className="space-y-4 bg-white dark:bg-zinc-950 p-6 rounded-2xl border border-zinc-100 dark:border-zinc-900 shadow-sm">
+          <div className="space-y-4 bg-white p-8 rounded-3xl border border-slate-100 shadow-sm shadow-slate-200/50">
             <div className="space-y-1.5">
-              <label className="text-sm font-semibold text-zinc-700 dark:text-zinc-300">Tiêu đề bài viết (H1) <span className="text-rose-500">*</span></label>
+              <label className="text-xs font-bold text-slate-400 uppercase tracking-widest">Tiêu đề bài viết (H1)</label>
               <input
                 type="text"
                 value={formData.title}
                 onChange={(e) => setFormData(prev => ({ ...prev, title: e.target.value }))}
-                placeholder="Ví dụ: 10 điều mẹ bầu cần biết trong 3 tháng đầu"
-                className="w-full text-2xl font-bold bg-transparent border-b-2 border-zinc-100 dark:border-zinc-900 focus:border-blue-500 outline-none py-2 transition-all placeholder:text-zinc-300 dark:placeholder:text-zinc-800"
+                placeholder="Nhập tiêu đề thu hút ở đây..."
+                className="w-full text-3xl font-extrabold bg-transparent border-none focus:ring-0 outline-none py-2 transition-all placeholder:text-slate-400 text-slate-900"
               />
             </div>
 
-            <div className="space-y-1.5">
-              <label className="text-xs font-semibold text-zinc-400 uppercase tracking-wider">Đường dẫn (Slug)</label>
+            <div className="space-y-1.5 pt-4 border-t border-slate-50">
+              <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Đường dẫn</label>
               <div className="flex items-center gap-2">
-                <span className="text-xs text-zinc-400 font-mono">cuccung.vn/</span>
+                <span className="text-xs text-black font-mono">cuccung.vn/</span>
                 <input
                   type="text"
                   value={formData.slug}
-                  onChange={(e) => {
-                    setFormData(prev => ({ ...prev, slug: e.target.value }));
-                    setIsAutoSlug(false);
-                  }}
-                  className="flex-1 bg-zinc-50 dark:bg-zinc-900/50 border border-zinc-100 dark:border-zinc-800 rounded px-2 py-1 text-xs font-mono focus:outline-none focus:border-blue-500"
+                  readOnly
+                  className="flex-1 bg-slate-100/50 border border-slate-100 rounded-lg px-3 py-1.5 text-xs font-mono focus:outline-none transition-all text-emerald-800 cursor-not-allowed select-none"
                 />
               </div>
-              <p className="text-[10px] text-zinc-400 italic">Slug sẽ hiển thị trên thanh địa chỉ của trình duyệt.</p>
             </div>
           </div>
 
           {/* Markdown Editor */}
-          <div className="bg-white dark:bg-zinc-950 p-6 rounded-2xl border border-zinc-100 dark:border-zinc-900 shadow-sm">
-            <MarkdownEditor 
+          <div className="bg-white p-1 rounded-3xl border border-slate-100 shadow-sm shadow-slate-200/50 overflow-hidden">
+            <MarkdownEditor
               value={formData.content}
               onChange={(val) => setFormData(prev => ({ ...prev, content: val }))}
             />
-            
+
             {/* H2 Warning */}
             {!isH2Valid && formData.content.length > 200 && (
-              <div className="mt-4 p-4 bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900/50 rounded-xl flex items-start gap-3">
-                <AlertTriangle className="w-5 h-5 text-amber-500 shrink-0" />
+              <div className="m-6 p-4 bg-amber-50 border border-amber-100 rounded-2xl flex items-start gap-4 animate-shake">
+                <div className="p-2 bg-amber-100 rounded-xl">
+                  <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0" />
+                </div>
                 <div className="space-y-1">
-                  <p className="text-sm font-semibold text-amber-900 dark:text-amber-100">Cần tối ưu cấu trúc bài viết</p>
-                  <p className="text-xs text-amber-700 dark:text-amber-400">
-                    Bài viết hiện có {h2Count} tiêu đề H2. Google khuyến nghị nên có ít nhất 3 tiêu đề H2 (##) để nội dung rõ ràng và tối ưu SEO.
+                  <p className="text-sm font-bold text-amber-900">Cấu trúc nội dung yếu (SEO Warning)</p>
+                  <p className="text-xs text-amber-700 leading-relaxed">
+                    Bài viết hiện có <span className="font-bold underline">{h2Count} tiêu đề H2</span>. Google ưu tiên các bài viết có ít nhất 3 thẻ H2 (##) để phân tách nội dung rõ ràng cho người đọc.
                   </p>
                 </div>
               </div>
@@ -183,44 +179,47 @@ export const PostForm: React.FC<PostFormProps> = ({ initialData, categories }) =
         </div>
 
         {/* Sidebar Controls */}
-        <div className="space-y-8">
+        <div className="space-y-8 animate-fade-in-down" style={{ animationDelay: '0.1s' }}>
           {/* SEO Metadata */}
-          <div className="bg-white dark:bg-zinc-950 p-6 rounded-2xl border border-zinc-100 dark:border-zinc-900 shadow-sm space-y-6">
-            <h2 className="text-sm font-bold text-zinc-900 dark:text-zinc-100 uppercase tracking-widest border-b border-zinc-100 dark:border-zinc-900 pb-4">SEO Config</h2>
-            
-            <div className="space-y-4">
+          <div className="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm shadow-slate-200/50 space-y-6">
+            <h2 className="text-xs font-black text-slate-800 uppercase tracking-widest border-b border-slate-50 pb-4 flex items-center gap-2">
+              <span className="w-2 h-2 bg-secondary rounded-full animate-pulse" />
+              SEO Configuration
+            </h2>
+
+            <div className="space-y-5">
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-zinc-500 uppercase tracking-wider">Meta Title <span className="text-rose-500">*</span></label>
+                <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Meta Title</label>
                 <input
                   type="text"
                   value={formData.metaTitle}
                   onChange={(e) => setFormData(prev => ({ ...prev, metaTitle: e.target.value }))}
                   placeholder="Tiêu đề hiển thị trên Google..."
-                  className="w-full px-3 py-2 bg-zinc-50 dark:bg-zinc-900/50 border border-zinc-100 dark:border-zinc-800 rounded-lg text-sm focus:outline-none focus:border-blue-500"
+                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-100 rounded-xl text-sm focus:outline-none focus:border-emerald-500 focus:bg-white transition-all placeholder:text-slate-400 text-slate-900 font-semibold"
                 />
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-zinc-500 uppercase tracking-wider">Meta Description <span className="text-rose-500">*</span></label>
+                <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Meta Description</label>
                 <textarea
                   value={formData.metaDescription}
                   onChange={(e) => setFormData(prev => ({ ...prev, metaDescription: e.target.value }))}
-                  placeholder="Mô tả ngắn gọn để thu hút click từ Google..."
+                  placeholder="Mô tả thu hút người dùng nhấp vào link..."
                   rows={4}
-                  className="w-full px-3 py-2 bg-zinc-50 dark:bg-zinc-900/50 border border-zinc-100 dark:border-zinc-800 rounded-lg text-sm focus:outline-none focus:border-blue-500 resize-none"
+                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-100 rounded-xl text-sm focus:outline-none focus:border-emerald-500 focus:bg-white transition-all resize-none leading-relaxed placeholder:text-slate-400 text-slate-900 font-medium"
                 />
               </div>
 
-              <SEOLiveFeedback 
-                title={formData.metaTitle} 
-                description={formData.metaDescription} 
+              <SEOLiveFeedback
+                title={formData.metaTitle}
+                description={formData.metaDescription}
               />
             </div>
           </div>
 
           {/* Featured Image */}
-          <div className="bg-white dark:bg-zinc-950 p-6 rounded-2xl border border-zinc-100 dark:border-zinc-900 shadow-sm">
-            <ImageUpload 
+          <div className="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm shadow-slate-200/50">
+            <ImageUpload
               value={formData.metaImage}
               alt={formData.featuredImageAlt}
               onChange={(url) => setFormData(prev => ({ ...prev, metaImage: url }))}
@@ -229,21 +228,26 @@ export const PostForm: React.FC<PostFormProps> = ({ initialData, categories }) =
           </div>
 
           {/* Category Selection */}
-          <div className="bg-white dark:bg-zinc-950 p-6 rounded-2xl border border-zinc-100 dark:border-zinc-900 shadow-sm space-y-4">
-            <label className="text-sm font-semibold text-zinc-700 dark:text-zinc-300 flex items-center justify-between">
-              Chủ đề bài viết <span className="text-rose-500">*</span>
-            </label>
-            <select
-              value={formData.categoryId}
-              onChange={(e) => setFormData(prev => ({ ...prev, categoryId: e.target.value }))}
-              className="w-full px-3 py-2 bg-zinc-50 dark:bg-zinc-900/50 border border-zinc-100 dark:border-zinc-800 rounded-lg text-sm focus:outline-none focus:border-blue-500 appearance-none"
-            >
-              <option value="">Chọn chủ đề...</option>
-              {categories.map((cat) => (
-                <option key={cat.id} value={cat.id}>{cat.name}</option>
-              ))}
-            </select>
-            <p className="text-[11px] text-zinc-400 italic">Mỗi bài viết chỉ thuộc về một chủ đề chính để duy trì cấu trúc Silo Page.</p>
+          <div className="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm shadow-slate-200/50 space-y-4">
+            <label className="text-xs font-bold text-slate-800 uppercase tracking-widest">Silo Structure (Category)</label>
+            <div className="relative">
+              <select
+                value={formData.categoryId}
+                onChange={(e) => setFormData(prev => ({ ...prev, categoryId: e.target.value }))}
+                className="w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl text-sm font-semibold focus:outline-none focus:border-emerald-500 focus:bg-white transition-all appearance-none text-slate-700"
+              >
+                <option value="">Chọn chủ đề bài viết...</option>
+                {categories.map((cat) => (
+                  <option key={cat.id} value={cat.id}>{cat.name}</option>
+                ))}
+              </select>
+              <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
+                <ChevronLeft className="w-4 h-4 -rotate-90" />
+              </div>
+            </div>
+            <p className="text-[10px] text-slate-400 italic leading-relaxed">
+              * Lựa chọn danh mục chính xác giúp Google index bài viết đúng cụm chủ đề.
+            </p>
           </div>
         </div>
       </div>

@@ -15,45 +15,45 @@ export default async function AdminLayout({
   }
 
   return (
-    <div className="min-h-screen bg-[#fafbfc] flex">
+    <div className="min-h-screen bg-[#f8fafc] flex font-sans">
       {/* Sidebar */}
-      <aside className="w-64 bg-white border-r border-gray-200 flex flex-col pt-8 sticky top-0 h-screen">
+      <aside className="w-64 bg-white border-r border-slate-200 flex flex-col pt-8 sticky top-0 h-screen shadow-sm">
         <div className="px-8 mb-10 flex items-center space-x-2">
-          <Link href="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-pink-400 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-xl">C</span>
+          <Link href="/" className="flex items-center space-x-2 group">
+            <div className="w-9 h-9 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-emerald-500/20 group-hover:scale-110 transition-transform">
+              <span className="text-white font-black text-xl">C</span>
             </div>
-            <span className="text-xl font-bold text-gray-800">CucCung</span>
+            <span className="text-xl font-extrabold text-slate-800 tracking-tight">CucCung</span>
           </Link>
         </div>
         
-        <nav className="flex-1 px-4 space-y-1">
+        <nav className="flex-1 px-4 space-y-1.5">
           <Link 
             href="/admin" 
-            className="flex items-center space-x-3 px-4 py-3 hover:bg-pink-50 hover:text-pink-600 text-gray-500 rounded-xl font-medium transition-all"
+            className="flex items-center space-x-3 px-4 py-2.5 hover:bg-emerald-50 hover:text-primary text-slate-600 rounded-xl font-semibold transition-all active:scale-95"
           >
-            <LayoutDashboard className="w-5 h-5" />
+            <LayoutDashboard className="w-5 h-5 opacity-70" />
             <span>Dashboard</span>
           </Link>
           <Link 
             href="/admin/posts" 
-            className="flex items-center space-x-3 px-4 py-3 text-gray-500 hover:bg-gray-50 hover:text-gray-700 rounded-xl font-medium transition-all"
+            className="flex items-center space-x-3 px-4 py-2.5 bg-emerald-50 text-primary rounded-xl font-bold border border-emerald-100 shadow-sm shadow-emerald-500/5 transition-all"
           >
             <FileText className="w-5 h-5" />
             <span>Bài viết</span>
           </Link>
           <Link 
             href="/admin/profile" 
-            className="flex items-center space-x-3 px-4 py-3 text-gray-500 hover:bg-gray-50 hover:text-gray-700 rounded-xl font-medium transition-all"
+            className="flex items-center space-x-3 px-4 py-2.5 text-slate-500 hover:bg-slate-50 hover:text-slate-800 rounded-xl font-semibold transition-all active:scale-95"
           >
-            <UserIcon className="w-5 h-5" />
+            <UserIcon className="w-5 h-5 opacity-70" />
             <span>Hồ sơ</span>
           </Link>
           <Link 
             href="/admin/settings" 
-            className="flex items-center space-x-3 px-4 py-3 text-gray-500 hover:bg-gray-50 hover:text-gray-700 rounded-xl font-medium transition-all"
+            className="flex items-center space-x-3 px-4 py-2.5 text-slate-500 hover:bg-slate-50 hover:text-slate-800 rounded-xl font-semibold transition-all active:scale-95"
           >
-            <Settings className="w-5 h-5" />
+            <Settings className="w-5 h-5 opacity-70" />
             <span>Cài đặt</span>
           </Link>
         </nav>
