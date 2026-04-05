@@ -69,7 +69,8 @@ model Post {
   // SEO Metadata
   metaTitle       String
   metaDescription String
-  metaImage       String?
+  metaImage       String?  // URL của ảnh đại diện
+  featuredImageAlt String?  // Sản phẩm của SEO
   isIndexed       Boolean  @default(true)
   canonicalUrl    String?
 
