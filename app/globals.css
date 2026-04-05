@@ -74,20 +74,33 @@
   }
 
   @keyframes shake {
-
-    0%,
-    100% {
-      transform: translateX(0);
-    }
-
-    25% {
-      transform: translateX(-5px);
-    }
-
-    75% {
-      transform: translateX(5px);
-    }
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
   }
+  @keyframes bounce-slow {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+  }
+
+  --animate-blob: blob 7s infinite;
+  --animate-fade-in-down: fade-in-down 0.5s ease-out forwards;
+  --animate-fade-in: fade-in 0.8s ease-out forwards;
+}
+
+@utility animation-delay-2000 {
+  animation-delay: 2000ms;
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@utility animate-bounce-slow {
+  animation: bounce-slow 4s infinite ease-in-out;
 }
 
 /* Force light mode styles even if system is dark */

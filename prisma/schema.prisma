@@ -149,3 +149,11 @@ model VerificationToken {
 
   @@unique([identifier, token])
 }
+
+model Media {
+  id        String   @id @default(uuid())
+  filename  String
+  type      String   // Image type (image/jpeg, etc.)
+  data      Bytes    // The actual image binary data
+  createdAt DateTime @default(now())
+}

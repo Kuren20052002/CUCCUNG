@@ -6,6 +6,9 @@ import Link from 'next/link';
 import { marked } from 'marked';
 import clsx from 'clsx';
 import { cache } from 'react';
+import { Sidebar } from "@/app/components/public/Sidebar";
+import { BlogCard } from "@/app/components/public/BlogCard";
+import { Calendar, User, Clock, Share2, MessageSquare, Folders, ChevronRight, Zap } from 'lucide-react';
 
 // ISR: revalidate every 60s
 export const revalidate = 60;
@@ -18,7 +21,10 @@ const getPost = cache(async (slug: string) => {
     where: { slug },
     include: {
       category: true,
-      author: true,
+      author: {
+        select: { id: true, name: true, avatar: true, bio: true }
+      },
+      tags: true
     },
   });
 });
@@ -46,19 +52,19 @@ export async function generateMetadata(
   if (!post) return {};
 
   const title = post.metaTitle || post.title;
-  const description = post.metaDescription || post.excerpt || undefined; // Fix: null to undefined
+  const description = post.metaDescription || post.excerpt || undefined;
 
   return {
     title,
     description,
     alternates: {
-      canonical: `https://yourdomain.com/${category}/${slug}`,
+      canonical: `https://cuccung.vn/${category}/${slug}`,
     },
     openGraph: {
       title,
       description: description ?? undefined,
       type: 'article',
-      url: `https://yourdomain.com/${category}/${slug}`,
+      url: `https://cuccung.vn/${category}/${slug}`,
       images: post.metaImage ? [post.metaImage] : [],
     },
   };
@@ -73,18 +79,32 @@ export default async function ArticlePage(
   const { slug } = await params;
   const post = await getPost(slug);
 
-  // Guard clause handles null post/relations
   if (!post || !post.category || !post.author) return notFound();
 
-  // Related posts
+  // Related posts (Silo content filter)
   const relatedPosts = await prisma.post.findMany({
     where: {
       categoryId: post.categoryId,
       slug: { not: post.slug },
       published: true,
     },
+    include: {
+      category: true,
+      author: { select: { name: true, avatar: true } }
+    },
     orderBy: { createdAt: 'desc' },
-    take: 5,
+    take: 3,
+  });
+
+  const popularPosts = await prisma.post.findMany({
+    where: { published: true },
+    select: { id: true, title: true, slug: true, category: true, createdAt: true },
+    orderBy: { createdAt: 'desc' },
+    take: 5
+  });
+
+  const tagsList = await prisma.tag.findMany({
+    take: 12
   });
 
   const html = await marked.parse(post.content || '');
@@ -97,7 +117,10 @@ export default async function ArticlePage(
   const showFeaturedImage = post.metaImage && !isImageInContent(post.content || '', post.metaImage);
 
   return (
-    <>
+    <div className="pb-20 font-sans relative">
+      {/* Scroll Progress Bar (Simplified client-side logic placeholder or pure CSS) */}
+      <div className="fixed top-[72px] inset-x-0 h-1 bg-emerald-500/10 z-[60] origin-left scale-x-0" id="scroll-progress-bar" />
+
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -110,113 +133,153 @@ export default async function ArticlePage(
             "author": {
               "@type": "Person",
               "name": post.author.name,
+              "image": post.author.avatar,
+              "description": post.author.bio
             },
             "datePublished": post.createdAt.toISOString(),
+            "dateModified": post.updatedAt.toISOString(),
             "category": post.category.name,
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": `https://cuccung.vn/${post.category.slug}/${post.slug}`
+            }
           }),
         }}
       />
 
-      <main className="w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
-        {/* Breadcrumb */}
-        <nav className="text-sm mb-6 text-slate-500" aria-label="Breadcrumb">
-          <ol className="flex items-center space-x-2 whitespace-nowrap overflow-x-auto no-scrollbar scroll-smooth">
-            <li className="flex items-center shrink-0">
-              <Link href="/" className="hover:text-emerald-600 transition-colors">Trang chủ</Link>
-              <span className="mx-2 text-slate-300">/</span>
-            </li>
-            <li className="flex items-center shrink-0">
-              <Link href={`/${post.category.slug}`} className="hover:text-emerald-600 transition-colors uppercase tracking-wider font-bold text-[10px]">
-                {post.category.name}
-              </Link>
-              <span className="mx-2 text-slate-300">/</span>
-            </li>
-            <li className="text-emerald-700 font-bold truncate max-w-[200px]" aria-current="page">
-              {post.title}
-            </li>
-          </ol>
-        </nav>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 lg:pt-16">
+        <div className="flex flex-col lg:flex-row gap-16">
+          {/* Main Content Area */}
+          <article className="flex-1 min-w-0 space-y-12 animate-fade-in">
+            <header className="space-y-10">
+              {/* Breadcrumbs */}
+              <nav className="flex items-center space-x-2 text-[10px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-50 pb-6 inline-flex">
+                <Link href="/" className="hover:text-emerald-600 transition-colors">TRANG CHỦ</Link>
+                <ChevronRight className="w-3 h-3 text-emerald-300" />
+                <Link href={`/${post.category.slug}`} className="hover:text-emerald-600 transition-colors">{post.category.name}</Link>
+                <ChevronRight className="w-3 h-3 text-emerald-300" />
+                <span className="text-emerald-600 truncate max-w-[150px]">{post.title}</span>
+              </nav>
 
-        {/* Header Section */}
-        <header className="mb-10 text-left">
-          <h1 className="text-3xl md:text-4xl font-bold mb-2 leading-tight">
-            {post.title}
-          </h1>
+              <h1 className="text-4xl lg:text-6xl font-black text-slate-900 leading-[1.05] tracking-tight">
+                {post.title}
+              </h1>
 
-          <div className="flex items-center gap-3 mt-2">
-            {post.author.avatar && (
-              <Image
-                src={post.author.avatar}
-                alt={post.author.name || 'Author'}
-                width={36}
-                height={36}
-                className="rounded-full border"
-              />
-            )}
-            <div>
-              <div className="font-medium text-emerald-700">
-                {post.author.name}
+              {/* Author row */}
+              <div className="flex flex-wrap items-center gap-6 pt-4 border-t border-slate-100 mt-10 p-2">
+                <div className="flex items-center space-x-3 pr-6 border-r border-slate-100">
+                  <div className="w-12 h-12 rounded-2xl overflow-hidden shadow-lg border-2 border-white ring-1 ring-slate-100">
+                    <Image src={post.author.avatar || 'https://i.pravatar.cc/100'} alt={post.author.name || ''} width={48} height={48} />
+                  </div>
+                  <div className="space-y-0.5">
+                    <div className="text-xs font-bold text-slate-400 uppercase tracking-widest">Tác giả</div>
+                    <div className="text-sm font-black text-slate-900">{post.author.name}</div>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-8">
+                  <div className="flex flex-col space-y-0.5">
+                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Phát hành</span>
+                    <span className="text-xs font-bold text-slate-600">{formatDate(post.createdAt)}</span>
+                  </div>
+                  <div className="flex flex-col space-y-0.5">
+                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Thời gian đọc</span>
+                  </div>
+                </div>
               </div>
-              <div className="text-xs text-gray-500">
-                {formatDate(post.createdAt)}
+
+              <div className="flex items-center gap-3">
+                <button className="flex items-center gap-2 px-5 py-2.5 bg-[#1877F2] text-white text-[10px] font-black uppercase tracking-widest rounded-xl shadow-lg hover:scale-105 transition-all">
+                  <Share2 className="w-4 h-4 fill-current" /> Chia sẻ
+                </button>
+                <button className="flex items-center gap-2 px-5 py-2.5 bg-[#1DA1F2] text-white text-[10px] font-black uppercase tracking-widest rounded-xl shadow-lg hover:scale-105 transition-all">
+                  <Share2 className="w-4 h-4 fill-current" /> Tweet
+                </button>
+                <button className="w-10 h-10 bg-slate-100 text-slate-500 rounded-xl flex items-center justify-center hover:bg-primary hover:text-white transition-all group">
+                  <MessageSquare className="w-4 h-4" />
+                </button>
+              </div>
+            </header>
+
+            {/* Hero Image */}
+            {showFeaturedImage && post.metaImage && (
+              <div className="relative aspect-[16/8] rounded-[3rem] overflow-hidden shadow-2xl border-x-0 border-y-0">
+                <Image
+                  src={post.metaImage}
+                  alt={post.featuredImageAlt || post.title}
+                  fill
+                  className="object-cover"
+                  priority
+                  sizes="(max-width: 1280px) 100vw, 1200px"
+                />
+              </div>
+            )}
+
+            <div className="flex flex-col lg:flex-row gap-12 relative">
+              {/* Body Content */}
+              <div className="flex-1 max-w-[750px] mx-auto lg:mx-0">
+                <div
+                  className={clsx(
+                    'prose prose-lg prose-emerald max-w-none prose-img:rounded-[2rem] prose-img:shadow-xl prose-img:my-10 prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:bg-emerald-50 prose-blockquote:p-8 prose-blockquote:rounded-r-2xl prose-blockquote:text-emerald-900 prose-blockquote:not-italic prose-blockquote:font-bold prose-h2:text-3xl prose-h2:font-black prose-h2:tracking-tight prose-h2:mb-4 prose-p:leading-[1.8] prose-strong:text-slate-900'
+                  )}
+                  dangerouslySetInnerHTML={{ __html: html }}
+                />
+
+                {/* Post Footer/Tags */}
+                <div className="mt-20 pt-10 border-t border-slate-100 space-y-10">
+                  <div className="flex items-center gap-4">
+                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Từ khóa:</span>
+                    <div className="flex flex-wrap gap-2">
+                      {post.tags.map(tag => (
+                        <Link key={tag.id} href={`/tag/${tag.slug}`} className="px-4 py-1.5 bg-slate-50 text-[10px] font-bold text-slate-500 rounded-lg hover:bg-emerald-500 hover:text-white transition-all">
+                          #{tag.name}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Author Bio Box */}
+                  {/* <div className="bg-slate-50 p-10 rounded-[3rem] border border-slate-100 relative group overflow-hidden">
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 rounded-full blur-2xl -mr-16 -mt-16 transition-transform group-hover:scale-150 duration-700" />
+                    <div className="flex flex-col md:flex-row items-center gap-8 relative z-10">
+                      <div className="w-24 h-24 rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white transform group-hover:rotate-6 transition-transform">
+                        <Image src={post.author.avatar || ''} alt={post.author.name || ''} width={96} height={96} />
+                      </div>
+                      <div className="flex-1 space-y-3 text-center md:text-left">
+                        <h4 className="text-sm font-black text-slate-800 uppercase tracking-widest">Được kiểm chứng bởi</h4>
+                        <h3 className="text-xl font-black text-slate-900">{post.author.name}</h3>
+                        <p className="text-sm text-slate-500 leading-relaxed font-medium">
+                          {post.author.bio || 'Chuyên gia tư vấn về chăm sóc mẹ và bé tại CucCung.vn, nỗ lực mang lại kiến thức đúng đắn và an tâm cho gia đình bạn.'}
+                        </p>
+                      </div>
+                    </div>
+                  </div> */}
+                </div>
+
+                {/* Related Posts Row */}
+                <section className="mt-24 space-y-12">
+                  <div className="flex items-center justify-between border-b border-slate-100 pb-8">
+                    <h2 className="text-3xl font-black text-slate-900 tracking-tight">Xem thêm cùng chủ đề.</h2>
+                    <Link href={`/${post.category.slug}`} className="text-[10px] font-black text-primary uppercase tracking-[0.2em] flex items-center gap-2 group">
+                      Tất cả {post.category.name} <ChevronRight className="w-4 h-4 transform group-hover:translate-x-1" />
+                    </Link>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    {relatedPosts.map(rp => (
+                      <BlogCard key={rp.id} post={rp as any} />
+                    ))}
+                  </div>
+                </section>
               </div>
             </div>
+          </article>
+
+          {/* Sidebar Area Desktop */}
+          <div className="hidden lg:block lg:w-96">
+            <Sidebar tags={tagsList} popularPosts={popularPosts} />
           </div>
-        </header>
-
-        {/* Content */}
-        {showFeaturedImage && post.metaImage && (
-          <div className="relative w-full aspect-[16/9] rounded-lg overflow-hidden mb-4">
-            <Image
-              src={post.metaImage}
-              alt={post.featuredImageAlt || post.title}
-              fill
-              className="object-cover"
-              priority
-              sizes="(max-width: 768px) 100vw, 700px"
-            />
-          </div>
-        )}
-
-        <article
-          className={clsx(
-            'prose prose-emerald max-w-none',
-            'prose-img:rounded-lg prose-img:mx-auto prose-img:my-4',
-            'prose-h2:mt-8 prose-h2:mb-2',
-            'prose-h3:mt-6 prose-h3:mb-2',
-            'prose-p:leading-relaxed'
-          )}
-          dangerouslySetInnerHTML={{ __html: html }}
-        />
-
-        {/* Related Posts */}
-        {relatedPosts.length > 0 && (
-          <aside className="mt-12 border-t pt-6">
-            <h2 className="text-lg font-semibold mb-4 text-emerald-700">
-              Bài viết liên quan
-            </h2>
-
-            <ul className="grid gap-3 md:grid-cols-2">
-              {relatedPosts.map((rp) => (
-                <li key={rp.id}>
-                  {/* Using post.category.slug here is safe because of our guard clause above */}
-                  <Link
-                    href={`/${post.category.slug}/${rp.slug}`}
-                    className="block p-3 rounded-lg hover:bg-emerald-50 transition border border-gray-100"
-                  >
-                    <div className="font-medium text-emerald-800 truncate">
-                      {rp.title}
-                    </div>
-                    <div className="text-xs text-gray-500 mt-1 truncate">
-                      {rp.excerpt}
-                    </div>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </aside>
-        )}
-      </main>
-    </>
+        </div>
+      </div>
+    </div>
   );
 }

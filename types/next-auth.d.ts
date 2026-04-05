@@ -17,6 +17,12 @@ declare module "next-auth" {
   }
 }
 
+declare module "@auth/core/adapters" {
+  interface AdapterUser {
+    role?: string;
+  }
+}
+
 declare module "next-auth/jwt" {
   /** Returned by the `jwt` callback and `auth`, when using JWT sessions */
   interface JWT {

@@ -8,10 +8,21 @@ export const authConfig = {
     authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user;
       const isAdminPage = nextUrl.pathname.startsWith("/admin");
+      const isAuthPage = nextUrl.pathname.startsWith("/login") || nextUrl.pathname.startsWith("/signup");
       
+      if (isAuthPage) {
+        if (isLoggedIn) {
+          return Response.redirect(new URL("/", nextUrl.origin));
+        }
+        return true;
+      }
+
       if (isAdminPage) {
-        if (isLoggedIn && auth.user.role === "ADMIN") return true;
-        return false; // Redirect unauthenticated or non-admin users to login
+        if (!isLoggedIn) return false; // Redirect unauthenticated users to login
+        if (auth.user?.role === "ADMIN") return true;
+        
+        // Logged in but not admin: redirect to homepage
+        return Response.redirect(new URL("/", nextUrl.origin));
       }
       return true;
     },

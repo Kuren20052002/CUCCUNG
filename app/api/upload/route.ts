@@ -31,8 +31,11 @@ export async function POST(req: NextRequest) {
     const result = await UploadService.uploadFile(buffer, file.name);
 
     return NextResponse.json(result);
-  } catch (error) {
-    console.error('Error uploading file:', error);
-    return NextResponse.json({ error: 'Failed to upload file' }, { status: 500 });
+  } catch (error: any) {
+    console.error('SERVER_UPLOAD_ERROR:', error);
+    return NextResponse.json({ 
+      error: error?.message || 'Failed to upload file',
+      details: process.env.NODE_ENV === 'development' ? error?.stack : undefined
+    }, { status: 500 });
   }
 }
