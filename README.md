@@ -1,72 +1,85 @@
-# 🍼 CucCung SEO Website System
+# 🍼 Cục Cưng - Cộng đồng Mẹ & Bé (Next.js 15)
 
-Hệ thống website nội dung cho mẹ và bé, tối ưu hóa SEO vượt trội và áp dụng các tiêu chuẩn E-E-A-T cao nhất.
-
-## 🚀 Tính năng nổi bật
-
-- **Tối ưu SEO Toàn diện**: 
-  - Tự động tạo JSON-LD Structured Data (Article, Breadcrumb, FAQ).
-  - Tích hợp sitemap.xml và robots.txt tự động.
-  - Quản lý Meta Title, Description, Excerpt riêng biệt cho từng bài viết.
-- **Hệ thống CMS mạnh mẽ**: 
-  - Soạn thảo bằng Markdown (MDX).
-  - Tự động tạo mục lục (TOC) từ các thẻ H2, H3.
-  - Quản lý bài viết, danh mục, tác giả theo mô hình **Silo Structure**.
-- **Hiệu năng vượt trội**:
-  - Tải trang siêu nhanh nhờ SSG (Static Site Generation) và ISR.
-  - Tự động tối ưu hóa hình ảnh sang WebP/AVIF bằng Sharp.
-- **E-E-A-T Compliant**:
-  - Quản lý hồ sơ tác giả chuyên sâu với bio và avatar.
-  - Hiển thị Author Box cuối mỗi bài viết để tăng độ tin cậy.
-
-## 🛠️ Công nghệ sử dụng
-
-- **Framework**: Next.js v14+ (App Router)
-- **Database**: Prisma ORM & PostgreSQL
-- **Styling**: Tailwind CSS v4 (@tailwindcss/postcss) & @tailwindcss/typography
-- **Auth**: Next-auth v5
-- **Icons**: Lucide React
-- **Notifications**: Sonner
-
-## 📦 Cấu trúc Thư mục Chính
-
-- `app/(public)`: Các trang công khai dành cho khách (Trang chủ, Bài viết, Danh mục).
-- `app/admin`: Hệ thống quản trị (Dashboard, Quản lý bài viết).
-- `prisma`: Schema và các script seed dữ liệu.
-- `lib`: Các utility functions và config (DB, Auth).
-
-## 🛠️ Hướng dẫn Cài đặt
-
-1. **Clone repository**:
-   ```bash
-   git clone <repo-url>
-   ```
-
-2. **Cài đặt dependencies**:
-   ```bash
-   npm install
-   ```
-
-3. **Cấu hình môi trường**:
-   - Tạo file `.env` từ mẫu `.env.example`.
-   - Điền URL của cơ sở dữ liệu và các biến NextAuth.
-
-4. **Setup Database**:
-   ```bash
-   npx prisma generate
-   npx prisma db push
-   npx prisma db seed # Để tạo tài khoản admin và danh mục mẫu
-   ```
-
-5. **Chạy server**:
-   ```bash
-   npm run dev
-   ```
-
-## 🔐 Tài khoản Admin mặc định (Sau khi chạy seed)
-
-- **Email**: `admin@cuccung.vn`
-- **Password**: `admin123`
+**Cục Cưng** là một nền tảng web hiện đại dành cho cộng đồng Mẹ & Bé, được tối ưu hóa hiệu năng và SEO vượt trội. Dự án tập trung vào việc cung cấp kiến thức chăm sóc trẻ nhỏ và kết nối các bậc phụ huynh.
 
 ---
-*Phát triển bởi đội ngũ Cuccung.vn - Cùng mẹ chăm sóc bé yêu mỗi ngày.*
+
+## 🚀 Công nghệ sử dụng (Tech Stack)
+
+Dự án được xây dựng trên những công nghệ mới nhất năm 2026:
+
+* **Framework:** [Next.js 15](https://nextjs.org/) (App Router, React 19)
+* **Ngôn ngữ:** TypeScript
+* **Database:** [Neon](https://neon.tech/) (Serverless Postgres)
+* **ORM:** [Prisma](https://www.prisma.io/)
+* **Authentication:** [Auth.js v5](https://authjs.dev/) (NextAuth Beta)
+* **Styling:** Tailwind CSS + Lucide Icons
+* **UI Components:** Shadcn/ui & Sonner (Toast notifications)
+* **Deployment:** [Vercel](https://cuccung.vercel.app/)
+
+---
+
+## ✨ Tính năng nổi bật
+
+- [x] **Tối ưu SEO:** Cấu hình Metadata động, chuẩn hóa thẻ `lang="vi"`, tích hợp JSON-LD.
+- [x] **Xác thực người dùng:** Đăng ký/Đăng nhập bảo mật với Role-based access (Admin/User).
+- [x] **Quản lý nội dung:** Hệ thống CRUD bài viết, danh mục mẹ và bé.
+- [x] **Giao diện Responsive:** Tối ưu hiển thị trên mọi thiết bị di động (Mobile-first).
+- [x] **Hiệu suất cao:** Sử dụng Suspense bọc các thành phần động để tăng tốc độ Render.
+
+---
+
+## 🛠 Hướng dẫn cài đặt (Local Development)
+
+1. **Clone dự án:**
+   ```bash
+   git clone [https://github.com/Kuren20052002/CUCCUNG.git](https://github.com/Kuren20052002/CUCCUNG.git)
+   cd cuccung-seo
+   ```
+
+2. **Cài đặt thư viện:**
+   ```bash
+   pnpm install
+   ```
+
+3. **Cấu hình biến môi trường:**
+   Tạo file `.env` tại thư mục gốc và dán các biến sau:
+   ```
+   DATABASE_URL="your_neon_postgres_url"
+   AUTH_SECRET="your_random_secret"
+   ```
+
+4. **Đẩy cấu trúc Database:**
+   ```bash
+   npx prisma db push
+   ```
+
+5. **Chạy dự án:**
+   ```bash
+   pnpm dev
+   ```
+   Truy cập: [http://localhost:3000](http://localhost:3000)
+
+---
+
+## 📈 Chiến lược SEO đã triển khai
+
+Dự án này được thiết kế đặc biệt để đạt điểm cao trong các bài kiểm tra SEO:
+
+- **Cấu trúc URL:** Thân thiện, chứa từ khóa (Slug-based).
+- **Semantic HTML:** Sử dụng đúng các thẻ header, main, footer, article.
+- **Performance:** Đạt chỉ số Core Web Vitals xanh nhờ cơ chế Static Generation của Next.js.
+- **Accessibility:** Hỗ trợ Screen Reader và độ tương phản màu sắc chuẩn.
+
+---
+
+## 📂 Cấu trúc thư mục (Directory Structure)
+
+```
+├── app/              # Next.js App Router (Pages, API, Layouts)
+├── actions/          # Server Actions (Xử lý logic phía Server)
+├── components/       # UI Components tái sử dụng
+├── prisma/           # Schema database và file Seed dữ liệu
+├── public/           # Tài nguyên tĩnh (Images, Fonts)
+└── lib/              # Cấu hình chung (Prisma client, Utils)
+```
