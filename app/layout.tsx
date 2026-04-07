@@ -18,6 +18,9 @@ export const metadata: Metadata = {
     default: "Cục Cưng - Cộng đồng Mẹ & Bé",
     template: "%s | Cục Cưng",
   },
+  icons: {
+    icon: '/cuccung_logo.png',
+  },
   description:
     "Hướng dẫn chăm sóc mẹ và bé từ A–Z: giấc ngủ, dinh dưỡng, sức khỏe trẻ sơ sinh. Kinh nghiệm thực tế giúp mẹ nuôi con dễ dàng và đúng cách.",
   keywords: [
@@ -47,7 +50,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/cuccung_logo",
+        url: "/cuccung_logo.png",
         width: 250,
         height: 100,
         alt: "Cục Cưng Logo",
