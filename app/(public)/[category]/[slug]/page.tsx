@@ -241,7 +241,6 @@ export default async function ArticlePage(
                 {/* Post Footer/Tags */}
                 <div className="mt-20 pt-10 border-t border-slate-100 space-y-10">
                   <div className="flex items-center gap-4">
-                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Từ khóa:</span>
                     <div className="flex flex-wrap gap-2">
                       {post.tags.map(tag => (
                         <Link key={tag.id} href={`/tag/${tag.slug}`} className="px-4 py-1.5 bg-slate-50 text-[10px] font-bold text-slate-500 rounded-lg hover:bg-emerald-500 hover:text-white transition-all">

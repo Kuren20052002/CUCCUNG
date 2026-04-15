@@ -71,9 +71,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ tags, popularPosts }) => {
         </div>
       </div>
 
-      Newsletter Widget
-      <div className="bg-primary/5 p-8 rounded-[2.5rem] border border-primary/10 relative overflow-hidden group">
-        {/* Subtle Glow */}
+      {/* Newsletter Widget */}
+      {/* <div className="bg-primary/5 p-8 rounded-[2.5rem] border border-primary/10 relative overflow-hidden group">
         <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full blur-[40px] -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-1000" />
 
         <div className="relative z-10 space-y-6">
@@ -91,7 +90,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ tags, popularPosts }) => {
             Đăng ký ngay <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
-      </div>
+      </div> */}
 
       {/* Tags Widget */}
       {/* <div className="bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-sm shadow-slate-200/50 sticky top-24">
