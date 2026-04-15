@@ -15,7 +15,7 @@ Dự án được xây dựng trên những công nghệ mới nhất năm 2026:
 * **Authentication:** [Auth.js v5](https://authjs.dev/) (NextAuth Beta)
 * **Styling:** Tailwind CSS + Lucide Icons
 * **UI Components:** Shadcn/ui & Sonner (Toast notifications)
-* **Deployment:** [Vercel](https://cuccung.vercel.app/)
+* **Deployment:** [Vercel](https://ngoanxinhyeu.vercel.app/)
 
 ---
 
@@ -33,8 +33,8 @@ Dự án được xây dựng trên những công nghệ mới nhất năm 2026:
 
 1. **Clone dự án:**
    ```bash
-   git clone [https://github.com/Kuren20052002/CUCCUNG.git](https://github.com/Kuren20052002/CUCCUNG.git)
-   cd cuccung-seo
+   git clone [https://github.com/Kuren20052002/ngoanxinhyeu.git](https://github.com/Kuren20052002/ngoanxinhyeu.git)
+   cd ngoanxinhyeu-seo
    ```
 
 2. **Cài đặt thư viện:**

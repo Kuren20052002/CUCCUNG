@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Cục Cưng - Cộng đồng Mẹ & Bé",
-    template: "%s | Cục Cưng",
+    default: "ngoanxinhyeu - Cộng đồng Mẹ & Bé",
+    template: "%s | ngoanxinhyeu",
   },
   icons: {
     icon: '/cuccung_logo.png',
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     "dinh dưỡng cho bé",
     "kinh nghiệm làm mẹ",
     "sức khỏe trẻ sơ sinh",
-    "cục cưng"
+    "ngoanxinhyeu"
   ],
   robots: {
     index: true,
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    siteName: "Cục Cưng",
+    siteName: "ngoanxinhyeu",
     locale: "vi_VN",
     type: "website",
     images: [
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
         url: "/cuccung_logo.png",
         width: 250,
         height: 100,
-        alt: "Cục Cưng Logo",
+        alt: "ngoanxinhyeu Logo",
       },
     ],
   },

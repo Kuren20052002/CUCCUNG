@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next';
 import prisma from '@/lib/prisma';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = 'https://cuccung.vn';
+  const baseUrl = 'https://ngoanxinhyeu.vercel.app';
 
   // Fetch all categories
   const categories = await prisma.category.findMany({

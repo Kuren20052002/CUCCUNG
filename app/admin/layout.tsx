@@ -31,7 +31,7 @@ export default async function AdminLayout({
                 className="object-contain" // Giúp ảnh không bị méo trong khung
               />
             </div>
-            <span className="text-xl font-extrabold text-slate-800 tracking-tight">CucCung</span>
+            <span className="text-xl font-extrabold text-slate-800 tracking-tight">NgoanXinhYeu</span>
           </Link>
         </div>
 

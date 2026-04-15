@@ -133,7 +133,7 @@ export default async function HomePage() {
               <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
                 <div className="space-y-6">
                   <h3 className="text-3xl lg:text-4xl font-black text-white leading-tight underline decoration-emerald-500/30">Bạn đã sẵn sàng chuẩn bị cho thiên thần nhỏ?</h3>
-                  <p className="text-slate-400 text-sm font-medium leading-relaxed">Tải xuống ngay bộ checklist chuẩn bị đồ đi sinh đầy đủ & chi tiết nhất hoàn toàn miễn phí từ CucCung.</p>
+                  <p className="text-slate-400 text-sm font-medium leading-relaxed">Tải xuống ngay bộ checklist chuẩn bị đồ đi sinh đầy đủ & chi tiết nhất hoàn toàn miễn phí từ ngoanxinhyeu.</p>
                   <button className="px-8 py-4 bg-white text-slate-900 text-xs font-black uppercase tracking-widest rounded-2xl hover:bg-emerald-500 hover:text-white transition-all shadow-xl active:scale-95">Tải về ngay</button>
                 </div>
                 <div className="hidden lg:block relative aspect-video rounded-3xl overflow-hidden border-4 border-slate-800 rotate-2">

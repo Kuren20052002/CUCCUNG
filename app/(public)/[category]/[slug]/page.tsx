@@ -198,9 +198,6 @@ export default async function ArticlePage(
                     <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Phát hành</span>
                     <span className="text-xs font-bold text-slate-600">{formatDate(post.createdAt)}</span>
                   </div>
-                  <div className="flex flex-col space-y-0.5">
-                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Thời gian đọc</span>
-                  </div>
                 </div>
               </div>
 

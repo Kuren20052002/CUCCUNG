@@ -23,7 +23,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = ({ value, onChange 
           </label>
           <a
             href="/markdown-guide.md"
-            download="Huong-dan-soan-thao-Cuccung.md"
+            download="Huong-dan-soan-thao-NgoanXinhYeu.md"
             className="flex items-center gap-1.5 px-3 py-1 bg-emerald-50 text-emerald-600 border border-emerald-100 rounded-lg text-[10px] font-bold hover:bg-emerald-100 transition-all"
             title="Tải tệp hướng dẫn sử dụng Markdown"
           >

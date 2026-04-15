@@ -15,14 +15,14 @@ export const Footer: React.FC = () => {
           <div className="lg:col-span-4 space-y-6">
             <Link href="/" className="flex items-center space-x-2 group">
               <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-emerald-500/20 group-hover:rotate-6 transition-all duration-300">
-                <span className="text-white font-black text-2xl tracking-tighter">C</span>
+                <span className="text-white font-black text-2xl tracking-tighter">N</span>
               </div>
               <span className="text-2xl font-black text-white tracking-tight">
-                CucCung<span className="text-emerald-500 ml-0.5">.</span>
+                ngoanxinhyeu<span className="text-emerald-500 ml-0.5">.</span>
               </span>
             </Link>
             <p className="text-slate-400 text-sm leading-relaxed max-w-sm">
-              CucCung.vn là blog chuyên về kiến thức thai kỳ, nuôi dạy con cái và đánh giá đồ dùng cho mẹ & bé uy tín số 1 Việt Nam. Đồng hành cùng hàng triệu mẹ bỉm sữa chăm sóc thế hệ tương lai.
+              ngoanxinhyeu.vercel.app là blog chuyên về kiến thức thai kỳ, nuôi dạy con cái và đánh giá đồ dùng cho mẹ & bé uy tín số 1 Việt Nam. Đồng hành cùng hàng triệu mẹ bỉm sữa chăm sóc thế hệ tương lai.
             </p>
             <div className="flex items-center space-x-4 pt-2">
               <a href="#" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-primary hover:text-white transition-all transform hover:-translate-y-1 shadow-lg active:scale-95">
@@ -56,7 +56,7 @@ export const Footer: React.FC = () => {
           <div className="lg:col-span-2 space-y-6">
             <h3 className="text-xs font-black text-white uppercase tracking-widest border-b border-slate-800 pb-4 inline-block">Về chúng tôi</h3>
             <ul className="space-y-4">
-              {['Về CucCung', 'Liên hệ Quảng cáo', 'Chính sách bảo mật', 'Điều khoản sử dụng'].map((item) => (
+              {['Về ngoanxinhyeu', 'Liên hệ Quảng cáo', 'Chính sách bảo mật', 'Điều khoản sử dụng'].map((item) => (
                 <li key={item}>
                   <Link href="#" className="text-slate-400 text-sm font-medium hover:text-primary transition-colors flex items-center group">
                     <span className="w-1.5 h-1.5 bg-secondary/30 rounded-full mr-2 group-hover:scale-150 transition-all" />
@@ -92,7 +92,7 @@ export const Footer: React.FC = () => {
         {/* Bottom copyright */}
         <div className="pt-10 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-6">
           <p className="text-slate-500 text-xs font-bold tracking-tight">
-            © {new Date().getFullYear()} CucCung.vn
+            © {new Date().getFullYear()} ngoanxinhyeu.vercel.app
             <span className="mx-2 font-normal opacity-30 text-emerald-500">|</span>
             Là dự án phát triển với mục đích học tập và trải nghiệm người dùng <Heart className="w-3 h-3 inline pb-0.5 text-rose-500 fill-rose-500" />
           </p>

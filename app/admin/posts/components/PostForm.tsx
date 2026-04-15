@@ -157,7 +157,7 @@ export const PostForm: React.FC<PostFormProps> = ({ initialData, categories }) =
             <div className="space-y-1.5 pt-4 border-t border-slate-50">
               <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Đường dẫn</label>
               <div className="flex items-center gap-2">
-                <span className="text-xs text-black font-mono">cuccung.vn/</span>
+                <span className="text-xs text-black font-mono">ngoanxinhyeu.vercel.app/</span>
                 <input
                   type="text"
                   value={formData.slug}
