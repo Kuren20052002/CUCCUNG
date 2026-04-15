@@ -53,7 +53,7 @@ export async function generateMetadata(
 
   const title = post.metaTitle || post.title;
   const description = post.metaDescription || post.excerpt || undefined;
-  const canonicalUrl = post.canonicalUrl || `https://ngoanxinhyeu.vercel.app/${category}/${slug}`;
+  const canonicalUrl = post.canonicalUrl || `https://ngoanxinhyeu.app/${category}/${slug}`;
 
   return {
     title,
@@ -151,13 +151,13 @@ export default async function ArticlePage(
             "publisher": {
               "@type": "Organization",
               "name": "ngoanxinhyeu",
-              "url": "https://ngoanxinhyeu.vercel.app"
+              "url": "https://ngoanxinhyeu.app"
             },
             "datePublished": post.createdAt.toISOString(),
             "dateModified": post.updatedAt.toISOString(),
             "mainEntityOfPage": {
               "@type": "WebPage",
-              "@id": `https://ngoanxinhyeu.vercel.app/${post.category.slug}/${post.slug}`
+              "@id": `https://ngoanxinhyeu.app/${post.category.slug}/${post.slug}`
             }
           }),
         }}
@@ -262,7 +262,7 @@ export default async function ArticlePage(
                         <h4 className="text-sm font-black text-slate-800 uppercase tracking-widest">Được kiểm chứng bởi</h4>
                         <h3 className="text-xl font-black text-slate-900">{post.author.name}</h3>
                         <p className="text-sm text-slate-500 leading-relaxed font-medium">
-                          {post.author.bio || 'Chuyên gia tư vấn về chăm sóc mẹ và bé tại ngoanxinhyeu.vercel.app, nỗ lực mang lại kiến thức đúng đắn và an tâm cho gia đình bạn.'}
+                          {post.author.bio || 'Chuyên gia tư vấn về chăm sóc mẹ và bé tại ngoanxinhyeu.app, nỗ lực mang lại kiến thức đúng đắn và an tâm cho gia đình bạn.'}
                         </p>
                       </div>
                     </div>

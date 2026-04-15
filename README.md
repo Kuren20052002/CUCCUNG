@@ -15,7 +15,7 @@ Dự án được xây dựng trên những công nghệ mới nhất năm 2026:
 * **Authentication:** [Auth.js v5](https://authjs.dev/) (NextAuth Beta)
 * **Styling:** Tailwind CSS + Lucide Icons
 * **UI Components:** Shadcn/ui & Sonner (Toast notifications)
-* **Deployment:** [Vercel](https://ngoanxinhyeu.vercel.app/)
+* **Deployment:** [Vercel](https://ngoanxinhyeu.app/)
 
 ---
 

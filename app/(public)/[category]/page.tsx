@@ -24,7 +24,7 @@ export async function generateMetadata(
     `${category.name} - Kiến thức chăm sóc mẹ và bé | ngoanxinhyeu`;
   const description = category.seoDescription ||
     `Khám phá các bài viết hữu ích về ${category.name} giúp mẹ chăm sóc bé đúng cách, khoa học và an toàn nhất.`;
-  const canonicalUrl = `https://ngoanxinhyeu.vercel.app/${categorySlug}`;
+  const canonicalUrl = `https://ngoanxinhyeu.app/${categorySlug}`;
 
   return {
     title,

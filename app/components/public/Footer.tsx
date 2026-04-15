@@ -22,7 +22,7 @@ export const Footer: React.FC = () => {
               </span>
             </Link>
             <p className="text-slate-400 text-sm leading-relaxed max-w-sm">
-              ngoanxinhyeu.vercel.app là blog chuyên về kiến thức thai kỳ, nuôi dạy con cái và đánh giá đồ dùng cho mẹ & bé uy tín số 1 Việt Nam. Đồng hành cùng hàng triệu mẹ bỉm sữa chăm sóc thế hệ tương lai.
+              ngoanxinhyeu.app là blog chuyên về kiến thức thai kỳ, nuôi dạy con cái và đánh giá đồ dùng cho mẹ & bé uy tín số 1 Việt Nam. Đồng hành cùng hàng triệu mẹ bỉm sữa chăm sóc thế hệ tương lai.
             </p>
             <div className="flex items-center space-x-4 pt-2">
               <a href="#" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-primary hover:text-white transition-all transform hover:-translate-y-1 shadow-lg active:scale-95">
@@ -92,7 +92,7 @@ export const Footer: React.FC = () => {
         {/* Bottom copyright */}
         <div className="pt-10 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-6">
           <p className="text-slate-500 text-xs font-bold tracking-tight">
-            © {new Date().getFullYear()} ngoanxinhyeu.vercel.app
+            © {new Date().getFullYear()} ngoanxinhyeu.app
             <span className="mx-2 font-normal opacity-30 text-emerald-500">|</span>
             Là dự án phát triển với mục đích học tập và trải nghiệm người dùng <Heart className="w-3 h-3 inline pb-0.5 text-rose-500 fill-rose-500" />
           </p>

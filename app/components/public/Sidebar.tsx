@@ -27,8 +27,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ tags, popularPosts }) => {
       {/* Search Widget */}
       <div className="bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-sm shadow-slate-200/50">
         <h3 className="text-xs font-black text-slate-800 uppercase tracking-[0.2em] mb-6 flex items-center gap-2">
-           <Search className="w-4 h-4 text-primary" />
-           Tìm kiếm bài viết
+          <Search className="w-4 h-4 text-primary" />
+          Tìm kiếm bài viết
         </h3>
         <form className="relative group">
           <input
@@ -45,13 +45,13 @@ export const Sidebar: React.FC<SidebarProps> = ({ tags, popularPosts }) => {
       {/* Popular Posts Widget */}
       <div className="bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-sm shadow-slate-200/50">
         <h3 className="text-xs font-black text-slate-800 uppercase tracking-[0.2em] mb-6 flex items-center gap-2">
-           <TrendingUp className="w-4 h-4 text-secondary" />
-           Xem nhiều nhất
+          <TrendingUp className="w-4 h-4 text-secondary" />
+          Xem nhiều nhất
         </h3>
         <div className="space-y-6">
           {popularPosts.map((post, idx) => (
-            <Link 
-              key={post.id} 
+            <Link
+              key={post.id}
               href={`/${post.category?.slug || 'uncategorized'}/${post.slug}`}
               className="flex items-start gap-4 group"
             >
@@ -63,7 +63,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ tags, popularPosts }) => {
                   {post.title}
                 </h4>
                 <div className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">
-                   {post.createdAt.getFullYear()}
+                  {post.createdAt.getFullYear()}
                 </div>
               </div>
             </Link>
@@ -71,30 +71,30 @@ export const Sidebar: React.FC<SidebarProps> = ({ tags, popularPosts }) => {
         </div>
       </div>
 
-      {/* Newsletter Widget */}
+      Newsletter Widget
       <div className="bg-primary/5 p-8 rounded-[2.5rem] border border-primary/10 relative overflow-hidden group">
-         {/* Subtle Glow */}
-         <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full blur-[40px] -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-1000" />
-         
-         <div className="relative z-10 space-y-6">
-            <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-primary shadow-lg group-hover:scale-110 transition-transform duration-500">
-               <Mail className="w-6 h-6" />
-            </div>
-            <div className="space-y-2">
-               <h3 className="text-lg font-black text-slate-900 leading-tight">Mẹo nuôi con khỏe mạnh</h3>
-               <p className="text-xs text-slate-500 leading-relaxed">Đăng ký nhận cẩm nang chăm sóc trẻ từ chuyên gia mỗi tuần.</p>
-            </div>
-            <Link 
-              href="#newsletter"
-              className="block w-full py-4 bg-primary text-white text-[11px] font-black uppercase tracking-widest rounded-2xl text-center shadow-lg shadow-emerald-500/20 active:scale-95 transition-all flex items-center justify-center gap-2"
-            >
-              Đăng ký ngay <ArrowRight className="w-4 h-4" />
-            </Link>
-         </div>
+        {/* Subtle Glow */}
+        <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full blur-[40px] -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-1000" />
+
+        <div className="relative z-10 space-y-6">
+          <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-primary shadow-lg group-hover:scale-110 transition-transform duration-500">
+            <Mail className="w-6 h-6" />
+          </div>
+          <div className="space-y-2">
+            <h3 className="text-lg font-black text-slate-900 leading-tight">Mẹo nuôi con khỏe mạnh</h3>
+            <p className="text-xs text-slate-500 leading-relaxed">Đăng ký nhận cẩm nang chăm sóc trẻ từ chuyên gia mỗi tuần.</p>
+          </div>
+          <Link
+            href="#newsletter"
+            className="block w-full py-4 bg-primary text-white text-[11px] font-black uppercase tracking-widest rounded-2xl text-center shadow-lg shadow-emerald-500/20 active:scale-95 transition-all flex items-center justify-center gap-2"
+          >
+            Đăng ký ngay <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
       </div>
 
       {/* Tags Widget */}
-      <div className="bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-sm shadow-slate-200/50 sticky top-24">
+      {/* <div className="bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-sm shadow-slate-200/50 sticky top-24">
         <h3 className="text-xs font-black text-slate-800 uppercase tracking-[0.2em] mb-6 flex items-center gap-2">
            <Tags className="w-4 h-4 text-emerald-500" />
            Từ khóa phổ biến
@@ -110,7 +110,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ tags, popularPosts }) => {
             </Link>
           ))}
         </div>
-      </div>
+      </div> */}
     </aside>
   );
 };
