@@ -23,7 +23,7 @@ export default async function AdminLayout({
           <Link href="/" className="flex items-center space-x-2 group">
             <div className="w-9 h-9 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-emerald-500/20 group-hover:scale-110 transition-transform">
               <Image
-                src="/cuccung_logo.png" // Đường dẫn tính từ thư mục public
+                src="/ngoanxinhyeu_logo.png" // Đường dẫn tính từ thư mục public
                 alt="Logo Cục Cưng - Cộng đồng Mẹ & Bé uy tín" // ALT text chuẩn SEO
                 width={250} // Chiều rộng thực tế bạn muốn hiển thị (pixel)
                 height={100} // Chiều cao tương ứng để giữ tỷ lệ

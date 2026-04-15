@@ -48,8 +48,8 @@ export const Header: React.FC<HeaderProps> = ({ categories }) => {
             <Link href="/" className="flex items-center space-x-2 group">
               <div className="w-10 h-10 rounded-xl flex items-center justify-center shadow-lg shadow-emerald-500/20 group-hover:rotate-6 transition-all duration-300">
                 <Image
-                  src="/cuccung_logo.png" // Đường dẫn tính từ thư mục public
-                  alt="Logo ngoanxinhyeu - Cộng đồng Mẹ & Bé uy tín" // ALT text chuẩn SEO
+                  src="/ngoanxinhyeu_logo.png" // Đường dẫn tính từ thư mục public
+                  alt="Logo Ngoanxinhyeu - Cộng đồng Mẹ & Bé uy tín" // ALT text chuẩn SEO
                   width={250} // Chiều rộng thực tế bạn muốn hiển thị (pixel)
                   height={100} // Chiều cao tương ứng để giữ tỷ lệ
                   priority // Thuộc tính quan trọng: Ưu tiên load logo ngay lập tức (LCP)
@@ -57,7 +57,7 @@ export const Header: React.FC<HeaderProps> = ({ categories }) => {
                 />
               </div>
               <span className="text-2xl font-black text-slate-900 tracking-tight group-hover:text-primary transition-colors">
-                ngoanxinhyeu<span className="text-secondary ml-0.5">.</span>
+                NgoanXinhYeu<span className="text-secondary ml-0.5">.</span>
               </span>
             </Link>
           </div>

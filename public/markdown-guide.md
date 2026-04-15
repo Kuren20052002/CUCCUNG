@@ -1,6 +1,6 @@
-# Hướng dẫn dành cho Tác giả: Soạn thảo bài viết trên Cuccung SEO
+# Hướng dẫn dành cho Tác giả: Soạn thảo bài viết trên ngoanxinhyeu SEO
 
-Chào mừng bạn đến với hệ thống CMS của Cuccung! Để bài viết của bạn đạt hiệu quả SEO tốt nhất và có trình bày chuyên nghiệp, hãy tham khảo các hướng dẫn sau.
+Chào mừng bạn đến với hệ thống CMS của ngoanxinhyeu! Để bài viết của bạn đạt hiệu quả SEO tốt nhất và có trình bày chuyên nghiệp, hãy tham khảo các hướng dẫn sau.
 
 ---
 
@@ -105,4 +105,4 @@ Nội dung cảnh báo quan trọng.
 
 ---
 
-*Chúc bạn có những bài viết chất lượng trên Cuccung!*
+*Chúc bạn có những bài viết chất lượng trên ngoanxinhyeu!*

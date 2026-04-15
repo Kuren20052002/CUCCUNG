@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
 import { Toaster } from "sonner";
 import "./globals.css";
 
@@ -19,7 +20,7 @@ export const metadata: Metadata = {
     template: "%s | ngoanxinhyeu",
   },
   icons: {
-    icon: '/cuccung_logo.png',
+    icon: '/ngoanxinhyeu_logo.png',
   },
   description:
     "Hướng dẫn chăm sóc mẹ và bé từ A–Z: giấc ngủ, dinh dưỡng, sức khỏe trẻ sơ sinh. Kinh nghiệm thực tế giúp mẹ nuôi con dễ dàng và đúng cách.",
@@ -50,7 +51,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/cuccung_logo.png",
+        url: "/ngoanxinhyeu_logo.png",
         width: 250,
         height: 100,
         alt: "ngoanxinhyeu Logo",
@@ -72,6 +73,21 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        {/* Google Analytics */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-GKH65E4DSG"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-GKH65E4DSG');
+          `}
+        </Script>
+
         <Providers>
           {children}
         </Providers>

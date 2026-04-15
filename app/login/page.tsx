@@ -161,7 +161,7 @@ function LoginForm() {
         <div className="mt-8 flex items-center justify-center gap-2 text-gray-400 text-xs">
           <AlertCircle className="w-4 h-4" />
           <span>Cần hỗ trợ kỹ thuật?</span>
-          <a href="mailto:admin@ngoanxinhyeu.vercel.app" className="text-pink-400 hover:underline font-semibold">Gửi thư cho chúng mình</a>
+          <a href="mailto:admin@cuccung.vn" className="text-pink-400 hover:underline font-semibold">Gửi thư cho chúng mình</a>
         </div>
       </div>
     </div>

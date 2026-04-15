@@ -55,7 +55,7 @@ function SignupForm() {
             <Baby className="w-12 h-12 text-pink-400" />
           </div>
           <h1 className="text-3xl font-bold text-gray-800 tracking-tight">Tham gia với chúng tôi</h1>
-          <p className="text-gray-500 mt-2">Dành cho cộng đồng Mẹ & Bé Cưng</p>
+          <p className="text-gray-500 mt-2">Dành cho cộng đồng Mẹ & Bé ngoanxinhyeu</p>
         </div>
 
         <div className="bg-white/80 backdrop-blur-xl rounded-[2.5rem] p-8 shadow-2xl shadow-gray-200/50 border border-white animate-fade-in">
@@ -165,7 +165,7 @@ function SignupForm() {
         </div>
 
         <p className="mt-8 text-center text-gray-400 text-xs">
-          &copy; 2026 Cuccung Website. All rights reserved.
+          &copy; 2026 ngoanxinhyeu Website. All rights reserved.
         </p>
       </div>
     </div>

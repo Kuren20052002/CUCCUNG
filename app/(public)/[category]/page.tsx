@@ -21,10 +21,10 @@ export async function generateMetadata(
   if (!category) return { robots: { index: false, follow: false } };
 
   const title = category.seoTitle ||
-    `${category.name} - Kiến thức chăm sóc mẹ và bé | Cục Cưng`;
+    `${category.name} - Kiến thức chăm sóc mẹ và bé | ngoanxinhyeu`;
   const description = category.seoDescription ||
     `Khám phá các bài viết hữu ích về ${category.name} giúp mẹ chăm sóc bé đúng cách, khoa học và an toàn nhất.`;
-  const canonicalUrl = `https://cuccung.vn/${categorySlug}`;
+  const canonicalUrl = `https://ngoanxinhyeu.vercel.app/${categorySlug}`;
 
   return {
     title,
@@ -36,7 +36,7 @@ export async function generateMetadata(
       description,
       type: 'website',
       url: canonicalUrl,
-      siteName: 'Cục Cưng',
+      siteName: 'ngoanxinhyeu',
       locale: 'vi_VN',
     },
   };
