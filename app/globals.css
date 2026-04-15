@@ -4,6 +4,10 @@
 /* Import plugin Typography cho v4 */
 @plugin "@tailwindcss/typography";
 
+html {
+  scroll-behavior: smooth;
+}
+
 :root {
   --background: #fcfdfd;
   /* Off-white with a hint of emerald */

@@ -3,11 +3,12 @@ import { Metadata } from 'next';
 import prisma from '@/lib/prisma';
 import Image from 'next/image';
 import Link from 'next/link';
-import { marked } from 'marked';
 import clsx from 'clsx';
 import { cache } from 'react';
 import { Sidebar } from "@/app/components/public/Sidebar";
 import { BlogCard } from "@/app/components/public/BlogCard";
+import { TableOfContents } from "@/app/components/public/TableOfContents";
+import { parseMarkdown, extractToc } from '@/lib/markdown';
 import { Calendar, User, Clock, Share2, MessageSquare, Folders, ChevronRight, Zap } from 'lucide-react';
 
 // ISR: revalidate every 60s
@@ -119,7 +120,8 @@ export default async function ArticlePage(
     take: 12
   });
 
-  const html = await marked.parse(post.content || '');
+  const tocItems = extractToc(post.content || '');
+  const html = await parseMarkdown(post.content || '');
 
   const isImageInContent = (content: string, imageUrl: string | null) => {
     if (!imageUrl) return false;
@@ -215,7 +217,7 @@ export default async function ArticlePage(
             </header>
 
             {/* Hero Image */}
-            {showFeaturedImage && post.metaImage && (
+            {/* {showFeaturedImage && post.metaImage && (
               <div className="relative aspect-[16/8] rounded-[3rem] overflow-hidden shadow-2xl border-x-0 border-y-0">
                 <Image
                   src={post.metaImage}
@@ -226,14 +228,15 @@ export default async function ArticlePage(
                   sizes="(max-width: 1280px) 100vw, 1200px"
                 />
               </div>
-            )}
+            )} */}
 
             <div className="flex flex-col lg:flex-row gap-12 relative">
               {/* Body Content */}
               <div className="flex-1 max-w-[750px] mx-auto lg:mx-0">
+                <TableOfContents items={tocItems} />
                 <div
                   className={clsx(
-                    'prose prose-lg prose-emerald max-w-none prose-img:rounded-[2rem] prose-img:shadow-xl prose-img:my-10 prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:bg-emerald-50 prose-blockquote:p-8 prose-blockquote:rounded-r-2xl prose-blockquote:text-emerald-900 prose-blockquote:not-italic prose-blockquote:font-bold prose-h2:text-3xl prose-h2:font-black prose-h2:tracking-tight prose-h2:mb-4 prose-p:leading-[1.8] prose-strong:text-slate-900'
+                    'prose prose-lg prose-emerald max-w-none prose-img:rounded-[2rem] prose-img:shadow-xl prose-img:my-10 prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:bg-emerald-50 prose-blockquote:p-8 prose-blockquote:rounded-r-2xl prose-blockquote:text-emerald-900 prose-blockquote:not-italic prose-blockquote:font-bold prose-h2:text-3xl prose-h2:font-black prose-h2:tracking-tight prose-h2:mb-4 prose-h2:scroll-mt-24 prose-h3:scroll-mt-24 prose-p:leading-[1.8] prose-strong:text-slate-900'
                   )}
                   dangerouslySetInnerHTML={{ __html: html }}
                 />
@@ -269,7 +272,7 @@ export default async function ArticlePage(
                 </div>
 
                 {/* Related Posts Row */}
-                <section className="mt-24 space-y-12">
+                <section className="mt-8 space-y-12">
                   <div className="flex items-center justify-between border-b border-slate-100 pb-8">
                     <h2 className="text-3xl font-black text-slate-900 tracking-tight">Xem thêm cùng chủ đề.</h2>
                     <Link href={`/${post.category.slug}`} className="text-[10px] font-black text-primary uppercase tracking-[0.2em] flex items-center gap-2 group">
