@@ -122,7 +122,7 @@ export default async function HomePage() {
             </header>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
-              {posts.map((post) => (
+              {posts.map((post: any) => (
                 <BlogCard key={post.id} post={post} />
               ))}
             </div>

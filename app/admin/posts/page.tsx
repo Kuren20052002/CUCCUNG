@@ -111,7 +111,7 @@ export default async function PostsPage(props: PostsPageProps) {
       {/* Posts List */}
       <div className="grid grid-cols-1 gap-6">
         {posts.length > 0 ? (
-          posts.map((post) => (
+          posts.map((post: any) => (
             <div 
               key={post.id} 
               className="group bg-white p-6 rounded-[2rem] shadow-sm border border-slate-100 hover:border-pink-100 hover:shadow-md transition-all duration-300 relative overflow-hidden"

@@ -246,7 +246,7 @@ export default async function ArticlePage(
                 <div className="mt-20 pt-10 border-t border-slate-100 space-y-10">
                   <div className="flex items-center gap-4">
                     <div className="flex flex-wrap gap-2">
-                      {post.tags.map(tag => (
+                      {post.tags.map((tag: any) => (
                         <Link key={tag.id} href={`/tag/${tag.slug}`} className="px-4 py-1.5 bg-slate-50 text-[10px] font-bold text-slate-500 rounded-lg hover:bg-emerald-500 hover:text-white transition-all">
                           #{tag.name}
                         </Link>
@@ -281,7 +281,7 @@ export default async function ArticlePage(
                     </Link>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    {relatedPosts.map(rp => (
+                    {relatedPosts.map((rp: any) => (
                       <BlogCard key={rp.id} post={rp as any} />
                     ))}
                   </div>

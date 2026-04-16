@@ -64,7 +64,7 @@ export default async function AdminPage() {
 
         {posts.length > 0 ? (
           <ul className="space-y-4">
-            {posts.map((post) => (
+            {posts.map((post: any) => (
               <li key={post.id} className="border-b pb-4">
                 <Link href={`/${post.category?.slug}/${post.slug}`} className="block hover:underline">
                   <h3 className="text-lg font-semibold text-emerald-700">{post.title}</h3>
