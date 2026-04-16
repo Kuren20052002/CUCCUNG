@@ -25,13 +25,13 @@ export const Footer: React.FC = () => {
               ngoanxinhyeu.app là blog chuyên về kiến thức thai kỳ, nuôi dạy con cái và đánh giá đồ dùng cho mẹ & bé uy tín số 1 Việt Nam. Đồng hành cùng hàng triệu mẹ bỉm sữa chăm sóc thế hệ tương lai.
             </p>
             <div className="flex items-center space-x-4 pt-2">
-              <a href="#" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-primary hover:text-white transition-all transform hover:-translate-y-1 shadow-lg active:scale-95">
+              <a href="#" aria-label="Theo dõi ngoanxinhyeu trên Facebook" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-primary hover:text-white transition-all transform hover:-translate-y-1 shadow-lg active:scale-95">
                 <Share2 className="w-5 h-5" />
               </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-pink-600 hover:text-white transition-all transform hover:-translate-y-1 shadow-lg active:scale-95">
+              <a href="#" aria-label="Theo dõi ngoanxinhyeu trên Instagram" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-pink-600 hover:text-white transition-all transform hover:-translate-y-1 shadow-lg active:scale-95">
                 <Globe className="w-5 h-5" />
               </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-sky-500 hover:text-white transition-all transform hover:-translate-y-1 shadow-lg active:scale-95">
+              <a href="#" aria-label="Nhắn tin qua Zalo" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-sky-500 hover:text-white transition-all transform hover:-translate-y-1 shadow-lg active:scale-95">
                 <MessageCircle className="w-5 h-5" />
               </a>
             </div>
@@ -77,7 +77,7 @@ export const Footer: React.FC = () => {
                 placeholder="email@example.com"
                 className="w-full bg-slate-800/50 border border-slate-700 text-white rounded-2xl px-5 py-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all placeholder:text-slate-500 pr-32"
               />
-              <button className="absolute right-2 top-2 bottom-2 px-5 bg-primary text-white text-xs font-black rounded-xl hover:bg-emerald-600 transition-all flex items-center space-x-2 shadow-lg active:scale-95">
+              <button type="submit" aria-label="Đăng ký nhận bản tin" className="absolute right-2 top-2 bottom-2 px-5 bg-primary text-white text-xs font-black rounded-xl hover:bg-emerald-600 transition-all flex items-center space-x-2 shadow-lg active:scale-95">
                 <span>Tham gia</span>
                 <ArrowRight className="w-4 h-4" />
               </button>

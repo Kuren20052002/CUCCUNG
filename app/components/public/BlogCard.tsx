@@ -52,7 +52,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
         {/* Visual Hierarchy: Metadata Row above Title */}
         <div className="flex items-center gap-2 text-xs text-slate-500 mb-3 font-medium">
            <span className="text-slate-900">{post.author.name || 'Đội ngũ chuyên gia'}</span>
-           <span className="text-slate-300">•</span>
+           <span className="text-slate-400" aria-hidden="true">•</span>
            <span>{formatDate(post.createdAt)}</span>
         </div>
 
@@ -76,7 +76,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
               <ArrowRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
             </Link>
             
-            <div className="text-xs text-slate-400 font-medium">
+            <div className="text-xs text-slate-500 font-medium">
               {readingTime} phút đọc
             </div>
         </div>

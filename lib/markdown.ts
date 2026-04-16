@@ -23,8 +23,29 @@ function stripMarkdown(text: string): string {
 
 /**
  * Custom renderer to add IDs to H2 and H3 headings for TOC
+ * and to strip Base64 images that bloat payload
  */
 const renderer = new marked.Renderer();
+
+/**
+ * Image renderer: blocks Base64 data URIs to prevent
+ * 1.7MB+ HTML payloads. Normal URLs pass through.
+ */
+renderer.image = function({ href, title, text }) {
+  // Block Base64 data URIs — they bloat HTML payload massively
+  if (href && href.startsWith('data:')) {
+    return `<figure class="base64-image-blocked" role="note" aria-label="Ảnh không khả dụng">
+      <div style="padding:1rem;background:#fef9c3;border:1px solid #fde047;border-radius:0.5rem;color:#854d0e;font-size:0.875rem;">
+        ⚠️ <strong>Ảnh Base64 không được hỗ trợ.</strong> Vui lòng upload lại ảnh qua trình quản lý ảnh để hiển thị đúng cách.
+      </div>
+    </figure>\n`;
+  }
+
+  // Normal image — render with alt and title
+  const altAttr = text ? ` alt="${text}"` : '';
+  const titleAttr = title ? ` title="${title}"` : '';
+  return `<img src="${href}"${altAttr}${titleAttr} loading="lazy" decoding="async" />\n`;
+};
 
 renderer.heading = function({ tokens, depth, text }) {
   const htmlText = this.parser.parseInline(tokens);

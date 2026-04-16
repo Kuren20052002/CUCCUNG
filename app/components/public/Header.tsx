@@ -46,14 +46,14 @@ export const Header: React.FC<HeaderProps> = ({ categories }) => {
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
             <Link href="/" className="flex items-center space-x-2 group">
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center shadow-lg shadow-emerald-500/20 group-hover:rotate-6 transition-all duration-300">
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center shadow-lg shadow-emerald-500/20 group-hover:rotate-6 transition-all duration-300 overflow-hidden">
                 <Image
-                  src="/ngoanxinhyeu_logo.png" // Đường dẫn tính từ thư mục public
-                  alt="Logo Ngoanxinhyeu - Cộng đồng Mẹ & Bé uy tín" // ALT text chuẩn SEO
-                  width={250} // Chiều rộng thực tế bạn muốn hiển thị (pixel)
-                  height={100} // Chiều cao tương ứng để giữ tỷ lệ
-                  priority // Thuộc tính quan trọng: Ưu tiên load logo ngay lập tức (LCP)
-                  className="object-contain" // Giúp ảnh không bị méo trong khung
+                  src="/ngoanxinhyeu_logo.png"
+                  alt="Logo Ngoanxinhyeu - Cộng đồng Mẹ & Bé uy tín"
+                  width={40}
+                  height={40}
+                  priority
+                  className="object-contain w-full h-full"
                 />
               </div>
               <span className="text-2xl font-black text-slate-900 tracking-tight group-hover:text-primary transition-colors">
@@ -73,7 +73,10 @@ export const Header: React.FC<HeaderProps> = ({ categories }) => {
 
             {/* Explore Dropdown */}
             <div className="relative group">
-              <button className="flex items-center space-x-1.5 text-sm font-bold text-slate-600 group-hover:text-primary transition-all outline-none">
+              <button
+                className="flex items-center space-x-1.5 text-sm font-bold text-slate-600 group-hover:text-primary transition-all outline-none"
+                aria-label="Mở danh mục Cẩm nang"
+              >
                 <span>Cẩm nang</span>
                 <ChevronDown className="w-4 h-4 group-hover:rotate-180 transition-transform duration-300" />
               </button>
@@ -113,22 +116,25 @@ export const Header: React.FC<HeaderProps> = ({ categories }) => {
                         <span>Quản trị</span>
                       </Link>
                     )}
-                    <button className="p-2 text-slate-400 hover:text-primary hover:bg-slate-50 rounded-full transition-all mr-1">
+                    <button
+                      className="p-2 text-slate-500 hover:text-primary hover:bg-slate-50 rounded-full transition-all mr-1"
+                      aria-label="Thông báo"
+                    >
                       <Bell className="w-5 h-5" />
                     </button>
 
                     <button
                       onClick={() => signOut()}
-                      className="p-2.5 text-slate-400 hover:text-rose-500 hover:bg-rose-50 rounded-2xl transition-all group"
-                      title="Đăng xuất"
+                      className="p-2.5 text-slate-500 hover:text-rose-500 hover:bg-rose-50 rounded-2xl transition-all group"
+                      aria-label="Đăng xuất"
                     >
                       <LogOut className="w-5 h-5" />
                     </button>
                     <div className="w-10 h-10 rounded-2xl bg-slate-100 flex items-center justify-center border border-white shadow-sm overflow-hidden border-slate-200">
                       {session.user?.image ? (
-                        <img src={session.user.image} alt={session.user.name || ''} className="w-full h-full object-cover" />
+                        <Image src={session.user.image} alt={session.user.name || 'Avatar người dùng'} width={40} height={40} className="w-full h-full object-cover" />
                       ) : (
-                        <UserIcon className="w-5 h-5 text-slate-400" />
+                        <UserIcon className="w-5 h-5 text-slate-500" />
                       )}
                     </div>
                   </div>
@@ -157,6 +163,9 @@ export const Header: React.FC<HeaderProps> = ({ categories }) => {
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="p-2 rounded-xl text-slate-600 hover:bg-slate-100 transition-colors"
+              aria-label={isMenuOpen ? 'Đóng menu' : 'Mở menu'}
+              aria-expanded={isMenuOpen}
+              aria-controls="mobile-nav"
             >
               {isMenuOpen ? <X className="w-7 h-7" /> : <Menu className="w-7 h-7" />}
             </button>
@@ -172,12 +181,13 @@ export const Header: React.FC<HeaderProps> = ({ categories }) => {
         )}
       >
         <div className="absolute inset-0 bg-slate-900/5 backdrop-blur-sm" onClick={() => setIsMenuOpen(false)} />
-        <div className="absolute right-0 top-0 bottom-0 w-80 bg-white shadow-2xl p-6 flex flex-col pt-20">
+        <div id="mobile-nav" className="absolute right-0 top-0 bottom-0 w-80 bg-white shadow-2xl p-6 flex flex-col pt-20">
           <button
             onClick={() => setIsMenuOpen(false)}
             className="absolute top-6 right-6 p-2 rounded-full hover:bg-slate-100 transition-colors"
+            aria-label="Đóng menu"
           >
-            <X className="w-6 h-6 text-slate-400" />
+            <X className="w-6 h-6 text-slate-500" />
           </button>
 
           <nav className="space-y-6">
@@ -211,9 +221,9 @@ export const Header: React.FC<HeaderProps> = ({ categories }) => {
                       <div className="flex items-center space-x-3 px-4 py-3 bg-slate-50 rounded-2xl">
                         <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center border border-slate-200 overflow-hidden shadow-sm">
                           {session.user?.image ? (
-                            <img src={session.user.image} alt={session.user.name || ''} className="w-full h-full object-cover" />
+                            <Image src={session.user.image} alt={session.user.name || 'Avatar người dùng'} width={40} height={40} className="w-full h-full object-cover" />
                           ) : (
-                            <UserIcon className="w-5 h-5 text-slate-400" />
+                            <UserIcon className="w-5 h-5 text-slate-500" />
                           )}
                         </div>
                         <div className="flex-1 min-w-0">

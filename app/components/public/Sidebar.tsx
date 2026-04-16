@@ -36,7 +36,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ tags, popularPosts }) => {
             placeholder="Bạn đang tìm gì..."
             className="w-full bg-slate-50/50 border-2 border-slate-100 rounded-2xl px-6 py-4 text-sm font-semibold focus:outline-none focus:border-emerald-500 focus:bg-white transition-all placeholder:text-slate-400 text-slate-900 group-hover:border-slate-200"
           />
-          <button className="absolute right-4 top-1/2 -translate-y-1/2 p-2 bg-primary text-white rounded-xl shadow-lg active:scale-90 transition-transform">
+          <button type="submit" aria-label="Tìm kiếm bài viết" className="absolute right-4 top-1/2 -translate-y-1/2 p-2 bg-primary text-white rounded-xl shadow-lg active:scale-90 transition-transform">
             <Search className="w-4 h-4" />
           </button>
         </form>
@@ -62,7 +62,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ tags, popularPosts }) => {
                 <h4 className="text-sm font-bold text-slate-800 leading-snug group-hover:text-primary transition-colors line-clamp-2">
                   {post.title}
                 </h4>
-                <div className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">
+                <div className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">
                   {post.createdAt.getFullYear()}
                 </div>
               </div>
