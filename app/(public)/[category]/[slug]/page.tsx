@@ -173,21 +173,23 @@ export default async function ArticlePage(
           <article className="flex-1 min-w-0 space-y-12 animate-fade-in">
             <header className="space-y-10">
               {/* Breadcrumbs */}
-              <nav className="flex items-center space-x-2 text-[10px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-50 pb-6 inline-flex">
-                <Link href="/" className="hover:text-emerald-600 transition-colors">TRANG CHỦ</Link>
-                <ChevronRight className="w-3 h-3 text-emerald-300" />
-                <Link href={`/${post.category.slug}`} className="hover:text-emerald-600 transition-colors">{post.category.name}</Link>
-                <ChevronRight className="w-3 h-3 text-emerald-300" />
-                <span className="text-emerald-600 truncate max-w-[150px]">{post.title}</span>
+              <nav className="flex flex-wrap items-center gap-y-2 gap-x-2 text-[10px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-50 pb-6">
+                <Link href="/" className="hover:text-emerald-600 transition-colors shrink-0">TRANG CHỦ</Link>
+                <ChevronRight className="w-3 h-3 text-emerald-300 shrink-0" />
+                <Link href={`/${post.category.slug}`} className="hover:text-emerald-600 transition-colors shrink-0 max-w-[100px] truncate">{post.category.name}</Link>
+                <ChevronRight className="w-3 h-3 text-emerald-300 shrink-0" />
+                <span className="text-emerald-600 truncate min-w-0 max-w-[140px] sm:max-w-xs">
+                  {post.title}
+                </span>
               </nav>
 
-              <h1 className="text-4xl lg:text-6xl font-black text-slate-900 leading-[1.15] tracking-tight mb-12">
+              <h1 className="text-3xl sm:text-4xl lg:text-6xl font-black text-slate-900 leading-[1.15] tracking-tight mb-12">
                 {post.title}
               </h1>
 
               {/* Author row */}
               <div className="flex flex-wrap items-center gap-6 pt-8 border-t border-slate-100 mt-16 p-2 min-h-[5rem]">
-                <div className="flex items-center space-x-4 pr-8 border-r border-slate-100">
+                <div className="flex items-center space-x-4 pr-8 sm:border-r border-slate-100">
                   <div className="w-12 h-12 rounded-2xl overflow-hidden shadow-lg border-2 border-white ring-1 ring-slate-100">
                     <Image src={post.author.avatar || 'https://i.pravatar.cc/100'} alt={post.author.name || ''} width={48} height={48} />
                   </div>
@@ -235,15 +237,16 @@ export default async function ArticlePage(
 
             <div className="flex flex-col lg:flex-row gap-12 relative">
               {/* Body Content */}
-              <div className="flex-1 max-w-[750px] mx-auto lg:mx-0">
+              <div className="w-full max-w-[750px] mx-auto lg:mx-0 min-w-0 overflow-hidden">
                 <TableOfContents items={tocItems} />
                 <div
                   className={clsx(
-                    'prose prose-lg prose-emerald max-w-none prose-img:rounded-[2rem] prose-img:shadow-xl prose-img:my-10 prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:bg-emerald-50 prose-blockquote:p-8 prose-blockquote:rounded-r-2xl prose-blockquote:text-emerald-900 prose-blockquote:not-italic prose-blockquote:font-bold prose-h2:text-3xl prose-h2:font-black prose-h2:tracking-tight prose-h2:mb-4 prose-h2:scroll-mt-24 prose-h3:scroll-mt-24 prose-p:leading-[1.8] prose-strong:text-slate-900'
+                    // 1. Change 'break-words' to 'break-all'
+                    // 2. Add 'prose-a:break-all' to specifically target links inside markdown
+                    'prose prose-sm lg:prose-base prose-emerald max-w-none break-all prose-a:break-all prose-img:rounded-[2rem] prose-img:shadow-xl prose-img:my-10 prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:bg-emerald-50 prose-blockquote:p-6 prose-blockquote:rounded-r-2xl prose-blockquote:text-emerald-900 prose-blockquote:not-italic prose-blockquote:font-bold prose-h2:text-xl lg:prose-h2:text-2xl prose-h2:font-black prose-h2:tracking-tight prose-h2:mb-4 prose-h2:scroll-mt-24 prose-h3:scroll-mt-24 prose-p:leading-[1.8] prose-strong:text-slate-900'
                   )}
                   dangerouslySetInnerHTML={{ __html: html }}
                 />
-
                 {/* Post Footer/Tags */}
                 <div className="mt-20 pt-10 border-t border-slate-100 space-y-10">
                   <div className="flex items-center gap-4">
@@ -276,10 +279,10 @@ export default async function ArticlePage(
 
                 {/* Related Posts Row */}
                 <section className="mt-8 space-y-12">
-                  <div className="flex items-center justify-between border-b border-slate-100 pb-8">
-                    <h2 className="text-3xl font-black text-slate-900 tracking-tight">Xem thêm cùng chủ đề.</h2>
-                    <Link href={`/${post.category.slug}`} className="text-[10px] font-black text-primary uppercase tracking-[0.2em] flex items-center gap-2 group">
-                      Tất cả {post.category.name} <ChevronRight className="w-4 h-4 transform group-hover:translate-x-1" />
+                  <div className="flex flex-col gap-3 border-b border-slate-100 pb-8">
+                    <h2 className="text-lg sm:text-xl lg:text-2xl font-black text-slate-900 tracking-tight">Xem thêm cùng chủ đề<span className="text-primary">.</span></h2>
+                    <Link href={`/${post.category.slug}`} className="text-[10px] font-black text-primary uppercase tracking-widest flex items-center gap-1.5 group w-fit">
+                      Tất cả <span className="truncate max-w-[160px]">{post.category.name}</span> <ChevronRight className="w-3.5 h-3.5 shrink-0 transform group-hover:translate-x-1" />
                     </Link>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
