@@ -72,19 +72,20 @@ export default function RootLayout({
       lang="vi"
       className={`${geistSans.variable} ${geistMono.variable} antialiased`}
     >
-      <head>
-        {/* Google tag (gtag.js) */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-GKH65E4DSG"></script>
-        <script>
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
+      <head />
+      <Script
+        src="https://www.googletagmanager.com/gtag/js?id=G-GKH65E4DSG"
+        strategy="afterInteractive"
+      />
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
 
-            gtag('config', 'G-GKH65E4DSG');
-          `}
-        </script>
-      </head>
+          gtag('config', 'G-GKH65E4DSG');
+        `}
+      </Script>
       <body className="flex flex-col">
         <Providers>
           {children}

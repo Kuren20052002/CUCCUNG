@@ -48,13 +48,33 @@ async function main() {
     console.error('❌ Prisma Client SYNC ERROR:', e.message);
   }
 
-  const categories = [
-    { name: 'Thai kỳ & Sinh con', slug: 'thai-ky-va-sinh-con', description: 'Kiến thức về thai kỳ và chuẩn bị sinh con.' },
-    { name: 'Chăm sóc bé sơ sinh', slug: 'cham-soc-be-so-sinh', description: 'Hướng dẫn chăm sóc bé trong những tháng đầu đời.' },
-    { name: 'Dinh dưỡng & Ăn dặm', slug: 'dinh-duong-va-an-dam', description: 'Chế độ dinh dưỡng và hành trình ăn dặm của bé.' },
-    { name: 'Review & Kinh nghiệm chọn đồ', slug: 'review-va-kinh-nghiem-chon-do', description: 'Đánh giá sản phẩm và kinh nghiệm mua sắm cho mẹ & bé.' },
-  ]
-
+const categories = [
+  {
+    name: 'Dinh dưỡng và phát triển',
+    slug: 'dinh-duong-phat-trien',
+    description: 'Thông tin về dinh dưỡng và sự phát triển toàn diện của trẻ nhỏ.',
+  },
+  {
+    name: 'Giáo dục sớm và cùng con vui chơi',
+    slug: 'giao-duc-som-va-vui-choi',
+    description: 'Phương pháp giáo dục sớm và các hoạt động vui chơi cùng con.',
+  },
+  {
+    name: 'Góc Review lựa chọn thông thái cho mẹ và bé',
+    slug: 'goc-review-cho-me-va-be',
+    description: 'Chia sẻ các bài review sản phẩm và lựa chọn thông thái dành cho mẹ và bé.',
+  },
+  {
+    name: 'Chăm sóc và rèn luyện',
+    slug: 'cham-soc-va-ren-luyen',
+    description: 'Hướng dẫn chăm sóc sức khỏe và rèn luyện thói quen tốt cho bé.',
+  },
+  {
+    name: 'Thời trang tổ chức sự kiện cho bé',
+    slug: 'thoi-trang-su-kien-cho-be',
+    description: 'Gợi ý thời trang và tổ chức các sự kiện dành cho bé.',
+  },
+];
   for (const cat of categories) {
     const category = await prisma.category.upsert({
       where: { slug: cat.slug },

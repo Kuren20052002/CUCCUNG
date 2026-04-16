@@ -16,6 +16,9 @@
 # testing
 /coverage
 
+# seed file
+/prisma/seed.ts
+
 # next.js
 /.next/
 /out/

@@ -7,6 +7,7 @@ import { Save, Send, AlertTriangle, ChevronLeft } from 'lucide-react';
 import Link from 'next/link';
 
 import { slugify } from '@/lib/utils/slugify';
+import { validateMarkdown } from '@/lib/markdown';
 import { SEOLiveFeedback } from './SEOLiveFeedback';
 import { ImageGallery } from './ImageGallery';
 import { MarkdownEditor } from './MarkdownEditor';
@@ -46,9 +47,10 @@ export const PostForm: React.FC<PostFormProps> = ({ initialData, categories }) =
     }
   }, [formData.title]);
 
-  // H2 Heading Check
+  // SEO Heading Checks
   const h2Count = (formData.content.match(/^##\s/gm) || []).length;
   const isH2Valid = h2Count >= 3;
+  const h1Found = /^#\s/gm.test(formData.content);
 
   const handleGalleryUpdate = (images: any[]) => {
     setFormData(prev => ({ ...prev, images }));
@@ -68,6 +70,12 @@ export const PostForm: React.FC<PostFormProps> = ({ initialData, categories }) =
     if (!formData.categoryId) return toast.error('Vui lòng chọn chủ đề (Silo Structure)');
     if (!formData.content) return toast.error('Vui lòng nhập nội dung bài viết');
     
+    // Markdown SEO Validation
+    const mdValidation = validateMarkdown(formData.content);
+    if (!mdValidation.valid) {
+      return toast.error(mdValidation.error);
+    }
+
     if (!formData.metaImage || !formData.featuredImageAlt) {
       return toast.error('Ảnh đại diện và Alt text là bắt buộc cho SEO');
     }
@@ -175,8 +183,25 @@ export const PostForm: React.FC<PostFormProps> = ({ initialData, categories }) =
               onChange={(val) => setFormData(prev => ({ ...prev, content: val }))}
             />
 
+            {/* H1 Error Warning */}
+            {h1Found && (
+              <div className="m-6 p-4 bg-rose-50 border border-rose-100 rounded-2xl flex items-start gap-4 animate-shake">
+                <div className="p-2 bg-rose-100 rounded-xl">
+                  <AlertTriangle className="w-5 h-5 text-rose-600 shrink-0" />
+                </div>
+                <div className="space-y-1">
+                  <p className="text-sm font-bold text-rose-900">LỖI: Sử dụng thẻ H1 không hợp lệ</p>
+                  <p className="text-xs text-rose-700 leading-relaxed">
+                    Bạn đang sử dụng <span className="font-bold underline">H1 (#)</span> trong nội dung. 
+                    Mỗi trang chỉ được phép có duy nhất một thẻ H1 (là tiêu đề bài viết phía trên). 
+                    Vui lòng đổi sang <span className="font-bold underline">H2 (##)</span>.
+                  </p>
+                </div>
+              </div>
+            )}
+
             {/* H2 Warning */}
-            {!isH2Valid && formData.content.length > 200 && (
+            {!isH2Valid && !h1Found && formData.content.length > 200 && (
               <div className="m-6 p-4 bg-amber-50 border border-amber-100 rounded-2xl flex items-start gap-4 animate-shake">
                 <div className="p-2 bg-amber-100 rounded-xl">
                   <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0" />

@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import prisma from '@/lib/prisma';
 import Image from 'next/image';
+import Script from 'next/script';
 import Link from 'next/link';
 import clsx from 'clsx';
 import { cache } from 'react';
@@ -135,7 +136,8 @@ export default async function ArticlePage(
       {/* Scroll Progress Bar (Simplified client-side logic placeholder or pure CSS) */}
       <div className="fixed top-[72px] inset-x-0 h-1 bg-emerald-500/10 z-[60] origin-left scale-x-0" id="scroll-progress-bar" />
 
-      <script
+      <Script
+        id="article-schema"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
@@ -179,13 +181,13 @@ export default async function ArticlePage(
                 <span className="text-emerald-600 truncate max-w-[150px]">{post.title}</span>
               </nav>
 
-              <h1 className="text-4xl lg:text-6xl font-black text-slate-900 leading-[1.05] tracking-tight">
+              <h1 className="text-4xl lg:text-6xl font-black text-slate-900 leading-[1.15] tracking-tight mb-12">
                 {post.title}
               </h1>
 
               {/* Author row */}
-              <div className="flex flex-wrap items-center gap-6 pt-4 border-t border-slate-100 mt-10 p-2">
-                <div className="flex items-center space-x-3 pr-6 border-r border-slate-100">
+              <div className="flex flex-wrap items-center gap-6 pt-8 border-t border-slate-100 mt-16 p-2 min-h-[5rem]">
+                <div className="flex items-center space-x-4 pr-8 border-r border-slate-100">
                   <div className="w-12 h-12 rounded-2xl overflow-hidden shadow-lg border-2 border-white ring-1 ring-slate-100">
                     <Image src={post.author.avatar || 'https://i.pravatar.cc/100'} alt={post.author.name || ''} width={48} height={48} />
                   </div>
