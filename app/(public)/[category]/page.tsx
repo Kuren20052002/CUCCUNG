@@ -126,7 +126,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
 
             {posts.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-3 md:gap-y-12 lg:grid-cols-2 gap-8 lg:gap-10">
-                {posts.map((post) => (
+                {posts.map((post: any) => (
                   <BlogCard key={post.id} post={post} />
                 ))}
               </div>

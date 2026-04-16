@@ -74,7 +74,7 @@ export default async function ProfilePage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {posts.length > 0 ? (
-            posts.map((post) => (
+            posts.map((post: any) => (
               <div 
                 key={post.id} 
                 className="bg-white p-5 rounded-[2rem] border border-slate-100 hover:border-pink-100 hover:shadow-md transition-all group relative overflow-hidden"
