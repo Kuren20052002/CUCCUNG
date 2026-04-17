@@ -285,9 +285,9 @@ export default async function ArticlePage(
                       Tất cả <span className="truncate max-w-[160px]">{post.category.name}</span> <ChevronRight className="w-3.5 h-3.5 shrink-0 transform group-hover:translate-x-1" />
                     </Link>
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    {relatedPosts.map(rp => (
-                      <BlogCard key={rp.id} post={rp as any} />
+                  <div className="flex flex-col gap-6">
+                    {relatedPosts.map((rp, index) => (
+                      <BlogCard key={rp.id} post={rp as any} index={index} />
                     ))}
                   </div>
                 </section>

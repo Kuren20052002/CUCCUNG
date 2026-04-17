@@ -39,10 +39,12 @@ export const Header: React.FC<HeaderProps> = ({ categories }) => {
   return (
     <header
       className={clsx(
-        'sticky top-0 z-50 w-full transition-all duration-300',
-        isScrolled
-          ? 'bg-white/90 backdrop-blur-md shadow-sm border-b border-slate-100 py-3'
-          : 'bg-white/70 backdrop-blur-sm py-5'
+        'sticky top-0 z-50 w-full transition-all duration-300 ease-in-out',
+        isMenuOpen
+          ? 'bg-white py-3 shadow-xl !duration-0'
+          : isScrolled
+            ? 'bg-white/90 backdrop-blur-md shadow-sm border-b border-slate-100 py-3'
+            : 'bg-white/70 backdrop-blur-sm py-5'
       )}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -180,13 +182,13 @@ export const Header: React.FC<HeaderProps> = ({ categories }) => {
       {/* Mobile Nav Overlay & Container */}
       <div
         className={clsx(
-          'md:hidden fixed inset-0 z-[60] transition-all duration-300 ease-in-out',
+          'md:hidden fixed inset-0 z-[60] transition-opacity duration-300 ease-in-out',
           isMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
         )}
       >
         {/* Backdrop overlay */}
         <div
-          className="absolute inset-0 bg-slate-900/20 backdrop-blur-sm shadow-inner"
+          className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm shadow-inner"
           onClick={() => setIsMenuOpen(false)}
         />
 

@@ -1,12 +1,61 @@
 import React from 'react';
+import { Metadata } from 'next';
+import Link from 'next/link';
+import { LayoutGrid, ScrollText, ChevronRight } from 'lucide-react';
 import prisma from "@/lib/prisma";
 import { BlogCard } from "@/app/components/public/BlogCard";
 import { Sidebar } from "@/app/components/public/Sidebar";
-import Link from 'next/link';
-import { LayoutGrid, ScrollText, ChevronRight } from 'lucide-react';
+import { Pagination } from "@/app/components/public/Pagination";
 
-export default async function PostsPage() {
-  // Fetch all posts
+export async function generateMetadata(
+  { searchParams }: { searchParams: Promise<{ page?: string }> }
+): Promise<Metadata> {
+  const { page } = await searchParams;
+  const currentPage = parseInt(page || '1', 10);
+  const postsPerPage = 8;
+
+  const totalPosts = await prisma.post.count({ where: { published: true } });
+  const totalPages = Math.ceil(totalPosts / postsPerPage);
+
+  const title = `Kho bài viết - Trang ${currentPage} | ngoanxinhyeu`;
+  const description = 'Duyệt qua tất cả các bài viết về chủ đề chăm sóc mẹ và bé, nuôi dạy con thông minh và khỏe mạnh.';
+  const baseUrl = '/posts';
+  const canonicalUrl = `https://ngoanxinhyeu.app${baseUrl}${currentPage > 1 ? `?page=${currentPage}` : ''}`;
+
+  const otherMeta: any = {};
+  if (currentPage > 1) {
+    otherMeta['prev'] = `https://ngoanxinhyeu.app${baseUrl}?page=${currentPage - 1}`;
+  }
+  if (currentPage < totalPages) {
+    otherMeta['next'] = `https://ngoanxinhyeu.app${baseUrl}?page=${currentPage + 1}`;
+  }
+
+  return {
+    title,
+    description,
+    alternates: { canonical: canonicalUrl },
+    other: otherMeta,
+  };
+}
+
+export const revalidate = 3600;
+
+export default async function PostsPage({
+  searchParams
+}: {
+  searchParams: Promise<{ page?: string }>;
+}) {
+  const { page } = await searchParams;
+  const currentPage = parseInt(page || '1', 10);
+  const postsPerPage = 8;
+
+  // Fetch total count for pagination
+  const totalPosts = await prisma.post.count({
+    where: { published: true }
+  });
+  const totalPages = Math.ceil(totalPosts / postsPerPage);
+
+  // Fetch paginated posts
   const posts = await prisma.post.findMany({
     where: { published: true },
     include: {
@@ -16,6 +65,8 @@ export default async function PostsPage() {
       }
     },
     orderBy: { createdAt: 'desc' },
+    skip: (currentPage - 1) * postsPerPage,
+    take: postsPerPage,
   });
 
   const popularPosts = await prisma.post.findMany({
@@ -67,9 +118,9 @@ export default async function PostsPage() {
                </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
-              {posts.map((post) => (
-                <BlogCard key={post.id} post={post} />
+            <div className="flex flex-col gap-8">
+              {posts.map((post, index) => (
+                <BlogCard key={post.id} post={post} index={index} />
               ))}
             </div>
 
@@ -79,11 +130,20 @@ export default async function PostsPage() {
                     <h2 className="text-xl font-black text-slate-400 tracking-tight">Chưa có bài viết nào được xuất bản.</h2>
                 </div>
             )}
+
+            {/* Pagination */}
+            <Pagination 
+              currentPage={currentPage}
+              totalPages={totalPages}
+              baseUrl="/posts"
+            />
           </div>
 
           {/* Sidebar */}
           <div className="lg:w-96">
-            <Sidebar tags={tags} popularPosts={popularPosts} />
+            <div className="sticky top-24 self-start">
+              <Sidebar tags={tags} popularPosts={popularPosts} />
+            </div>
           </div>
         </div>
       </div>

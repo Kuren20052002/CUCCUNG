@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/auth';
 import prisma from '@/lib/prisma';
+import { revalidatePath } from 'next/cache';
 
 export async function POST(req: NextRequest) {
   try {
@@ -58,6 +59,13 @@ export async function POST(req: NextRequest) {
       }
     });
 
+    // Revalidate paths
+    revalidatePath('/');
+    revalidatePath('/posts');
+    if (post.category?.slug) {
+      revalidatePath(`/${post.category.slug}`);
+    }
+
     return NextResponse.json(post, { status: 201 });
   } catch (error: any) {
     console.error('CRITICAL: Error creating post:', error);
@@ -98,6 +106,7 @@ export async function PUT(req: NextRequest) {
     // Check if post exists
     const existingPost = await prisma.post.findUnique({
       where: { id },
+      include: { category: true }
     });
 
     if (!existingPost) {
@@ -133,6 +142,14 @@ export async function PUT(req: NextRequest) {
         category: true,
       }
     });
+
+    // Revalidate paths
+    revalidatePath('/');
+    revalidatePath('/posts');
+    if (post.category?.slug) {
+      revalidatePath(`/${post.category.slug}`);
+      revalidatePath(`/${post.category.slug}/${post.slug}`);
+    }
 
     return NextResponse.json(post);
   } catch (error: any) {

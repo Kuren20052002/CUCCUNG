@@ -6,6 +6,8 @@ import { BlogCard } from "@/app/components/public/BlogCard";
 import { Sidebar } from "@/app/components/public/Sidebar";
 import { ArrowRight, Sparkles, Zap, ShieldCheck } from "lucide-react";
 
+export const revalidate = 3600; // fallback revalidate every hour
+
 export default async function HomePage() {
   const posts = await prisma.post.findMany({
     where: { published: true },
@@ -16,7 +18,7 @@ export default async function HomePage() {
       }
     },
     orderBy: { createdAt: 'desc' },
-    take: 9
+    take: 5
   });
 
   const popularPosts = await prisma.post.findMany({
@@ -81,7 +83,7 @@ export default async function HomePage() {
               </div>
             </div>
 
-            <div className="relative group animate-fade-in" style={{ animationDelay: '0.2s' }}>
+            <div className="relative group">
               <div className="absolute inset-0 bg-gradient-to-tr from-emerald-500/20 to-secondary/10 rounded-[3rem] blur-3xl group-hover:scale-110 transition-transform duration-1000" />
               <div className="relative aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl border-8 border-white group-hover:rotate-1 transition-all duration-700">
                 <Image
@@ -121,9 +123,9 @@ export default async function HomePage() {
               </Link>
             </header>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
-              {posts.map((post) => (
-                <BlogCard key={post.id} post={post} />
+            <div className="flex flex-col gap-8">
+              {posts.map((post, index) => (
+                <BlogCard key={post.id} post={post} index={index} />
               ))}
             </div>
 

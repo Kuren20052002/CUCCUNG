@@ -11,9 +11,10 @@ interface PostWithRelations extends Post {
 
 interface BlogCardProps {
   post: PostWithRelations;
+  index?: number;
 }
 
-export const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
+export const BlogCard: React.FC<BlogCardProps> = ({ post, index = 0 }) => {
   const formatDate = (date: Date) => {
     return date.toLocaleDateString('vi-VN', {
       year: 'numeric',
@@ -22,63 +23,64 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
     });
   };
 
-  // Safe reading time fallback
-  const readingTime = post.readingTime || 5;
+  const delayClasses = [
+    '',
+    'delay-100',
+    'delay-200',
+    'delay-300',
+    'delay-300',
+  ];
+  const delayClass = delayClasses[Math.min(index, delayClasses.length - 1)];
 
   return (
-    <article className="group bg-white rounded-[2rem] border border-slate-100 overflow-hidden transition-all duration-500 hover:shadow-xl hover:-translate-y-1 flex flex-col h-full">
-      
-      {/* Tag & Image (Floating Overlay) */}
-      <div className="relative aspect-video overflow-hidden">
+    <article className={`group bg-white rounded-[2rem] border border-slate-200 overflow-hidden transition-all duration-500 shadow-sm hover:shadow-xl hover:-translate-y-1 flex flex-col sm:flex-row h-full animate-fade-in-up ${delayClass}`}>
+      {/* Image Section */}
+      <div className="relative w-full sm:w-[35%] lg:w-[30%] aspect-video sm:aspect-auto overflow-hidden">
         <Link href={`/${post.category?.slug || 'uncategorized'}/${post.slug}`} className="block h-full">
           <Image
             src={post.metaImage || '/placeholder-post.jpg'}
             alt={post.featuredImageAlt || post.title}
             fill
             className="object-cover transition-transform duration-700 group-hover:scale-105"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            sizes="(max-width: 640px) 100vw, 400px"
           />
         </Link>
-        {post.category && (
-           <div className="absolute bottom-4 left-4 z-10 pointer-events-none">
-              <span className="bg-emerald-600/90 text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-lg backdrop-blur-md shadow-lg flex items-center">
-                {post.category.name}
-              </span>
-           </div>
-        )}
       </div>
 
-      <div className="p-6 flex flex-col flex-1">
-        {/* Visual Hierarchy: Metadata Row above Title */}
-        <div className="flex items-center gap-2 text-xs text-slate-500 mb-3 font-medium">
-           <span className="text-slate-900">{post.author.name || 'Đội ngũ chuyên gia'}</span>
-           <span className="text-slate-400" aria-hidden="true">•</span>
-           <span>{formatDate(post.createdAt)}</span>
+      {/* Content Section */}
+      <div className="p-3 sm:p-5 flex flex-col flex-1 min-w-0 relative">
+        {post.category && (
+          <div className="mb-2.5">
+            <span className="text-[10px] font-black text-emerald-600 uppercase tracking-widest bg-emerald-50 py-1.5 rounded-lg border border-emerald-100">
+              {post.category.name}
+            </span>
+          </div>
+        )}
+        <div className="flex items-center gap-2 text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3">
+          <span className="text-slate-900">{post.author.name || 'Đội ngũ chuyên gia'}</span>
+          <span aria-hidden="true">•</span>
+          <span>{formatDate(post.createdAt)}</span>
         </div>
 
         <Link href={`/${post.category?.slug || 'uncategorized'}/${post.slug}`}>
-          <h2 className="text-xl font-bold text-slate-900 leading-snug mb-3 group-hover:text-emerald-600 transition-colors line-clamp-3 text-balance">
+          <h2 className="text-xl lg:text-2xl font-black text-slate-900 leading-tight mb-4 group-hover:text-emerald-600 transition-colors line-clamp-2 text-balance">
             {post.title}
           </h2>
         </Link>
-        
+
         <p className="text-slate-500 text-sm leading-relaxed line-clamp-2 mb-6 flex-grow">
           {post.metaDescription || post.excerpt || 'Kiến thức và kinh nghiệm thực tế về chăm sóc mẹ và bé từ ngoanxinhyeu.'}
         </p>
 
         {/* Footer Area */}
-        <div className="pt-5 border-t border-slate-100 flex items-center justify-between mt-auto">
-            <Link 
-              href={`/${post.category?.slug || 'uncategorized'}/${post.slug}`}
-              className="text-sm font-bold text-slate-900 hover:text-emerald-600 transition-colors flex items-center gap-2 group/btn"
-            >
-              Đọc bài viết 
-              <ArrowRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
-            </Link>
-            
-            <div className="text-xs text-slate-500 font-medium">
-              {readingTime} phút đọc
-            </div>
+        <div className="pt-6 border-t border-slate-50 flex items-center justify-between mt-auto">
+          <Link
+            href={`/${post.category?.slug || 'uncategorized'}/${post.slug}`}
+            className="text-xs font-black text-slate-900 hover:text-emerald-600 uppercase tracking-[0.2em] transition-colors flex items-center gap-2 group/btn"
+          >
+            Đọc tiếp
+            <ArrowRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
+          </Link>
         </div>
       </div>
     </article>
