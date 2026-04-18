@@ -241,9 +241,9 @@ export default async function ArticlePage(
                 <TableOfContents items={tocItems} />
                 <div
                   className={clsx(
-                    // 1. Change 'break-words' to 'break-all'
-                    // 2. Add 'prose-a:break-all' to specifically target links inside markdown
-                    'prose prose-sm lg:prose-base prose-emerald max-w-none break-all prose-a:break-all prose-img:rounded-[2rem] prose-img:shadow-xl prose-img:my-10 prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:bg-emerald-50 prose-blockquote:p-6 prose-blockquote:rounded-r-2xl prose-blockquote:text-emerald-900 prose-blockquote:not-italic prose-blockquote:font-bold prose-h2:text-xl lg:prose-h2:text-2xl prose-h2:font-black prose-h2:tracking-tight prose-h2:mb-4 prose-h2:scroll-mt-24 prose-h3:scroll-mt-24 prose-p:leading-[1.8] prose-strong:text-slate-900'
+                    // overflow-wrap:normal + word-break:keep-all → wraps only at whitespace/hyphens
+                    // prose-a:break-all → still allows long URLs to break so they don't overflow
+                    '[overflow-wrap:normal] [word-break:keep-all] prose prose-sm lg:prose-base prose-emerald max-w-none prose-a:break-all prose-img:rounded-[2rem] prose-img:shadow-xl prose-img:my-10 prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:bg-emerald-50 prose-blockquote:p-6 prose-blockquote:rounded-r-2xl prose-blockquote:text-emerald-900 prose-blockquote:not-italic prose-blockquote:font-bold prose-h2:text-xl lg:prose-h2:text-2xl prose-h2:font-black prose-h2:tracking-tight prose-h2:mb-4 prose-h2:scroll-mt-24 prose-h3:scroll-mt-24 prose-p:leading-[1.8] prose-strong:text-slate-900'
                   )}
                   dangerouslySetInnerHTML={{ __html: html }}
                 />

@@ -145,3 +145,23 @@ body {
   --tw-prose-links: #059669;
   --tw-prose-bold: #064e3b;
 }
+
+/* Prevent mid-syllable / mid-word breaks in all prose + body text.
+   Words wrap only at whitespace or hyphens.
+   Links inside prose keep break-all so long URLs don't overflow. */
+.prose,
+.prose p,
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose li,
+.prose blockquote {
+  overflow-wrap: normal;
+  word-break: keep-all;
+}
+
+.prose a {
+  overflow-wrap: break-word;
+  word-break: break-all;
+}
