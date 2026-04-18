@@ -298,7 +298,7 @@ export default async function ArticlePage(
           {/* Sidebar Area Desktop */}
           <div className="hidden lg:block lg:w-96">
             <div className="sticky top-24 self-start">
-              <Sidebar tags={tagsList} popularPosts={popularPosts} />
+              <Sidebar tags={tagsList} popularPosts={popularPosts as any} />
             </div>
           </div>
         </div>

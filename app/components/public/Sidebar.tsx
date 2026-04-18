@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { Search, TrendingUp, Tags, Mail, ArrowRight } from "lucide-react";
+import { SearchWidget } from "./SearchWidget";
 
 interface Tag {
   id: string;
@@ -19,9 +20,10 @@ interface PopularPost {
 interface SidebarProps {
   tags: Tag[];
   popularPosts: PopularPost[];
+  activeCategorySlug?: string;
 }
 
-export const Sidebar: React.FC<SidebarProps> = ({ tags, popularPosts }) => {
+export const Sidebar: React.FC<SidebarProps> = ({ tags, popularPosts, activeCategorySlug }) => {
   return (
     <aside className="space-y-12 h-fit pb-10">
       {/* Search Widget */}
@@ -30,16 +32,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ tags, popularPosts }) => {
           <Search className="w-4 h-4 text-primary" />
           Tìm kiếm bài viết
         </h3>
-        <form className="relative group">
-          <input
-            type="text"
-            placeholder="Bạn đang tìm gì..."
-            className="w-full bg-slate-50/50 border-2 border-slate-100 rounded-2xl px-6 py-4 text-sm font-semibold focus:outline-none focus:border-emerald-500 focus:bg-white transition-all placeholder:text-slate-400 text-slate-900 group-hover:border-slate-200"
-          />
-          <button type="submit" aria-label="Tìm kiếm bài viết" className="absolute right-4 top-1/2 -translate-y-1/2 p-2 bg-primary text-white rounded-xl shadow-lg active:scale-90 transition-transform">
-            <Search className="w-4 h-4" />
-          </button>
-        </form>
+        <SearchWidget categorySlug={activeCategorySlug} />
       </div>
 
       {/* Popular Posts Widget */}

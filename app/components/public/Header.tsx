@@ -79,14 +79,18 @@ export const Header: React.FC<HeaderProps> = ({ categories }) => {
 
             {/* Explore Dropdown */}
             <div className="relative group">
-              <button
-                className="flex items-center space-x-1.5 text-sm font-bold text-slate-600 group-hover:text-primary transition-all outline-none"
-                aria-label="Mở danh mục Cẩm nang"
-              >
-                <span>Cẩm nang</span>
-                <ChevronDown className="w-4 h-4 group-hover:rotate-180 transition-transform duration-300" />
-              </button>
-              <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-64 bg-white/95 backdrop-blur-xl rounded-[1.5rem] shadow-2xl shadow-slate-200/60 border border-slate-50 p-2.5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+              <div className="flex items-center space-x-1.5">
+                <Link
+                  href="/posts"
+                  className="text-sm font-bold text-slate-600 hover:text-primary transition-all outline-none"
+                >
+                  Cẩm nang
+                </Link>
+                <div className="cursor-pointer group-hover:text-primary transition-colors">
+                  <ChevronDown className="w-4 h-4 group-hover:rotate-180 transition-transform duration-300" />
+                </div>
+              </div>
+              <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-64 bg-white/95 backdrop-blur-xl rounded-[1.5rem] shadow-2xl shadow-slate-200/60 border border-slate-50 p-2.5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 text-left">
                 <div className="grid grid-cols-1 gap-1">
                   {categories.length > 0 ? (
                     categories.map((cat) => (
@@ -212,7 +216,9 @@ export const Header: React.FC<HeaderProps> = ({ categories }) => {
 
 
             <div className="space-y-4">
-              <h3 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest pl-2">Cẩm nang</h3>
+              <Link href="/posts" onClick={() => setIsMenuOpen(false)}>
+                <h3 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest pl-2 hover:text-primary transition-colors cursor-pointer">Cẩm nang</h3>
+              </Link>
               <div className="grid grid-cols-1 gap-1">
                 {categories.length > 0 ? (
                   categories.map((cat) => (

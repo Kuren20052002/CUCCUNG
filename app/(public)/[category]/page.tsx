@@ -192,7 +192,7 @@ export default async function CategoryPage({
           {/* Sidebar Area */}
           <div className="lg:w-96">
             <div className="sticky top-24 self-start">
-              <Sidebar tags={tags} popularPosts={popularPosts} />
+              <Sidebar tags={tags} popularPosts={popularPosts} activeCategorySlug={categorySlug} />
             </div>
           </div>
         </div>
