@@ -5,6 +5,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 :root {
@@ -129,6 +130,8 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  max-width: 100vw;
 }
 
 /* Override dark mode media queries if present or forced by system */
@@ -146,9 +149,7 @@ body {
   --tw-prose-bold: #064e3b;
 }
 
-/* Prevent mid-syllable / mid-word breaks in all prose + body text.
-   Words wrap only at whitespace or hyphens.
-   Links inside prose keep break-all so long URLs don't overflow. */
+/* Use standard break-word to prevent overflow */
 .prose,
 .prose p,
 .prose h1,
@@ -157,8 +158,8 @@ body {
 .prose h4,
 .prose li,
 .prose blockquote {
-  overflow-wrap: normal;
-  word-break: keep-all;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .prose a {

@@ -68,7 +68,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post, index = 0 }) => {
           </h2>
         </Link>
 
-        <p className="text-slate-500 text-sm leading-relaxed line-clamp-2 mb-6 flex-grow [overflow-wrap:normal] [word-break:keep-all]">
+        <p className="text-slate-500 text-sm leading-relaxed line-clamp-2 mb-6 flex-grow break-words">
           {post.metaDescription || post.excerpt || 'Kiến thức và kinh nghiệm thực tế về chăm sóc mẹ và bé từ ngoanxinhyeu.'}
         </p>
 

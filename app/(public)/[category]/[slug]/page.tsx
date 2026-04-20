@@ -6,7 +6,6 @@ import Script from 'next/script';
 import Link from 'next/link';
 import clsx from 'clsx';
 import { cache } from 'react';
-import { Sidebar } from "@/app/components/public/Sidebar";
 import { BlogCard } from "@/app/components/public/BlogCard";
 import { TableOfContents } from "@/app/components/public/TableOfContents";
 import { parseMarkdown, extractToc } from '@/lib/markdown';
@@ -132,7 +131,7 @@ export default async function ArticlePage(
   const showFeaturedImage = post.metaImage && !isImageInContent(post.content || '', post.metaImage);
 
   return (
-    <div className="pb-20 font-sans relative">
+    <div className="pb-20 font-sans relative overflow-x-hidden">
       {/* Scroll Progress Bar (Simplified client-side logic placeholder or pure CSS) */}
       <div className="fixed top-[72px] inset-x-0 h-1 bg-emerald-500/10 z-[60] origin-left scale-x-0" id="scroll-progress-bar" />
 
@@ -167,10 +166,8 @@ export default async function ArticlePage(
         }}
       />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 lg:pt-16">
-        <div className="flex flex-col lg:flex-row gap-16">
-          {/* Main Content Area */}
-          <article className="flex-1 min-w-0 space-y-12 animate-fade-in">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 lg:pt-16">
+        <article className="min-w-0 space-y-12 animate-fade-in w-full overflow-hidden">
             <header className="space-y-10">
               {/* Breadcrumbs */}
               <nav className="flex flex-wrap items-center gap-y-2 gap-x-2 text-[10px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-50 pb-6">
@@ -235,15 +232,14 @@ export default async function ArticlePage(
               </div>
             )} */}
 
-            <div className="flex flex-col lg:flex-row gap-12 relative">
+            <div className="relative w-full min-w-0">
               {/* Body Content */}
-              <div className="w-full max-w-[750px] mx-auto lg:mx-0 min-w-0 overflow-hidden">
+              <div className="w-full min-w-0">
                 <TableOfContents items={tocItems} />
                 <div
                   className={clsx(
-                    // overflow-wrap:normal + word-break:keep-all → wraps only at whitespace/hyphens
-                    // prose-a:break-all → still allows long URLs to break so they don't overflow
-                    '[overflow-wrap:normal] [word-break:keep-all] prose prose-sm lg:prose-base prose-emerald max-w-none prose-a:break-all prose-img:rounded-[2rem] prose-img:shadow-xl prose-img:my-10 prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:bg-emerald-50 prose-blockquote:p-6 prose-blockquote:rounded-r-2xl prose-blockquote:text-emerald-900 prose-blockquote:not-italic prose-blockquote:font-bold prose-h2:text-xl lg:prose-h2:text-2xl prose-h2:font-black prose-h2:tracking-tight prose-h2:mb-4 prose-h2:scroll-mt-24 prose-h3:scroll-mt-24 prose-p:leading-[1.8] prose-strong:text-slate-900'
+                    // break-words allows URLs and long words to wrap securely
+                    'break-words prose prose-sm lg:prose-base prose-emerald max-w-none prose-a:break-all prose-img:rounded-[2rem] prose-img:shadow-xl prose-img:my-10 prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:bg-emerald-50 prose-blockquote:p-6 prose-blockquote:rounded-r-2xl prose-blockquote:text-emerald-900 prose-blockquote:not-italic prose-blockquote:font-bold prose-h2:text-xl lg:prose-h2:text-2xl prose-h2:font-black prose-h2:tracking-tight prose-h2:mb-4 prose-h2:scroll-mt-24 prose-h3:scroll-mt-24 prose-p:leading-[1.8] prose-strong:text-slate-900'
                   )}
                   dangerouslySetInnerHTML={{ __html: html }}
                 />
@@ -294,14 +290,6 @@ export default async function ArticlePage(
               </div>
             </div>
           </article>
-
-          {/* Sidebar Area Desktop */}
-          <div className="hidden lg:block lg:w-96">
-            <div className="sticky top-24 self-start">
-              <Sidebar tags={tagsList} popularPosts={popularPosts as any} />
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );

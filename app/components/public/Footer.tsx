@@ -22,7 +22,7 @@ export const Footer: React.FC = () => {
               </span>
             </Link>
             <p className="text-slate-400 text-sm leading-relaxed max-w-sm">
-              ngoanxinhyeu.app là blog chuyên về kiến thức thai kỳ, nuôi dạy con cái và đánh giá đồ dùng cho mẹ & bé uy tín số 1 Việt Nam. Đồng hành cùng hàng triệu mẹ bỉm sữa chăm sóc thế hệ tương lai.
+              ngoanxinhyeu.app là blog chuyên về kiến thức thai kỳ, nuôi dạy con cái và đánh giá đồ dùng cho mẹ & bé. Đồng hành cùng mẹ bỉm sữa chăm sóc thế hệ tương lai.
             </p>
             <div className="flex items-center space-x-4 pt-2">
               <a href="#" aria-label="Theo dõi ngoanxinhyeu trên Facebook" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-primary hover:text-white transition-all transform hover:-translate-y-1 shadow-lg active:scale-95">
