@@ -16,7 +16,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const posts = await prisma.post.findMany({
     where: {
       published: true,
-      isIndexed: true,
     },
     select: {
       slug: true,
@@ -37,7 +36,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
-  // Post URLs
+// Post URLs
   const postUrls = posts
     .filter((post) => post.category?.slug) // Ensure it has a category slug
     .map((post) => ({
@@ -55,7 +54,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'daily' as const,
       priority: 1.0,
     },
+    {
+      url: `${baseUrl}/posts`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.9,
+    },
   ];
 
   return [...staticPages, ...categoryUrls, ...postUrls];
 }
+
+export const revalidate = 3600;

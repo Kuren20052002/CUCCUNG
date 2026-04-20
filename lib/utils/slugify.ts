@@ -5,7 +5,7 @@
 export function slugify(text: string): string {
   const from = "áàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵđÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴĐ";
   const to = "aaaaaaaaaaaaaaaaaeeeeeeeeeeeiiiiiooooooooooooooooouuuuuuuuuuuyyyyydAAAAAAAAAAAAAAAAAEEEEEEEEEEEIIIIIOOOOOOOOOOOOOOOOOUUUUUUUUUUUYYYYYD";
-  
+
   let result = text.split('').map((char, index) => {
     const fromIndex = from.indexOf(char);
     return fromIndex !== -1 ? to[fromIndex] : char;
@@ -18,3 +18,4 @@ export function slugify(text: string): string {
     .replace(/[\s_-]+/g, '-') // Replace spaces and underscores/hyphens with a single hyphen
     .replace(/^-+|-+$/g, ''); // Remove leading/trailing hyphens
 }
+

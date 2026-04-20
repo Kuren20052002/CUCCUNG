@@ -90,9 +90,19 @@ model Post {
 
   tags            Tag[]    // Implicit many-to-many relation with Tag
   comments        Comment[]
+  slugHistory     SlugHistory[]
 
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
+}
+
+model SlugHistory {
+  id        String   @id @default(uuid())
+  postId    String
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  oldSlug   String   @unique
+
+  createdAt DateTime @default(now())
 }
 
 model Comment {

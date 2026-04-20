@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/auth';
 import prisma from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
+import { slugify } from '@/lib/utils/slugify';
+import { generateUniqueSlug } from '@/lib/utils/slugify-server';
 
 export async function POST(req: NextRequest) {
   try {
@@ -14,7 +16,7 @@ export async function POST(req: NextRequest) {
     const data = await req.json();
     const { 
       title, 
-      slug, 
+      slug: initialSlug, 
       content, 
       metaTitle, 
       metaDescription, 
@@ -26,18 +28,22 @@ export async function POST(req: NextRequest) {
     } = data;
 
     // Validate required fields
-    if (!title || !slug || !content || !metaTitle || !metaDescription || !categoryId) {
+    if (!title || !content || !metaTitle || !metaDescription || !categoryId) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
-    // Check if slug is unique
-    const existingPost = await prisma.post.findUnique({
-      where: { slug },
-    });
-
-    if (existingPost) {
-      return NextResponse.json({ error: 'Slug already exists' }, { status: 400 });
+    let baseSlug = initialSlug ? slugify(initialSlug) : slugify(title);
+    if (!baseSlug) {
+      return NextResponse.json({ error: 'Invalid slug or title' }, { status: 400 });
     }
+    
+    // Check if regex matches
+    if (!/^[a-z0-9-]+$/.test(baseSlug)) {
+        return NextResponse.json({ error: 'Invalid slug format' }, { status: 400 });
+    }
+
+    // Check if slug is unique and append -1, -2, etc. if not
+    const slug = await generateUniqueSlug(baseSlug);
 
     // Create post
     const post = await prisma.post.create({
@@ -88,7 +94,7 @@ export async function PUT(req: NextRequest) {
     const { 
       id,
       title, 
-      slug, 
+      slug: initialSlug, 
       content, 
       metaTitle, 
       metaDescription, 
@@ -113,14 +119,22 @@ export async function PUT(req: NextRequest) {
       return NextResponse.json({ error: 'Post not found' }, { status: 404 });
     }
 
-    // Check slug uniqueness if changed
-    if (slug !== existingPost.slug) {
-      const slugPost = await prisma.post.findUnique({
-        where: { slug },
-      });
-      if (slugPost) {
-        return NextResponse.json({ error: 'Slug already exists' }, { status: 400 });
-      }
+    let finalSlug = existingPost.slug;
+
+    // Lock after publish: if post.published = true -> prevent slug update
+    if (!existingPost.published && initialSlug && initialSlug !== existingPost.slug) {
+        let baseSlug = slugify(initialSlug);
+        
+        if (!/^[a-z0-9-]+$/.test(baseSlug)) {
+            return NextResponse.json({ error: 'Invalid slug format' }, { status: 400 });
+        }
+        
+        finalSlug = await generateUniqueSlug(baseSlug, existingPost.id);
+    } else if (!existingPost.published && !initialSlug && title !== existingPost.title) {
+        let baseSlug = slugify(title);
+        if (/^[a-z0-9-]+$/.test(baseSlug)) {
+            finalSlug = await generateUniqueSlug(baseSlug, existingPost.id);
+        }
     }
 
     // Update post
@@ -128,7 +142,7 @@ export async function PUT(req: NextRequest) {
       where: { id },
       data: {
         title,
-        slug,
+        slug: finalSlug,
         content,
         metaTitle,
         metaDescription,
@@ -137,6 +151,13 @@ export async function PUT(req: NextRequest) {
         images,
         published: published !== undefined ? published : existingPost.published,
         categoryId,
+        ...(finalSlug !== existingPost.slug && {
+          slugHistory: {
+            create: {
+              oldSlug: existingPost.slug
+            }
+          }
+        }),
       },
       include: {
         category: true,

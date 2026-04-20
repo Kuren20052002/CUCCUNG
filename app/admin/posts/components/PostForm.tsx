@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
-import { Save, Send, AlertTriangle, ChevronLeft } from 'lucide-react';
+import { Save, Send, AlertTriangle, ChevronLeft, Edit2, Lock } from 'lucide-react';
 import Link from 'next/link';
 
 import { slugify } from '@/lib/utils/slugify';
@@ -40,12 +40,14 @@ export const PostForm: React.FC<PostFormProps> = ({ initialData, categories }) =
     published: initialData?.published || false,
   });
 
+  const [isManualSlug, setIsManualSlug] = useState(!!initialData?.slug);
+
   // Auto-generate slug from title
   useEffect(() => {
-    if (formData.title) {
+    if (formData.title && !isManualSlug) {
       setFormData(prev => ({ ...prev, slug: slugify(formData.title) }));
     }
-  }, [formData.title]);
+  }, [formData.title, isManualSlug]);
 
   // SEO Heading Checks
   const h2Count = (formData.content.match(/^##\s/gm) || []).length;
@@ -169,9 +171,32 @@ export const PostForm: React.FC<PostFormProps> = ({ initialData, categories }) =
                 <input
                   type="text"
                   value={formData.slug}
-                  readOnly
-                  className="flex-1 bg-slate-100/50 border border-slate-100 rounded-lg px-3 py-1.5 text-xs font-mono focus:outline-none transition-all text-emerald-800 cursor-not-allowed select-none"
+                  onChange={(e) => isManualSlug && setFormData(prev => ({ ...prev, slug: e.target.value.toLowerCase().replace(/\\s+/g, '-') }))}
+                  readOnly={!isManualSlug || initialData?.published}
+                  className={`flex-1 border rounded-lg px-3 py-1.5 text-xs font-mono focus:outline-none transition-all ${
+                    !isManualSlug || initialData?.published 
+                      ? "bg-slate-100/50 border-slate-100 text-emerald-800 cursor-not-allowed select-none" 
+                      : "bg-white border-emerald-200 text-emerald-600 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/20 shadow-sm"
+                  }`}
                 />
+                {!initialData?.published ? (
+                  <button
+                    type="button"
+                    onClick={() => setIsManualSlug(!isManualSlug)}
+                    className={`p-1.5 rounded-lg border transition-all ${
+                      isManualSlug 
+                        ? "bg-emerald-50 border-emerald-200 text-emerald-600 shadow-inner" 
+                        : "bg-white border-slate-200 text-slate-400 hover:text-emerald-500 hover:border-emerald-200"
+                    }`}
+                    title={isManualSlug ? "Switch to Auto-generate" : "Edit URL manually"}
+                  >
+                    <Edit2 className="w-3.5 h-3.5" />
+                  </button>
+                ) : (
+                  <div className="p-1.5 text-slate-400 bg-slate-50 border border-slate-100 rounded-lg cursor-not-allowed" title="URL is locked for published posts">
+                    <Lock className="w-3.5 h-3.5" />
+                  </div>
+                )}
               </div>
             </div>
           </div>
