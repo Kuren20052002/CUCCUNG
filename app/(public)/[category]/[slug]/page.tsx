@@ -8,6 +8,9 @@ import clsx from 'clsx';
 import { cache } from 'react';
 import { BlogCard } from "@/app/components/public/BlogCard";
 import { TableOfContents } from "@/app/components/public/TableOfContents";
+import ProgressBar from '@/app/components/public/ProgressBar';
+import MobileToc from '@/app/components/public/MobileToc';
+import AuthorCard from '@/app/components/public/AuthorCard';
 import { parseMarkdown, extractToc } from '@/lib/markdown';
 import { Calendar, User, Clock, Share2, MessageSquare, Folders, ChevronRight, Zap } from 'lucide-react';
 
@@ -132,6 +135,7 @@ export default async function ArticlePage(
 
   return (
     <div className="pb-20 font-sans relative overflow-x-hidden">
+      <ProgressBar />
       {/* Scroll Progress Bar (Simplified client-side logic placeholder or pure CSS) */}
       <div className="fixed top-[72px] inset-x-0 h-1 bg-emerald-500/10 z-[60] origin-left scale-x-0" id="scroll-progress-bar" />
 
@@ -166,14 +170,15 @@ export default async function ArticlePage(
         }}
       />
 
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 lg:pt-16">
-        <article className="min-w-0 space-y-12 animate-fade-in w-full overflow-hidden">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 lg:pt-16">
+        <div className="bg-white rounded-2xl shadow-sm p-8">
+          <article className="min-w-0 space-y-12 animate-fade-in w-full overflow-hidden">
             <header className="space-y-10">
               {/* Breadcrumbs */}
               <nav className="flex flex-wrap items-center gap-y-2 gap-x-2 text-[10px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-50 pb-6">
-                <Link href="/" className="hover:text-emerald-600 transition-colors shrink-0">TRANG CHỦ</Link>
+                <Link href="/" className="hover:text-emerald-600 transition-colors shrink-0 whitespace-nowrap overflow-hidden truncate">TRANG CHỦ</Link>
                 <ChevronRight className="w-3 h-3 text-emerald-300 shrink-0" />
-                <Link href={`/${post.category.slug}`} className="hover:text-emerald-600 transition-colors shrink-0 max-w-[100px] truncate">{post.category.name}</Link>
+                <Link href={`/${post.category.slug}`} className="hover:text-emerald-600 transition-colors shrink-0 max-w-[100px] truncate whitespace-nowrap overflow-hidden">{post.category.name}</Link>
                 <ChevronRight className="w-3 h-3 text-emerald-300 shrink-0" />
                 <span className="text-emerald-600 truncate min-w-0 max-w-[140px] sm:max-w-xs">
                   {post.title}
@@ -244,7 +249,7 @@ export default async function ArticlePage(
                   dangerouslySetInnerHTML={{ __html: html }}
                 />
                 {/* Post Footer/Tags */}
-                <div className="mt-20 pt-10 border-t border-slate-100 space-y-10">
+                <div className=" border-t border-slate-100 space-y-10">
                   <div className="flex items-center gap-4">
                     <div className="flex flex-wrap gap-2">
                       {post.tags.map(tag => (
@@ -256,26 +261,12 @@ export default async function ArticlePage(
                   </div>
 
                   {/* Author Bio Box */}
-                  {/* <div className="bg-slate-50 p-10 rounded-[3rem] border border-slate-100 relative group overflow-hidden">
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 rounded-full blur-2xl -mr-16 -mt-16 transition-transform group-hover:scale-150 duration-700" />
-                    <div className="flex flex-col md:flex-row items-center gap-8 relative z-10">
-                      <div className="w-24 h-24 rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white transform group-hover:rotate-6 transition-transform">
-                        <Image src={post.author.avatar || ''} alt={post.author.name || ''} width={96} height={96} />
-                      </div>
-                      <div className="flex-1 space-y-3 text-center md:text-left">
-                        <h4 className="text-sm font-black text-slate-800 uppercase tracking-widest">Được kiểm chứng bởi</h4>
-                        <h3 className="text-xl font-black text-slate-900">{post.author.name}</h3>
-                        <p className="text-sm text-slate-500 leading-relaxed font-medium">
-                          {post.author.bio || 'Chuyên gia tư vấn về chăm sóc mẹ và bé tại ngoanxinhyeu.app, nỗ lực mang lại kiến thức đúng đắn và an tâm cho gia đình bạn.'}
-                        </p>
-                      </div>
-                    </div>
-                  </div> */}
+                  <AuthorCard author={post.author} />
                 </div>
 
                 {/* Related Posts Row */}
                 <section className="mt-8 space-y-12">
-                  <div className="flex flex-col gap-3 border-b border-slate-100 pb-8">
+                  <div className="flex flex-col gap-3 border-b border-slate-100">
                     <h2 className="text-lg sm:text-xl lg:text-2xl font-black text-slate-900 tracking-tight">Xem thêm cùng chủ đề<span className="text-primary">.</span></h2>
                     <Link href={`/${post.category.slug}`} className="text-[10px] font-black text-primary uppercase tracking-widest flex items-center gap-1.5 group w-fit">
                       Tất cả <span className="truncate max-w-[160px]">{post.category.name}</span> <ChevronRight className="w-3.5 h-3.5 shrink-0 transform group-hover:translate-x-1" />
@@ -290,6 +281,8 @@ export default async function ArticlePage(
               </div>
             </div>
           </article>
+          <MobileToc items={tocItems} />
+        </div>
       </div>
     </div>
   );

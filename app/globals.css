@@ -11,7 +11,7 @@ html {
 :root {
   --background: #fcfdfd;
   /* Off-white with a hint of emerald */
-  --foreground: #022c22;
+  --foreground: #000000;
   /* Very dark emerald */
 
   --primary: #059669;
@@ -78,13 +78,31 @@ html {
   }
 
   @keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-5px); }
-    75% { transform: translateX(5px); }
+
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+
+    25% {
+      transform: translateX(-5px);
+    }
+
+    75% {
+      transform: translateX(5px);
+    }
   }
+
   @keyframes bounce-slow {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-15px); }
+
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+
+    50% {
+      transform: translateY(-15px);
+    }
   }
 
   @keyframes fade-in-up {
@@ -92,6 +110,7 @@ html {
       opacity: 0;
       transform: translateY(20px);
     }
+
     to {
       opacity: 1;
       transform: translateY(0);
@@ -104,10 +123,21 @@ html {
   --animate-fade-in-up: fade-in-up 0.6s ease-out forwards;
 }
 
-@utility delay-100 { animation-delay: 100ms; }
-@utility delay-200 { animation-delay: 200ms; }
-@utility delay-300 { animation-delay: 300ms; }
-@utility delay-500 { animation-delay: 500ms; }
+@utility delay-100 {
+  animation-delay: 100ms;
+}
+
+@utility delay-200 {
+  animation-delay: 200ms;
+}
+
+@utility delay-300 {
+  animation-delay: 300ms;
+}
+
+@utility delay-500 {
+  animation-delay: 500ms;
+}
 
 @utility animation-delay-2000 {
   animation-delay: 2000ms;
@@ -115,6 +145,7 @@ html {
 
 @utility no-scrollbar {
   scrollbar-width: none;
+
   &::-webkit-scrollbar {
     display: none;
   }
@@ -143,10 +174,24 @@ body {
 }
 
 .prose {
-  --tw-prose-headings: #064e3b;
-  --tw-prose-body: #065f46;
-  --tw-prose-links: #059669;
-  --tw-prose-bold: #064e3b;
+  --tw-prose-headings: #000000;
+  --tw-prose-body: #000000;
+  --tw-prose-links: #000000;
+  --tw-prose-bold: #000000;
+}
+
+/* Magazine-style prose adjustments */
+.prose {
+  line-height: 1.8;
+  /* leading-relaxed */
+}
+
+.prose h2,
+.prose h3 {
+  margin-top: 3rem;
+  /* mt-12 */
+  margin-bottom: 1.5rem;
+  /* mb-6 */
 }
 
 /* Use standard break-word to prevent overflow */
