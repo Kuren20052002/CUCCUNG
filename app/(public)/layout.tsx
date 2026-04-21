@@ -30,7 +30,7 @@ export default async function PublicLayout({
         {children}
       </main>
 
-      <Footer />
+      <Footer categories={categories} />
     </div>
   );
 }

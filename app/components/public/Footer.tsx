@@ -2,7 +2,11 @@ import React from 'react';
 import Link from 'next/link';
 import { Mail, Heart, ArrowRight, Share2, Globe, MessageCircle } from 'lucide-react';
 
-export const Footer: React.FC = () => {
+interface FooterProps {
+  categories: { name: string; slug: string }[];
+}
+
+export const Footer: React.FC<FooterProps> = ({ categories }) => {
   return (
     <footer className="bg-slate-900 pt-20 pb-10 overflow-hidden relative">
       {/* Subtle Glow effects */}
@@ -41,11 +45,11 @@ export const Footer: React.FC = () => {
           <div className="lg:col-span-2 space-y-6">
             <h3 className="text-xs font-black text-white uppercase tracking-widest border-b border-slate-800 pb-4 inline-block">Khám phá</h3>
             <ul className="space-y-4">
-              {['Thai kỳ & Sinh con', 'Chăm sóc bé sơ sinh', 'Dinh dưỡng & Ăn dặm', 'Review & Đồ dùng'].map((item) => (
-                <li key={item}>
-                  <Link href="#" className="text-slate-400 text-sm font-medium hover:text-primary transition-colors flex items-center group">
+              {categories.slice(0, 4).map((cat) => (
+                <li key={cat.slug}>
+                  <Link href={`/${cat.slug}`} className="text-slate-400 text-sm font-medium hover:text-primary transition-colors flex items-center group">
                     <span className="w-1.5 h-1.5 bg-emerald-500/20 rounded-full mr-2 group-hover:w-3 transition-all" />
-                    {item}
+                    {cat.name}
                   </Link>
                 </li>
               ))}
@@ -56,11 +60,16 @@ export const Footer: React.FC = () => {
           <div className="lg:col-span-2 space-y-6">
             <h3 className="text-xs font-black text-white uppercase tracking-widest border-b border-slate-800 pb-4 inline-block">Về chúng tôi</h3>
             <ul className="space-y-4">
-              {['Về ngoanxinhyeu', 'Liên hệ Quảng cáo', 'Chính sách bảo mật', 'Điều khoản sử dụng'].map((item) => (
-                <li key={item}>
-                  <Link href="#" className="text-slate-400 text-sm font-medium hover:text-primary transition-colors flex items-center group">
+              {[
+                { name: 'Về ngoanxinhyeu', href: '/about' },
+                { name: 'Liên hệ Quảng cáo', href: '/contact' },
+                { name: 'Chính sách bảo mật', href: '/privacy' },
+                { name: 'Điều khoản sử dụng', href: '/terms' }
+              ].map((item) => (
+                <li key={item.name}>
+                  <Link href={item.href} className="text-slate-400 text-sm font-medium hover:text-primary transition-colors flex items-center group">
                     <span className="w-1.5 h-1.5 bg-secondary/30 rounded-full mr-2 group-hover:scale-150 transition-all" />
-                    {item}
+                    {item.name}
                   </Link>
                 </li>
               ))}
@@ -97,9 +106,9 @@ export const Footer: React.FC = () => {
             Là dự án phát triển với mục đích học tập và trải nghiệm người dùng <Heart className="w-3 h-3 inline pb-0.5 text-rose-500 fill-rose-500" />
           </p>
           <div className="flex items-center space-x-6 text-slate-500 text-[10px] font-black uppercase tracking-widest">
-            <Link href="#" className="hover:text-primary transition-colors">Sitemap</Link>
-            <Link href="#" className="hover:text-primary transition-colors">RSS Feed</Link>
-            <Link href="#" className="hover:text-primary transition-colors">Authors</Link>
+            <Link href="/sitemap.xml" className="hover:text-primary transition-colors">Sitemap</Link>
+            <Link href="/rss.xml" className="hover:text-primary transition-colors">RSS Feed</Link>
+            <Link href="/authors" className="hover:text-primary transition-colors">Authors</Link>
           </div>
         </div>
       </div>

@@ -109,6 +109,21 @@ export const Header: React.FC<HeaderProps> = ({ categories }) => {
                 </div>
               </div>
             </div>
+            {/* About us link */}
+            <Link
+              href="/about"
+              className="text-sm font-bold text-slate-600 hover:text-primary transition-colors"
+            >
+              Về chúng tôi
+            </Link>
+
+            {/* Contact link */}
+            <Link
+              href="/contact"
+              className="text-sm font-bold text-slate-600 hover:text-primary transition-colors"
+            >
+              Liên hệ
+            </Link>
           </nav>
 
           {/* Right CTA */}
@@ -126,12 +141,12 @@ export const Header: React.FC<HeaderProps> = ({ categories }) => {
                         <span>Quản trị</span>
                       </Link>
                     )}
-                    <button
+                    {/* <button
                       className="p-2 text-slate-500 hover:text-primary hover:bg-slate-50 rounded-full transition-all mr-1"
                       aria-label="Thông báo"
                     >
                       <Bell className="w-5 h-5" />
-                    </button>
+                    </button> */}
 
                     <button
                       onClick={() => signOut()}
@@ -220,6 +235,20 @@ export const Header: React.FC<HeaderProps> = ({ categories }) => {
                 <h3 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest pl-2 hover:text-primary transition-colors cursor-pointer">Cẩm nang</h3>
               </Link>
               <div className="grid grid-cols-1 gap-1">
+                <Link
+                  href="/about"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="block px-4 py-3 text-lg font-bold text-slate-600 hover:bg-emerald-50 hover:text-primary rounded-2xl transition-all"
+                >
+                  Về chúng tôi
+                </Link>
+                <Link
+                  href="/contact"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="block px-4 py-3 text-lg font-bold text-slate-600 hover:bg-emerald-50 hover:text-primary rounded-2xl transition-all"
+                >
+                  Liên hệ
+                </Link>
                 {categories.length > 0 ? (
                   categories.map((cat) => (
                     <Link
