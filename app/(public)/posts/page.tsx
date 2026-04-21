@@ -141,9 +141,7 @@ export default async function PostsPage({
 
           {/* Sidebar */}
           <div className="lg:w-96">
-            <div className="sticky top-24 self-start">
-              <Sidebar tags={tags} popularPosts={popularPosts} />
-            </div>
+            <Sidebar tags={tags} popularPosts={popularPosts} />
           </div>
         </div>
       </div>
