@@ -1,4 +1,4 @@
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import { Metadata } from 'next';
 import prisma from '@/lib/prisma';
 import Image from 'next/image';
@@ -57,7 +57,8 @@ export async function generateMetadata(
 
   const title = post.metaTitle || post.title;
   const description = post.metaDescription || post.excerpt || undefined;
-  const canonicalUrl = post.canonicalUrl || `https://ngoanxinhyeu.app/${category}/${slug}`;
+  const postCategorySlug = post.category?.slug || 'post';
+  const canonicalUrl = post.canonicalUrl || `https://ngoanxinhyeu.app/${postCategorySlug}/${slug}`;
 
   return {
     title,
@@ -92,10 +93,16 @@ export async function generateMetadata(
 export default async function ArticlePage(
   { params }: { params: Promise<{ category: string; slug: string }> }
 ) {
-  const { slug } = await params;
+  const { slug, category } = await params;
   const post = await getPost(slug);
 
   if (!post || !post.category || !post.author) return notFound();
+
+  // SEO: Enforce canonical URL structure. 
+  // If the category in the URL doesn't match the post's actual category, redirect to the correct one.
+  if (post.category.slug !== category) {
+    redirect(`/${post.category.slug}/${post.slug}`);
+  }
 
   // Related posts (Silo content filter)
   const relatedPosts = await prisma.post.findMany({
