@@ -170,8 +170,8 @@ export default async function ArticlePage(
         }}
       />
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 lg:pt-16">
-        <div className="bg-white rounded-2xl shadow-sm p-8">
+      <div className="max-w-[1080px] mx-auto px-4 sm:px-6 lg:px-8 pt-8 lg:pt-16">
+        <div className="max-w-[900px] mx-auto bg-white rounded-3xl shadow-sm md:p-10 p-6">
           <article className="min-w-0 space-y-12 animate-fade-in w-full overflow-visible">
             <header className="space-y-10">
               {/* Breadcrumbs */}
@@ -238,53 +238,47 @@ export default async function ArticlePage(
             )} */}
 
             <div className="relative w-full min-w-0">
-              {/* Body Content with sticky TOC on desktop */}
-              <div className="lg:grid lg:grid-cols-[1fr_300px] lg:gap-10">
-                <div>
-                  <div
-                    className={clsx(
-                      // break-words allows URLs and long words to wrap securely
-                      'break-words prose prose-sm lg:prose-base prose-emerald max-w-none prose-a:break-all prose-img:rounded-[2rem] prose-img:shadow-xl prose-img:my-10 prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:bg-emerald-50 prose-blockquote:p-6 prose-blockquote:rounded-r-2xl prose-blockquote:text-emerald-900 prose-blockquote:not-italic prose-blockquote:font-bold prose-h2:text-xl lg:prose-h2:text-2xl prose-h2:font-black prose-h2:tracking-tight prose-h2:mb-4 prose-h2:scroll-mt-24 prose-h3:scroll-mt-24 prose-p:leading-[1.8] prose-strong:text-slate-900'
-                    )}
-                    dangerouslySetInnerHTML={{ __html: html }}
-                  />
+              <div className="mb-12">
+                <TableOfContents items={tocItems} />
+              </div>
+              <div
+                className={clsx(
+                  // break-words allows URLs and long words to wrap securely
+                  'break-words prose prose-sm lg:prose-base prose-emerald max-w-none prose-a:break-all prose-img:rounded-[2rem] prose-img:shadow-xl prose-img:my-10 prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:bg-emerald-50 prose-blockquote:p-6 prose-blockquote:rounded-r-2xl prose-blockquote:text-emerald-900 prose-blockquote:not-italic prose-blockquote:font-bold prose-h2:text-xl lg:prose-h2:text-2xl prose-h2:font-black prose-h2:tracking-tight prose-h2:mb-4 prose-h2:scroll-mt-24 prose-h3:scroll-mt-24 prose-p:leading-[1.8] prose-strong:text-slate-900'
+                )}
+                dangerouslySetInnerHTML={{ __html: html }}
+              />
 
-                  {/* Post Footer/Tags */}
-                  <div className="border-t border-slate-100 space-y-10 ">
-                    <div className="flex items-center gap-4">
-                      <div className="flex flex-wrap gap-2">
-                        {post.tags.map(tag => (
-                          <Link key={tag.id} href={`/tag/${tag.slug}`} className="px-4 py-1.5 bg-slate-50 text-[10px] font-bold text-slate-500 rounded-lg hover:bg-emerald-500 hover:text-white transition-all">
-                            #{tag.name}
-                          </Link>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Author Bio Box */}
-                    <AuthorCard author={post.author} />
-                  </div>
-
-                  {/* Related Posts Row */}
-                  <section className="mt-8 space-y-12">
-                    <div className="flex flex-col gap-3 border-b border-slate-100 pb-8">
-                      <h2 className="text-lg sm:text-xl lg:text-2xl font-black text-slate-900 tracking-tight">Xem thêm cùng chủ đề<span className="text-primary">.</span></h2>
-                      <Link href={`/${post.category.slug}`} className="text-[10px] font-black text-primary uppercase tracking-widest flex items-center gap-1.5 group w-fit">
-                        Tất cả <span className="truncate max-w-[160px]">{post.category.name}</span> <ChevronRight className="w-3.5 h-3.5 shrink-0 transform group-hover:translate-x-1" />
+              {/* Post Footer/Tags */}
+              <div className="border-t border-slate-100 space-y-10 ">
+                <div className="flex items-center gap-4">
+                  <div className="flex flex-wrap gap-2">
+                    {post.tags.map(tag => (
+                      <Link key={tag.id} href={`/tag/${tag.slug}`} className="px-4 py-1.5 bg-slate-50 text-[10px] font-bold text-slate-500 rounded-lg hover:bg-emerald-500 hover:text-white transition-all">
+                        #{tag.name}
                       </Link>
-                    </div>
-                    <div className="flex flex-col gap-6">
-                      {relatedPosts.map((rp, index) => (
-                        <BlogCard key={rp.id} post={rp as any} index={index} />
-                      ))}
-                    </div>
-                  </section>
+                    ))}
+                  </div>
                 </div>
 
-                <aside className="hidden lg:block sticky top-24 self-start">
-                  <TableOfContents items={tocItems} />
-                </aside>
+                {/* Author Bio Box */}
+                {/* <AuthorCard author={post.author} /> */}
               </div>
+
+              {/* Related Posts Row */}
+              <section className="mt-8 space-y-12">
+                <div className="flex flex-col gap-3 border-b border-slate-100 pb-8">
+                  <h2 className="text-lg sm:text-xl lg:text-2xl font-black text-slate-900 tracking-tight">Xem thêm cùng chủ đề<span className="text-primary">.</span></h2>
+                  <Link href={`/${post.category.slug}`} className="text-[10px] font-black text-primary uppercase tracking-widest flex items-center gap-1.5 group w-fit">
+                    Tất cả <span className="truncate max-w-[160px]">{post.category.name}</span> <ChevronRight className="w-3.5 h-3.5 shrink-0 transform group-hover:translate-x-1" />
+                  </Link>
+                </div>
+                <div className="flex flex-col gap-6">
+                  {relatedPosts.map((rp, index) => (
+                    <BlogCard key={rp.id} post={rp as any} index={index} />
+                  ))}
+                </div>
+              </section>
             </div>
           </article>
           <MobileToc items={tocItems} />

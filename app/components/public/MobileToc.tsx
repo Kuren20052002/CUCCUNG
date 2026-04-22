@@ -15,7 +15,7 @@ export function MobileToc({ items }: { items: TocItem[] }) {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="fixed right-4 bottom-6 z-[70] bg-emerald-600 text-white p-3 rounded-2xl shadow-lg flex items-center gap-2 md:hidden"
+        className="fixed right-4 bottom-6 z-[70] bg-emerald-600 text-white p-3 rounded-2xl shadow-lg flex items-center gap-2 lg:hidden"
         aria-label="Mục lục"
       >
         <List className="w-4 h-4" />
@@ -23,7 +23,7 @@ export function MobileToc({ items }: { items: TocItem[] }) {
       </button>
 
       <div
-        className={`fixed inset-0 z-[80] md:hidden transition-opacity ${open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
+        className={`fixed inset-0 z-[80] lg:hidden transition-opacity ${open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
       >
         <div className="absolute inset-0 bg-black/40" onClick={() => setOpen(false)} />
 
