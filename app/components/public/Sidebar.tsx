@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { Search, TrendingUp, Tags, Mail, ArrowRight } from "lucide-react";
+import { Search, TrendingUp } from "lucide-react";
 import { SearchWidget } from "./SearchWidget";
 
 interface Tag {

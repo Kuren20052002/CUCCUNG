@@ -6,7 +6,7 @@ import { BlogCard } from "@/app/components/public/BlogCard";
 import { Sidebar } from "@/app/components/public/Sidebar";
 import { Pagination } from "@/app/components/public/Pagination";
 import Link from 'next/link';
-import { LayoutGrid, Folders, ChevronRight, LayoutList } from 'lucide-react';
+import { LayoutGrid, Folders, ChevronRight } from 'lucide-react';
 import { cache } from 'react';
 
 const getCategory = cache(async (slug: string) =>

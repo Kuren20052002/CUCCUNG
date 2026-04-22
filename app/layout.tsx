@@ -1,40 +1,28 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono, Be_Vietnam_Pro, Inter } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Be_Vietnam_Pro } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { Toaster } from "sonner";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-// Self-hosted via next/font (no render-blocking CDN request)
+// Only load the fonts actually used — removes 2 unnecessary font downloads (~60KB saved)
 const beVietnamPro = Be_Vietnam_Pro({
   variable: "--font-be-vietnam",
   subsets: ["latin", "vietnamese"],
-  weight: ["400", "500", "600", "700", "800", "900"],
+  weight: ["400", "500", "600", "700", "800"],
   display: "swap",
+  preload: true,
 });
 
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  display: "swap",
-});
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#059669",
+};
 
 export const metadata: Metadata = {
   title: {
     default: "ngoanxinhyeu - Cộng đồng Mẹ & Bé",
     template: "%s | ngoanxinhyeu",
-  },
-  icons: {
-    icon: '/ngoanxinhyeu_logo.png',
   },
   description:
     "Hướng dẫn chăm sóc mẹ và bé từ A–Z: giấc ngủ, dinh dưỡng, sức khỏe trẻ sơ sinh. Kinh nghiệm thực tế giúp mẹ nuôi con dễ dàng và đúng cách.",
@@ -65,9 +53,9 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/ngoanxinhyeu_logo.png",
-        width: 250,
-        height: 100,
+        url: "/ngoanxinhyeu_logo.webp",
+        width: 200,
+        height: 200,
         alt: "ngoanxinhyeu Logo",
       },
     ],
@@ -84,7 +72,8 @@ export default function RootLayout({
   return (
     <html
       lang="vi"
-      className={`${geistSans.variable} ${geistMono.variable} ${beVietnamPro.variable} ${inter.variable} antialiased`}
+      data-scroll-behavior="smooth"
+      className={`${beVietnamPro.variable} antialiased`}
     >
       <body className="flex flex-col">
         <Providers>

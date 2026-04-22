@@ -7,6 +7,10 @@ html {
   scroll-behavior: smooth;
 }
 
+html[data-scroll-behavior="smooth"] {
+  scroll-behavior: smooth;
+}
+
 :root {
   --background: #fcfdfd;
   /* Off-white with a hint of emerald */
@@ -34,7 +38,7 @@ html {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 
-  --font-sans: var(--font-be-vietnam), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-be-vietnam), ui-sans-serif, system-ui, sans-serif;
 
   @keyframes blob {
     0% {

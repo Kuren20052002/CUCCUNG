@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { Mail, Heart, ArrowRight, Share2, Globe, MessageCircle } from 'lucide-react';
+import { Mail, ArrowRight, Share2, Globe, MessageCircle } from 'lucide-react';
 
 interface FooterProps {
   categories: { name: string; slug: string }[];
@@ -103,7 +103,7 @@ export const Footer: React.FC<FooterProps> = ({ categories }) => {
           <p className="text-slate-500 text-xs font-bold tracking-tight">
             © {new Date().getFullYear()} ngoanxinhyeu.app
             <span className="mx-2 font-normal opacity-30 text-emerald-500">|</span>
-            Là dự án phát triển với mục đích học tập và trải nghiệm người dùng <Heart className="w-3 h-3 inline pb-0.5 text-rose-500 fill-rose-500" />
+            Là dự án phát triển với mục đích học tập và trải nghiệm người dùng <span className="text-rose-500">❤</span>
           </p>
           <div className="flex items-center space-x-6 text-slate-500 text-[10px] font-black uppercase tracking-widest">
             <Link href="/sitemap.xml" className="hover:text-primary transition-colors">Sitemap</Link>

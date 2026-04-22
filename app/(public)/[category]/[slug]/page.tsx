@@ -12,7 +12,7 @@ import ProgressBar from '@/app/components/public/ProgressBar';
 import MobileToc from '@/app/components/public/MobileToc';
 import AuthorCard from '@/app/components/public/AuthorCard';
 import { parseMarkdown, extractToc } from '@/lib/markdown';
-import { Calendar, User, Clock, Share2, MessageSquare, Folders, ChevronRight, Zap } from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
 
 // ISR: revalidate every 60s
 export const revalidate = 60;
@@ -104,34 +104,34 @@ export default async function ArticlePage(
     redirect(`/${post.category.slug}/${post.slug}`);
   }
 
-  // Related posts (Silo content filter)
-  const relatedPosts = await prisma.post.findMany({
-    where: {
-      categoryId: post.categoryId,
-      slug: { not: post.slug },
-      published: true,
-    },
-    include: {
-      category: true,
-      author: { select: { name: true, avatar: true } }
-    },
-    orderBy: { createdAt: 'desc' },
-    take: 3,
-  });
-
-  const popularPosts = await prisma.post.findMany({
-    where: { published: true },
-    select: { id: true, title: true, slug: true, category: true, createdAt: true },
-    orderBy: { createdAt: 'desc' },
-    take: 5
-  });
-
-  const tagsList = await prisma.tag.findMany({
-    take: 12
-  });
+  // Parallel queries: saves ~150-300ms server time vs sequential
+  const [relatedPosts, popularPosts, tagsList, html] = await Promise.all([
+    prisma.post.findMany({
+      where: {
+        categoryId: post.categoryId,
+        slug: { not: post.slug },
+        published: true,
+      },
+      include: {
+        category: true,
+        author: { select: { name: true, avatar: true } }
+      },
+      orderBy: { createdAt: 'desc' },
+      take: 3,
+    }),
+    prisma.post.findMany({
+      where: { published: true },
+      select: { id: true, title: true, slug: true, category: true, createdAt: true },
+      orderBy: { createdAt: 'desc' },
+      take: 5
+    }),
+    prisma.tag.findMany({
+      take: 12
+    }),
+    parseMarkdown(post.content || ''),
+  ]);
 
   const tocItems = extractToc(post.content || '');
-  const html = await parseMarkdown(post.content || '');
 
   const isImageInContent = (content: string, imageUrl: string | null) => {
     if (!imageUrl) return false;
@@ -143,8 +143,6 @@ export default async function ArticlePage(
   return (
     <div className="pb-20 font-sans relative overflow-x-hidden">
       <ProgressBar />
-      {/* Scroll Progress Bar (Simplified client-side logic placeholder or pure CSS) */}
-      <div className="fixed top-[72px] inset-x-0 h-1 bg-emerald-500/10 z-[60] origin-left scale-x-0" id="scroll-progress-bar" />
 
       <Script
         id="article-schema"

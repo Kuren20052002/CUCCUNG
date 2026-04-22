@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useSession, signOut } from 'next-auth/react';
-import { Menu, X, ChevronDown, Bell, LogOut, LayoutDashboard, User as UserIcon } from 'lucide-react';
+import { Menu, X, ChevronDown, LogOut, LayoutDashboard, User as UserIcon } from 'lucide-react';
 import clsx from 'clsx';
 import Image from 'next/image';
 
@@ -54,7 +54,7 @@ export const Header: React.FC<HeaderProps> = ({ categories }) => {
             <Link href="/" className="flex items-center space-x-2 group">
               <div className="w-10 h-10 rounded-xl flex items-center justify-center shadow-lg shadow-emerald-500/20 group-hover:rotate-6 transition-all duration-300 overflow-hidden">
                 <Image
-                  src="/ngoanxinhyeu_logo.png"
+                  src="/ngoanxinhyeu_logo.webp"
                   alt="Logo Ngoanxinhyeu - Cộng đồng Mẹ & Bé uy tín"
                   width={40}
                   height={40}

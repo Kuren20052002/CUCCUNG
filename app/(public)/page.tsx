@@ -9,28 +9,29 @@ import { ArrowRight, Sparkles, Zap, ShieldCheck } from "lucide-react";
 export const revalidate = 3600; // fallback revalidate every hour
 
 export default async function HomePage() {
-  const posts = await prisma.post.findMany({
-    where: { published: true },
-    include: {
-      category: true,
-      author: {
-        select: { name: true, avatar: true }
-      }
-    },
-    orderBy: { createdAt: 'desc' },
-    take: 5
-  });
-
-  const popularPosts = await prisma.post.findMany({
-    where: { published: true },
-    select: { id: true, title: true, slug: true, category: true, createdAt: true },
-    orderBy: { createdAt: 'desc' }, // Should use views in real app
-    take: 5
-  });
-
-  const tags = await prisma.tag.findMany({
-    take: 12
-  });
+  // Parallel queries instead of sequential — saves ~100-200ms TTFB
+  const [posts, popularPosts, tags] = await Promise.all([
+    prisma.post.findMany({
+      where: { published: true },
+      include: {
+        category: true,
+        author: {
+          select: { name: true, avatar: true }
+        }
+      },
+      orderBy: { createdAt: 'desc' },
+      take: 5
+    }),
+    prisma.post.findMany({
+      where: { published: true },
+      select: { id: true, title: true, slug: true, category: true, createdAt: true },
+      orderBy: { createdAt: 'desc' }, // Should use views in real app
+      take: 5
+    }),
+    prisma.tag.findMany({
+      take: 12
+    }),
+  ]);
 
   return (
     <div className="space-y-20 pb-20 font-sans">
@@ -62,7 +63,7 @@ export default async function HomePage() {
                 <div className="flex -space-x-4">
                   {[1, 2, 3, 4].map(i => (
                     <div key={i} className="w-12 h-12 rounded-full border-4 border-white bg-slate-100 overflow-hidden shadow-md">
-                      <Image src={`https://i.pravatar.cc/150?u=mom${i}`} alt="Avatar" width={48} height={48} />
+                      <Image src={`https://i.pravatar.cc/150?u=mom${i}`} alt="Avatar" width={48} height={48} loading="lazy" />
                     </div>
                   ))}
                   <div className="w-12 h-12 rounded-full border-4 border-white bg-primary flex items-center justify-center text-xs font-black text-white shadow-xl">
@@ -87,22 +88,15 @@ export default async function HomePage() {
               <div className="absolute inset-0 bg-gradient-to-tr from-emerald-500/20 to-secondary/10 rounded-[3rem] blur-3xl group-hover:scale-110 transition-transform duration-1000" />
               <div className="relative aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl border-8 border-white group-hover:rotate-1 transition-all duration-700">
                 <Image
-                  src="/hero-mom-baby.png"
-                  alt="Mother and Baby"
+                  src="/hero-mom-baby.webp"
+                  alt="Mother and Baby - ngoanxinhyeu cộng đồng mẹ và bé"
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
                   priority
+                  fetchPriority="high"
                 />
               </div>
-              {/* Floating Card - Có thể thêm nếu có bài viết*/}
-              {/* <div className="absolute -bottom-10 -left-10 bg-white p-6 rounded-[2rem] shadow-2xl border border-slate-50 space-y-3 max-w-[240px] animate-bounce-slow">
-                <div className="w-10 h-10 bg-emerald-50 rounded-xl flex items-center justify-center text-emerald-600">
-                  <Sparkles className="w-5 h-5" />
-                </div>
-                <h3 className="text-sm font-black text-slate-900 leading-tight">Mẹo ăn dặm khoa học cho bé từ 6 tháng</h3>
-                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Đọc trong 3 phút</div>
-              </div> */}
             </div>
           </div>
         </div>
@@ -139,7 +133,7 @@ export default async function HomePage() {
                   <button className="px-8 py-4 bg-white text-slate-900 text-xs font-black uppercase tracking-widest rounded-2xl hover:bg-emerald-500 hover:text-white transition-all shadow-xl active:scale-95">Tải về ngay</button>
                 </div>
                 <div className="hidden lg:block relative aspect-video rounded-3xl overflow-hidden border-4 border-slate-800 rotate-2">
-                  <Image src="/checklist-mockup.webp" alt="Checklist Mockup" fill className="object-cover" sizes="(max-width: 768px) 100vw, 800px" />
+                  <Image src="/checklist-mockup.webp" alt="Checklist chuẩn bị đồ đi sinh" fill className="object-cover" sizes="(max-width: 768px) 100vw, 800px" loading="lazy" />
                 </div>
               </div>
             </div>

@@ -1,8 +1,15 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Enable gzip/brotli compression
+  compress: true,
+
   images: {
     formats: ['image/avif', 'image/webp'],
+    // Reduce the number of generated image sizes to minimize build time & CDN cache footprint
+    deviceSizes: [640, 750, 1080, 1200],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256],
+    minimumCacheTTL: 60 * 60 * 24 * 30, // 30 days
     remotePatterns: [
       {
         protocol: 'https',
@@ -21,6 +28,12 @@ const nextConfig: NextConfig = {
         pathname: '/api/media/**',
       },
     ],
+  },
+
+  // Experimental optimizations
+  experimental: {
+    // Enable optimized package imports to reduce bundle size
+    optimizePackageImports: ['lucide-react', 'date-fns'],
   },
 };
 
