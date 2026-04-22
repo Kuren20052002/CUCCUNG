@@ -177,10 +177,32 @@ body {
 }
 
 .prose {
-  --tw-prose-headings: #000000;
+  --tw-prose-headings: var(--primary);
   --tw-prose-body: #000000;
-  --tw-prose-links: #000000;
+  --tw-prose-links: var(--primary);
   --tw-prose-bold: #000000;
+}
+
+.prose strong, 
+.prose b {
+  font-weight: 900;
+}
+
+.prose h1 strong,
+.prose h2 strong,
+.prose h3 strong,
+.prose h4 strong,
+.prose h1 b,
+.prose h2 b,
+.prose h3 b,
+.prose h4 b {
+  color: inherit;
+}
+
+.prose img {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
 }
 
 /* Magazine-style prose adjustments */

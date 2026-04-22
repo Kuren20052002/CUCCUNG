@@ -78,12 +78,14 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = ({ value, onChange 
           />
         ) : (
           <div className="bg-white p-8 max-h-[600px] overflow-y-auto">
-            <MdPreview
-              modelValue={value}
-              theme="light"
-              language="en-US"
-              style={{ padding: 0 }}
-            />
+            <div className="break-words prose prose-sm lg:prose-base prose-emerald max-w-none prose-a:break-all prose-img:rounded-[2rem] prose-img:shadow-xl prose-img:my-10 prose-img:mx-auto prose-h1:text-primary prose-h2:text-primary prose-h3:text-primary prose-h2:text-xl lg:prose-h2:text-2xl prose-h2:font-black prose-h2:tracking-tight prose-h2:mb-4 prose-strong:text-slate-900 prose-strong:font-black">
+              <MdPreview
+                modelValue={value}
+                theme="light"
+                language="en-US"
+                style={{ padding: 0 }}
+              />
+            </div>
             {value.trim().length === 0 && (
               <div className="flex flex-col items-center justify-center py-20 text-slate-300">
                 <Eye className="w-12 h-12 mb-3 opacity-20" />

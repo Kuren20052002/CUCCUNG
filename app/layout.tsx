@@ -21,8 +21,8 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: "ngoanxinhyeu - Cộng đồng Mẹ & Bé",
-    template: "%s | ngoanxinhyeu",
+    default: "Ngoan Xinh Yêu - Cộng đồng Mẹ & Bé",
+    template: "%s | Ngoan Xinh Yêu",
   },
   description:
     "Hướng dẫn chăm sóc mẹ và bé từ A–Z: giấc ngủ, dinh dưỡng, sức khỏe trẻ sơ sinh. Kinh nghiệm thực tế giúp mẹ nuôi con dễ dàng và đúng cách.",
@@ -34,7 +34,14 @@ export const metadata: Metadata = {
     "dinh dưỡng cho bé",
     "kinh nghiệm làm mẹ",
     "sức khỏe trẻ sơ sinh",
-    "ngoanxinhyeu"
+    "blog",
+    "danh mục bài viết",
+    "Bài viết",
+    "blog chia sẻ",
+    "ngoanxinhyeu",
+    "Ngoan Xinh Yêu",
+    "ngoan xinh yêu",
+    "ngoanxinhyeu.app",
   ],
   robots: {
     index: true,
@@ -48,7 +55,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    siteName: "ngoanxinhyeu",
+    siteName: "Ngoan Xinh Yêu",
     locale: "vi_VN",
     type: "website",
     images: [
@@ -56,7 +63,7 @@ export const metadata: Metadata = {
         url: "/ngoanxinhyeu_logo.webp",
         width: 200,
         height: 200,
-        alt: "ngoanxinhyeu Logo",
+        alt: "Ngoan Xinh Yêu Logo",
       },
     ],
   },

@@ -190,7 +190,7 @@ export default async function ArticlePage(
                 </span>
               </nav>
 
-              <h1 className="text-3xl sm:text-4xl lg:text-6xl font-black text-slate-900 leading-[1.15] tracking-tight mb-12">
+              <h1 className="text-3xl sm:text-4xl lg:text-6xl font-black text-primary leading-[1.15] tracking-tight mb-12">
                 {post.title}
               </h1>
 
@@ -249,7 +249,7 @@ export default async function ArticlePage(
               <div
                 className={clsx(
                   // break-words allows URLs and long words to wrap securely
-                  'break-words prose prose-sm lg:prose-base prose-emerald max-w-none prose-a:break-all prose-img:rounded-[2rem] prose-img:shadow-xl prose-img:my-10 prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:bg-emerald-50 prose-blockquote:p-6 prose-blockquote:rounded-r-2xl prose-blockquote:text-emerald-900 prose-blockquote:not-italic prose-blockquote:font-bold prose-h2:text-xl lg:prose-h2:text-2xl prose-h2:font-black prose-h2:tracking-tight prose-h2:mb-4 prose-h2:scroll-mt-24 prose-h3:scroll-mt-24 prose-p:leading-[1.8] prose-strong:text-slate-900'
+                  'break-words prose prose-sm lg:prose-base prose-emerald max-w-none prose-a:break-all prose-img:rounded-[2rem] prose-img:shadow-xl prose-img:my-10 prose-img:mx-auto prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:bg-emerald-50 prose-blockquote:p-6 prose-blockquote:rounded-r-2xl prose-blockquote:text-emerald-900 prose-blockquote:not-italic prose-blockquote:font-bold prose-h1:text-primary prose-h2:text-primary prose-h3:text-primary prose-h2:text-xl lg:prose-h2:text-2xl prose-h2:font-black prose-h2:tracking-tight prose-h2:mb-4 prose-h2:scroll-mt-24 prose-h3:scroll-mt-24 prose-p:leading-[1.8] prose-strong:text-slate-900 prose-strong:font-black'
                 )}
                 dangerouslySetInnerHTML={{ __html: html }}
               />
