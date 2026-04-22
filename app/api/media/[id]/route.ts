@@ -3,10 +3,15 @@ import prisma from '@/lib/prisma';
 import sharp from 'sharp';
 
 /**
- * Simple in-memory LRU cache for processed images.
- * Avoids re-reading from DB and re-processing with Sharp on every request.
- * Each entry is ~50-200KB (processed WebP/AVIF), so 100 entries ≈ 5-20MB.
+ * Media API — serves legacy images stored in PostgreSQL.
+ * 
+ * New uploads go directly to R2 CDN and are served via the R2 public URL.
+ * This endpoint only handles legacy DB-stored images.
+ * 
+ * Includes in-memory cache to avoid re-reading from DB on every request.
  */
+
+// In-memory LRU cache for processed images (legacy DB images only)
 const IMAGE_CACHE = new Map<string, { data: Buffer; contentType: string; timestamp: number }>();
 const MAX_CACHE_SIZE = 100;
 const CACHE_TTL_MS = 60 * 60 * 1000; // 1 hour
@@ -17,11 +22,8 @@ function getCacheKey(id: string, width: number | null, quality: number, format: 
 
 function pruneCache() {
   if (IMAGE_CACHE.size <= MAX_CACHE_SIZE) return;
-  
-  // Remove oldest entries
   const entries = [...IMAGE_CACHE.entries()]
     .sort((a, b) => a[1].timestamp - b[1].timestamp);
-  
   const toRemove = entries.slice(0, entries.length - MAX_CACHE_SIZE);
   for (const [key] of toRemove) {
     IMAGE_CACHE.delete(key);
@@ -42,10 +44,10 @@ export async function GET(
     const supportsAvif = acceptHeader.includes('image/avif');
     const format = supportsAvif ? 'avif' : 'webp';
 
-    // Check cache first
+    // Check in-memory cache first
     const cacheKey = getCacheKey(id, width, quality, format);
     const cached = IMAGE_CACHE.get(cacheKey);
-    
+
     if (cached && (Date.now() - cached.timestamp) < CACHE_TTL_MS) {
       return new Response(cached.data as unknown as BodyInit, {
         headers: {
@@ -57,6 +59,7 @@ export async function GET(
       });
     }
 
+    // Read from DB (legacy storage)
     const media = await (prisma as any).media.findUnique({
       where: { id },
     });
@@ -68,8 +71,6 @@ export async function GET(
     // Build sharp pipeline from raw DB buffer
     let pipeline = sharp(media.data as Buffer);
 
-    // Resize to the requested width — enables next/image to request
-    // e.g. ?w=70 for a 70px logo slot instead of a full 1600px upload
     if (width) {
       pipeline = pipeline.resize(width, null, {
         withoutEnlargement: true,
@@ -77,7 +78,6 @@ export async function GET(
       });
     }
 
-    // Serve AVIF when browser supports it, otherwise WebP
     let outputBuf: Buffer;
     let contentType: string;
 
@@ -97,7 +97,6 @@ export async function GET(
     });
     pruneCache();
 
-    // Pass the buffer directly — Node.js Buffer IS a Uint8Array, valid BodyInit
     return new Response(outputBuf as unknown as BodyInit, {
       headers: {
         'Content-Type': contentType,
