@@ -58,15 +58,15 @@ export default async function SearchPage({
       category: true,
       author: { select: { name: true, avatar: true } }
     },
-    orderBy: { createdAt: 'desc' }
+    orderBy: { updatedAt: 'desc' }
   }) : [];
 
   // fetch tags and popular posts for sidebar
   const tagsList = await prisma.tag.findMany({ take: 12 });
   const popularPosts = await prisma.post.findMany({
     where: { published: true },
-    select: { id: true, title: true, slug: true, category: true, createdAt: true },
-    orderBy: { createdAt: 'desc' },
+    select: { id: true, title: true, slug: true, category: true, updatedAt: true },
+    orderBy: { updatedAt: 'desc' },
     take: 5
   });
 

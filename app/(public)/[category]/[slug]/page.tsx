@@ -121,8 +121,8 @@ export default async function ArticlePage(
     }),
     prisma.post.findMany({
       where: { published: true },
-      select: { id: true, title: true, slug: true, category: true, createdAt: true },
-      orderBy: { createdAt: 'desc' },
+      select: { id: true, title: true, slug: true, category: true, updatedAt: true },
+      orderBy: { updatedAt: 'desc' },
       take: 5
     }),
     prisma.tag.findMany({
@@ -208,8 +208,8 @@ export default async function ArticlePage(
 
                 <div className="flex items-center gap-8">
                   <div className="flex flex-col space-y-0.5">
-                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Phát hành</span>
-                    <span className="text-xs font-bold text-slate-600">{formatDate(post.createdAt)}</span>
+                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Cập nhật</span>
+                    <span className="text-xs font-bold text-slate-600">{formatDate(post.updatedAt)}</span>
                   </div>
                 </div>
               </div>

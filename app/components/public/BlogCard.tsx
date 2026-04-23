@@ -59,7 +59,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post, index = 0 }) => {
         <div className="flex items-center gap-2 text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3">
           <span className="text-slate-900">{post.author.name || 'Đội ngũ chuyên gia'}</span>
           <span aria-hidden="true">•</span>
-          <span>{formatDate(post.createdAt)}</span>
+          <span>{formatDate(post.updatedAt)}</span>
         </div>
 
         <Link href={`/${post.category?.slug || 'uncategorized'}/${post.slug}`}>

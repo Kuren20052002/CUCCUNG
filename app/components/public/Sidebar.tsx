@@ -14,7 +14,7 @@ interface PopularPost {
   title: string;
   slug: string;
   category: { slug: string } | null;
-  createdAt: Date;
+  updatedAt: Date;
 }
 
 interface SidebarProps {
@@ -56,7 +56,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ tags, popularPosts, activeCate
                   {post.title}
                 </h4>
                 <div className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">
-                  {post.createdAt.getFullYear()}
+                  {post.updatedAt.getFullYear()}
                 </div>
               </div>
             </Link>

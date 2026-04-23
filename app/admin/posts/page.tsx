@@ -58,7 +58,7 @@ export default async function PostsPage(props: PostsPageProps) {
     prisma.post.findMany({
       where,
       orderBy: {
-        createdAt: sort,
+        updatedAt: sort,
       },
       skip: (currentPage - 1) * pageSize,
       take: pageSize,
@@ -150,7 +150,7 @@ export default async function PostsPage(props: PostsPageProps) {
                     <div className="flex items-center gap-3 text-xs text-slate-400 font-medium">
                       <span className="flex items-center gap-1">
                         <Calendar className="w-3.5 h-3.5" />
-                        {format(new Date(post.createdAt), "dd/MM/yyyy HH:mm")}
+                        Cập nhật: {format(new Date(post.updatedAt), "dd/MM/yyyy HH:mm")}
                       </span>
                       <span>•</span>
                       <span className="text-slate-500 font-bold">Bởi {post.author.name}</span>

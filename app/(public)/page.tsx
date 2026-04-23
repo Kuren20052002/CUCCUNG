@@ -19,13 +19,13 @@ export default async function HomePage() {
           select: { name: true, avatar: true }
         }
       },
-      orderBy: { createdAt: 'desc' },
+      orderBy: { updatedAt: 'desc' },
       take: 5
     }),
     prisma.post.findMany({
       where: { published: true },
-      select: { id: true, title: true, slug: true, category: true, createdAt: true },
-      orderBy: { createdAt: 'desc' }, // Should use views in real app
+      select: { id: true, title: true, slug: true, category: true, updatedAt: true },
+      orderBy: { updatedAt: 'desc' }, // Should use views in real app
       take: 5
     }),
     prisma.tag.findMany({

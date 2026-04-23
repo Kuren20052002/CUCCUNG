@@ -97,7 +97,7 @@ export default async function CategoryPage({
           select: { name: true, avatar: true }
         }
       },
-      orderBy: { createdAt: 'desc' },
+      orderBy: { updatedAt: 'desc' },
       skip: (currentPage - 1) * postsPerPage,
       take: postsPerPage,
     }),
@@ -113,8 +113,8 @@ export default async function CategoryPage({
 
   const popularPosts = await prisma.post.findMany({
     where: { published: true },
-    select: { id: true, title: true, slug: true, category: true, createdAt: true },
-    orderBy: { createdAt: 'desc' },
+    select: { id: true, title: true, slug: true, category: true, updatedAt: true },
+    orderBy: { updatedAt: 'desc' },
     take: 5
   });
 

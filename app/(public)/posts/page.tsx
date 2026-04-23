@@ -64,15 +64,15 @@ export default async function PostsPage({
         select: { name: true, avatar: true }
       }
     },
-    orderBy: { createdAt: 'desc' },
+    orderBy: { updatedAt: 'desc' },
     skip: (currentPage - 1) * postsPerPage,
     take: postsPerPage,
   });
 
   const popularPosts = await prisma.post.findMany({
     where: { published: true },
-    select: { id: true, title: true, slug: true, category: true, createdAt: true },
-    orderBy: { createdAt: 'desc' },
+    select: { id: true, title: true, slug: true, category: true, updatedAt: true },
+    orderBy: { updatedAt: 'desc' },
     take: 5
   });
 

@@ -16,7 +16,7 @@ export default async function AdminPage() {
   const posts = await prisma.post.findMany({
     where: { published: true },
     include: { category: true },
-    orderBy: { createdAt: "desc" },
+    orderBy: { updatedAt: "desc" },
     take: 5, // Limit to recent 5 posts
   });
 
@@ -73,7 +73,7 @@ export default async function AdminPage() {
                   {post.category?.name && (
                     <span className="mr-2">Category: {post.category.name}</span>
                   )}
-                  <span>Published: {format(new Date(post.createdAt), "MMMM dd, yyyy")}</span>
+                  <span>Updated: {format(new Date(post.updatedAt), "MMMM dd, yyyy")}</span>
                 </p>
               </li>
             ))}

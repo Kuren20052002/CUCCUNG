@@ -31,7 +31,7 @@ export default async function ProfilePage() {
         category: true,
       },
       orderBy: {
-        createdAt: 'desc',
+        updatedAt: 'desc',
       },
       take: 20, // Show last 20 posts in profile
     }),
@@ -94,7 +94,7 @@ export default async function ProfilePage() {
                     <div className="flex items-center gap-2 text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">
                       <span className="text-emerald-500">{post.category?.name || 'Uncategorized'}</span>
                       <span>•</span>
-                      <span>{format(new Date(post.createdAt), "dd/MM/yyyy")}</span>
+                      <span>{format(new Date(post.updatedAt), "dd/MM/yyyy")}</span>
                     </div>
                     <h3 className="text-sm font-extrabold text-slate-800 line-clamp-2 leading-tight group-hover:text-pink-600 transition-colors">
                       {post.title}
