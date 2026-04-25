@@ -39,7 +39,7 @@ export function TableOfContents({ items }: TableOfContentsProps) {
   }, []);
 
   return (
-    <div className="bg-gradient-to-br from-slate-50/90 to-emerald-50/30 backdrop-blur-md rounded-[2.5rem] p-6 lg:p-8 border border-slate-100 mb-12 shadow-sm ring-1 ring-slate-200/50 relative overflow-hidden group">
+    <div className="bg-gradient-to-br from-slate-50 to-emerald-50/50 md:backdrop-blur-md rounded-[2.5rem] p-6 lg:p-8 border border-slate-100 mb-12 shadow-sm ring-1 ring-slate-200/50 relative overflow-hidden group">
       <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 rounded-full blur-3xl -mr-16 -mt-16 transition-transform group-hover:scale-150 duration-700" />
 
       <div className="flex items-center gap-4 mb-6 relative z-10">

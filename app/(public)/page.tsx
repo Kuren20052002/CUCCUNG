@@ -92,7 +92,7 @@ export default async function HomePage() {
                   alt="Mother and Baby - ngoanxinhyeu cộng đồng mẹ và bé"
                   fill
                   className="object-cover"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
+                  sizes="(max-width: 480px) 95vw, (max-width: 768px) 90vw, (max-width: 1200px) 50vw, 600px"
                   priority
                   fetchPriority="high"
                 />

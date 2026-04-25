@@ -33,7 +33,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post, index = 0 }) => {
   const delayClass = delayClasses[Math.min(index, delayClasses.length - 1)];
 
   return (
-    <article className={`group bg-white rounded-[2rem] border border-slate-200 overflow-hidden transition-all duration-500 shadow-sm hover:shadow-xl hover:-translate-y-1 flex flex-col sm:flex-row h-full animate-fade-in-up ${delayClass}`}>
+    <article className={`group bg-white rounded-[2rem] border border-slate-200 overflow-hidden transition-all duration-500 shadow-sm hover:shadow-xl hover:-translate-y-1 flex flex-col sm:flex-row h-full sm:animate-fade-in-up ${delayClass}`}>
       {/* Image Section */}
       <div className="relative w-full sm:w-[35%] lg:w-[30%] aspect-video sm:aspect-auto overflow-hidden">
         <Link href={`/${post.category?.slug || 'uncategorized'}/${post.slug}`} className="block h-full">

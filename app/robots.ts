@@ -16,6 +16,8 @@ export default function robots(): MetadataRoute.Robots {
       },
     ],
     sitemap: 'https://ngoanxinhyeu.app/sitemap.xml',
-    host: 'https://ngoanxinhyeu.app',
+    // NOTE: The `host` directive is deprecated and not used by Google.
+    // Canonical domain is enforced via 301 redirect in next.config.ts instead.
   };
 }
+
