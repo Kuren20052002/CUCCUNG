@@ -4,6 +4,7 @@ import { authConfig } from "./auth.config";
 export default NextAuth(authConfig).auth;
 
 export const config = {
-  // https://nextjs.org/docs/app/building-your-application/routing/middleware#matcher
-  matcher: ['/((?!api|_next/static|_next/image|.*\\.png$).*)'],
+  // Exclude static files, images, API, and Next.js internals from auth middleware
+  // — reduces TTFB for all static resource requests
+  matcher: ['/((?!api|_next/static|_next/image|_next/data|favicon\\.ico|icon\\.png|apple-icon\\.png|.*\\.webp$|.*\\.png$|.*\\.svg$|.*\\.jpg$|sitemap\\.xml|robots\\.txt).*)'],
 };
