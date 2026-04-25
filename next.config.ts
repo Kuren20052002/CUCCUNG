@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
 
   images: {
     formats: ['image/avif', 'image/webp'],
-    // Reduce the number of generated image sizes to minimize build time & CDN cache footprint
+    // Optimized for mobile-first — smaller sizes load faster on slow connections
     deviceSizes: [640, 750, 1080, 1200],
     imageSizes: [16, 32, 48, 64, 96, 128, 256],
     minimumCacheTTL: 60 * 60 * 24 * 30, // 30 days
@@ -28,6 +28,22 @@ const nextConfig: NextConfig = {
         pathname: '/api/media/**',
       },
     ],
+  },
+
+  // Performance headers for static assets
+  async headers() {
+    return [
+      {
+        // Cache static assets aggressively (fonts, images, JS, CSS)
+        source: '/:path*.(woff2|woff|ttf|ico|png|jpg|jpeg|webp|avif|svg|css|js)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+    ];
   },
 
   // Experimental optimizations
