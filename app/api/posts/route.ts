@@ -5,6 +5,15 @@ import { revalidatePath } from 'next/cache';
 import { slugify } from '@/lib/utils/slugify';
 import { generateUniqueSlug } from '@/lib/utils/slugify-server';
 
+const SITEMAP_URL = 'https://ngoanxinhyeu.app/sitemap.xml';
+
+/** Ping Google to re-crawl the sitemap. Fire-and-forget. */
+function pingSitemap() {
+  fetch(`https://www.google.com/ping?sitemap=${encodeURIComponent(SITEMAP_URL)}`)
+    .then(() => console.log('Sitemap ping sent to Google'))
+    .catch((err) => console.warn('Sitemap ping failed (non-critical):', err.message));
+}
+
 export async function POST(req: NextRequest) {
   try {
     const session = await auth();
@@ -70,6 +79,11 @@ export async function POST(req: NextRequest) {
     revalidatePath('/posts');
     if (post.category?.slug) {
       revalidatePath(`/${post.category.slug}`);
+    }
+
+    // Notify Google of sitemap changes when a post is published
+    if (post.published) {
+      pingSitemap();
     }
 
     return NextResponse.json(post, { status: 201 });
@@ -170,6 +184,11 @@ export async function PUT(req: NextRequest) {
     if (post.category?.slug) {
       revalidatePath(`/${post.category.slug}`);
       revalidatePath(`/${post.category.slug}/${post.slug}`);
+    }
+
+    // Notify Google of sitemap changes when a post is published
+    if (post.published) {
+      pingSitemap();
     }
 
     return NextResponse.json(post);
