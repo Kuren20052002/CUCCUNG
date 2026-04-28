@@ -52,5 +52,11 @@
   },
   "prisma": {
     "seed": "node prisma/seed.js"
-  }
+  },
+  "browserslist": [
+    "chrome >= 90",
+    "firefox >= 90",
+    "safari >= 14",
+    "edge >= 90"
+  ]
 }

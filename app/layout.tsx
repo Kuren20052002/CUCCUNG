@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Be_Vietnam_Pro } from "next/font/google";
-import { GoogleAnalytics } from "@next/third-parties/google";
-import { Toaster } from "sonner";
+import { LazyGA } from "@/app/components/LazyGA";
+import { LazyToaster } from "@/app/components/LazyToaster";
 import "./globals.css";
 
 // Load only 3 font weights: regular (400), semibold (600), extrabold (800)
@@ -86,10 +86,10 @@ export default function RootLayout({
         <Providers>
           {children}
         </Providers>
-        <Toaster position="top-right" duration={3500} richColors closeButton />
+        <LazyToaster />
+        {/* GA lazy-loaded on first interaction — saves ~300ms on mobile 4G */}
+        <LazyGA gaId="G-GKH65E4DSG" />
       </body>
-      {/* GA loaded after interactive — saves ~236ms of main-thread blocking on mobile */}
-      <GoogleAnalytics gaId="G-GKH65E4DSG" />
     </html>
   );
 }
