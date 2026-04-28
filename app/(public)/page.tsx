@@ -83,7 +83,7 @@ export default async function HomePage() {
               </div>
             </div>
 
-            <div className="relative group">
+            <div className="relative group hidden sm:block">
               <div className="absolute inset-0 bg-gradient-to-tr from-emerald-500/20 to-secondary/10 rounded-[3rem] blur-3xl group-hover:scale-110 transition-transform duration-1000" />
               <div className="relative aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl border-8 border-white group-hover:rotate-1 transition-all duration-700">
                 <Image
@@ -91,7 +91,7 @@ export default async function HomePage() {
                   alt="Mother and Baby - ngoanxinhyeu cộng đồng mẹ và bé"
                   fill
                   className="object-cover"
-                  sizes="(max-width: 480px) 95vw, (max-width: 768px) 90vw, (max-width: 1200px) 50vw, 600px"
+                  sizes="(max-width: 768px) 80vw, (max-width: 1200px) 45vw, 500px"
                   priority
                   fetchPriority="high"
                 />

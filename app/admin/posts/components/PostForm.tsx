@@ -6,11 +6,24 @@ import { toast } from 'sonner';
 import { Save, Send, AlertTriangle, ChevronLeft, Edit2, Lock } from 'lucide-react';
 import Link from 'next/link';
 
+import dynamic from 'next/dynamic';
 import { slugify } from '@/lib/utils/slugify';
 import { validateMarkdown } from '@/lib/markdown';
 import { SEOLiveFeedback } from './SEOLiveFeedback';
 import { ImageGallery } from './ImageGallery';
-import { MarkdownEditor } from './MarkdownEditor';
+
+// Dynamic import: prevents md-editor-rt's 82KB CSS from leaking into the public page bundle
+const MarkdownEditor = dynamic(
+  () => import('./MarkdownEditor').then(mod => ({ default: mod.MarkdownEditor })),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="h-[600px] flex items-center justify-center bg-slate-50 rounded-2xl">
+        <div className="text-sm text-slate-400 font-medium animate-pulse">Đang tải trình soạn thảo...</div>
+      </div>
+    ),
+  }
+);
 
 interface Category {
   id: string;

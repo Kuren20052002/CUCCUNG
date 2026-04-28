@@ -82,6 +82,12 @@ export default function RootLayout({
       data-scroll-behavior="smooth"
       className={`${beVietnamPro.variable} antialiased`}
     >
+      <head>
+        {/* Preconnect to critical origins — saves ~100-200ms connection setup on first visit */}
+        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+      </head>
       <body className="flex flex-col">
         <Providers>
           {children}
