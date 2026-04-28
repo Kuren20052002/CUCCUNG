@@ -15,6 +15,17 @@ const nextConfig: NextConfig = {
         destination: 'https://ngoanxinhyeu.app/:path*',
         permanent: true, // HTTP 308 in Next.js (preserves method); SEO-equivalent to 301
       },
+      // Redirect old xe-đẩy articles → consolidated guide
+      {
+        source: '/goc-review-cho-me-va-be/review-chi-tiet-xe-day-em-be-loai-nao-tot-va-an-toan-nhat-hien-nay',
+        destination: '/goc-review-cho-me-va-be/cam-nang-xe-day-em-be',
+        permanent: true,
+      },
+      {
+        source: '/goc-review-cho-me-va-be/kinh-nghiem-chon-mua-xe-day-so-sinh',
+        destination: '/goc-review-cho-me-va-be/cam-nang-xe-day-em-be',
+        permanent: true,
+      },
     ];
   },
 
