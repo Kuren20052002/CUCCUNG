@@ -105,4 +105,16 @@ Nội dung cảnh báo quan trọng.
 
 ---
 
+## 8. Chèn mã nhúng (Social Embeds)
+
+Để chèn video từ YouTube, TikTok hoặc bài viết Facebook, bạn chỉ cần dán đường link trực tiếp vào một dòng riêng biệt trong bài viết. Hệ thống sẽ tự động chuyển đổi thành trình phát video hoặc bài viết nhúng.
+
+- **YouTube:** `https://www.youtube.com/watch?v=VIDEO_ID` (Hỗ trợ cả Shorts)
+- **TikTok:** `https://www.tiktok.com/@user/video/VIDEO_ID`
+- **Facebook:** `https://www.facebook.com/username/posts/POST_ID` (Hỗ trợ cả Video)
+
+*Lưu ý: Link phải nằm trên một dòng riêng biệt và không chứa bất kỳ ký tự nào khác ở đầu hoặc cuối dòng.*
+
+---
+
 *Chúc bạn có những bài viết chất lượng trên ngoanxinhyeu!*

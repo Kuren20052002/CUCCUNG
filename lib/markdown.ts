@@ -64,10 +64,41 @@ renderer.heading = function({ tokens, depth, text }) {
 };
 
 /**
- * Parses markdown to HTML with heading IDs
+ * Transforms social media URLs into embed iframes
+ */
+function transformSocialEmbeds(html: string): string {
+  // 1. YouTube (Support: watch?v=, youtu.be, embed/, shorts/)
+  // Handles both bare URLs and auto-linked URLs by marked
+  html = html.replace(/<p>(?:<a [^>]*>)?(https?:\/\/(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/shorts\/)([a-zA-Z0-9_-]{11})(?:[^\s<]*))(?:<\/a>)?<\/p>/g, (match, url, videoId) => {
+    return `<div class="embed-container"><iframe src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>`;
+  });
+
+  // 2. TikTok (@user/video/ID)
+  html = html.replace(/<p>(?:<a [^>]*>)?(https?:\/\/(?:www\.)?tiktok\.com\/@[\w.-]+\/video\/(\d+)(?:[^\s<]*))(?:<\/a>)?<\/p>/g, (match, url, videoId) => {
+    return `<div class="tiktok-embed-container">
+      <iframe src="https://www.tiktok.com/embed/v2/${videoId}" style="width: 100%; height: 700px; border: none;" allowfullscreen loading="lazy"></iframe>
+    </div>`;
+  });
+
+  // 3. Facebook (Posts and Videos)
+  html = html.replace(/<p>(?:<a [^>]*>)?(https?:\/\/(?:www\.)?facebook\.com\/(?:[^\s<]+)\/(?:posts|videos|watch|groups\/[^\s<]+\/permalink)\/(\d+)(?:[^\s<]*))(?:<\/a>)?<\/p>/g, (match, url, id) => {
+    const encodedUrl = encodeURIComponent(url);
+    const isVideo = url.includes('video') || url.includes('watch');
+    const pluginType = isVideo ? 'video' : 'post';
+    return `<div class="fb-embed-container">
+      <iframe src="https://www.facebook.com/plugins/${pluginType}.php?href=${encodedUrl}&show_text=true&width=500" width="500" height="${isVideo ? '500' : '700'}" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" loading="lazy"></iframe>
+    </div>`;
+  });
+
+  return html;
+}
+
+/**
+ * Parses markdown to HTML with heading IDs and social embeds
  */
 export async function parseMarkdown(markdown: string) {
-  return marked.parse(markdown, { renderer });
+  const html = await marked.parse(markdown, { renderer });
+  return transformSocialEmbeds(html);
 }
 
 /**
