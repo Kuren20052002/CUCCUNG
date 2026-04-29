@@ -3,7 +3,7 @@ import { Shield, Lock, Eye, Server, RefreshCcw } from 'lucide-react';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Chính sách bảo mật - ngoanxinhyeu',
+  title: 'Chính sách bảo mật - Ngoan Xinh Yêu',
   description: 'Chính sách bảo mật của ngoanxinhyeu.app - Cam kết bảo vệ thông tin cá nhân và dữ liệu riêng tư của người dùng.',
 };
 

@@ -3,7 +3,7 @@ import { Gavel, Scale, AlertTriangle, FileText, CheckCircle2 } from 'lucide-reac
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Điều khoản sử dụng - ngoanxinhyeu',
+  title: 'Điều khoản sử dụng - Ngoan Xinh Yêu',
   description: 'Điều khoản sử dụng của ngoanxinhyeu.app - Các quy định và điều kiện khi sử dụng trang web và dịch vụ của chúng tôi.',
 };
 

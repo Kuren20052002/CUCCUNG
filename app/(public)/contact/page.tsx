@@ -3,7 +3,7 @@ import { Mail, Phone, MapPin, MessageCircle, Send, Globe, MessageSquare } from '
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Liên hệ - ngoanxinhyeu sẵn sàng lắng nghe bạn',
+  title: 'Liên hệ - Ngoan Xinh Yêu sẵn sàng lắng nghe bạn',
   description: 'Liên hệ với đội ngũ ngoanxinhyeu.app để hợp tác quảng cáo, đóng góp ý kiến hoặc được giải đáp các thắc mắc về chăm sóc mẹ và bé.',
 };
 

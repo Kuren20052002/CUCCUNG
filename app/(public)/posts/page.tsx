@@ -17,7 +17,7 @@ export async function generateMetadata(
   const totalPosts = await prisma.post.count({ where: { published: true } });
   const totalPages = Math.ceil(totalPosts / postsPerPage);
 
-  const title = `Kho bài viết - Trang ${currentPage} | ngoanxinhyeu`;
+  const title = `Kho bài viết - Trang ${currentPage} | Ngoan Xinh Yêu`;
   const description = 'Duyệt qua tất cả các bài viết về chủ đề chăm sóc mẹ và bé, nuôi dạy con thông minh và khỏe mạnh.';
   const baseUrl = '/posts';
   const canonicalUrl = `https://ngoanxinhyeu.app${baseUrl}${currentPage > 1 ? `?page=${currentPage}` : ''}`;

@@ -6,7 +6,7 @@ import { User, MessageCircle, Globe, ArrowRight } from 'lucide-react';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Đội ngũ tác giả - ngoanxinhyeu',
+  title: 'Đội ngũ tác giả - Ngoan Xinh Yêu',
   description: 'Gặp gỡ đội ngũ chuyên gia và các tác giả tâm huyết tại ngoanxinhyeu.app - Những người mang đến kiến thức tin cậy cho Mẹ & Bé.',
 };
 

@@ -32,7 +32,7 @@ export async function generateMetadata(
   });
   const totalPages = Math.ceil(totalPosts / postsPerPage);
 
-  const title = category.seoTitle || `${category.name} - Kiến thức chăm sóc mẹ và bé | ngoanxinhyeu`;
+  const title = category.seoTitle || `${category.name} - Kiến thức chăm sóc mẹ và bé | Ngoan Xinh Yêu`;
   const description = category.seoDescription || `Khám phá các bài viết hữu ích về ${category.name} giúp mẹ chăm sóc bé đúng cách.`;
   const canonicalUrl = `https://ngoanxinhyeu.app/${categorySlug}${currentPage > 1 ? `?page=${currentPage}` : ''}`;
 

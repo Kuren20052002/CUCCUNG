@@ -75,7 +75,7 @@ export async function generateMetadata(
       description: description ?? undefined,
       type: 'article',
       url: canonicalUrl,
-      siteName: 'ngoanxinhyeu',
+      siteName: 'Ngoan Xinh Yêu',
       locale: 'vi_VN',
       images: post.metaImage
         ? [{ url: post.metaImage, alt: post.featuredImageAlt || title }]
@@ -162,7 +162,7 @@ export default async function ArticlePage(
             },
             "publisher": {
               "@type": "Organization",
-              "name": "ngoanxinhyeu",
+              "name": "Ngoan Xinh Yêu",
               "url": "https://ngoanxinhyeu.app"
             },
             "datePublished": post.createdAt.toISOString(),
