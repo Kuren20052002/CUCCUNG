@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import Script from 'next/script';
 import prisma from "@/lib/prisma";
 import { User, MessageCircle, Globe, ArrowRight } from 'lucide-react';
 import { Metadata } from 'next';
@@ -8,6 +9,14 @@ import { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Đội ngũ tác giả - Ngoan Xinh Yêu',
   description: 'Gặp gỡ đội ngũ chuyên gia và các tác giả tâm huyết tại ngoanxinhyeu.app - Những người mang đến kiến thức tin cậy cho Mẹ & Bé.',
+  openGraph: {
+    title: 'Đội ngũ tác giả - Ngoan Xinh Yêu',
+    description: 'Gặp gỡ đội ngũ chuyên gia và các tác giả tâm huyết tại ngoanxinhyeu.app.',
+    type: 'website',
+    url: 'https://ngoanxinhyeu.app/authors',
+    siteName: 'Ngoan Xinh Yêu',
+    locale: 'vi_VN',
+  },
 };
 
 export default async function AuthorsPage() {
@@ -23,6 +32,27 @@ export default async function AuthorsPage() {
 
   return (
     <div className="space-y-20 pb-20 font-sans mt-8 lg:mt-16">
+      {/* ProfilePage Schema for each author — BTTH4 Bài 2a */}
+      {authors.map((author) => (
+        <Script
+          key={`schema-${author.id}`}
+          id={`profile-schema-${author.id}`}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "ProfilePage",
+              "mainEntity": {
+                "@type": "Person",
+                "name": author.name,
+                "image": author.avatar || undefined,
+                "description": author.bio || undefined,
+                "url": "https://ngoanxinhyeu.app/authors"
+              }
+            }),
+          }}
+        />
+      ))}
       {/* Header */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
         <h1 className="text-5xl lg:text-7xl font-black text-slate-900 leading-tight">

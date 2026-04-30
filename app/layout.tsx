@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Be_Vietnam_Pro } from "next/font/google";
+import Script from "next/script";
 import { LazyGA } from "@/app/components/LazyGA";
 import { LazyToaster } from "@/app/components/LazyToaster";
 import "./globals.css";
@@ -67,6 +68,11 @@ export const metadata: Metadata = {
       },
     ],
   },
+  twitter: {
+    card: "summary_large_image",
+    site: "@ngoanxinhyeu",
+    creator: "@ngoanxinhyeu",
+  },
 };
 
 import { Providers } from "@/app/components/Providers";
@@ -88,6 +94,42 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
+      {/* Organization Schema — BTTH4 Bài 2a */}
+      <Script
+        id="organization-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "Ngoan Xinh Yêu",
+            "url": "https://ngoanxinhyeu.app",
+            "logo": "https://ngoanxinhyeu.app/ngoanxinhyeu_logo.webp",
+            "description": "Cộng đồng chia sẻ kiến thức chăm sóc mẹ và bé từ A-Z: thai kỳ, trẻ sơ sinh, dinh dưỡng và nuôi dạy con thông minh.",
+            "sameAs": [
+              "https://facebook.com/ngoanxinhyeu"
+            ]
+          }),
+        }}
+      />
+      {/* WebSite Schema with SearchAction — BTTH4 Bài 2a */}
+      <Script
+        id="website-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "Ngoan Xinh Yêu",
+            "url": "https://ngoanxinhyeu.app",
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": "https://ngoanxinhyeu.app/search?q={search_term_string}",
+              "query-input": "required name=search_term_string"
+            }
+          }),
+        }}
+      />
       <body className="flex flex-col">
         <Providers>
           {children}

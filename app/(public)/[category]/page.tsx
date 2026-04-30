@@ -1,5 +1,6 @@
 import React from 'react';
 import { notFound } from "next/navigation";
+import Script from 'next/script';
 import { Metadata } from 'next';
 import prisma from "@/lib/prisma";
 import { BlogCard } from "@/app/components/public/BlogCard";
@@ -123,6 +124,30 @@ export default async function CategoryPage({
 
   return (
     <div className="space-y-12 pb-20 font-sans mt-8 lg:mt-12">
+      {/* BreadcrumbList Schema — BTTH4/Bài 2a */}
+      <Script
+        id="breadcrumb-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Trang chủ",
+                "item": "https://ngoanxinhyeu.app"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": category.name
+              }
+            ]
+          }),
+        }}
+      />
       {/* Category Header */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-slate-900 p-12 lg:p-20 rounded-[3rem] shadow-2xl relative overflow-hidden group border-b-4 border-emerald-500">

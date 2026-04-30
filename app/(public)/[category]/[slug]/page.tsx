@@ -175,6 +175,75 @@ export default async function ArticlePage(
         }}
       />
 
+      <Script
+        id="breadcrumb-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Trang chủ",
+                "item": "https://ngoanxinhyeu.app"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": post.category.name,
+                "item": `https://ngoanxinhyeu.app/${post.category.slug}`
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": post.title
+              }
+            ]
+          }),
+        }}
+      />
+
+      {/* Product + Review Schema for product review posts — BTTH4 Bài 2a */}
+      {post.reviewData && (() => {
+        const review = post.reviewData as { rating?: number; pros?: string[]; cons?: string[]; affiliateLink?: string; productName?: string };
+        return (
+          <Script
+            id="product-review-schema"
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "Product",
+                "name": review.productName || post.title,
+                "description": post.metaDescription || post.excerpt || '',
+                "image": post.metaImage || undefined,
+                "review": {
+                  "@type": "Review",
+                  "reviewRating": {
+                    "@type": "Rating",
+                    "ratingValue": String(review.rating || 5),
+                    "bestRating": "5"
+                  },
+                  "author": {
+                    "@type": "Person",
+                    "name": post.author.name
+                  },
+                  "reviewBody": post.excerpt || post.metaDescription || ''
+                },
+                "aggregateRating": {
+                  "@type": "AggregateRating",
+                  "ratingValue": String(review.rating || 5),
+                  "reviewCount": "1",
+                  "bestRating": "5"
+                }
+              }),
+            }}
+          />
+        );
+      })()}
+
       <div className="max-w-[1080px] mx-auto px-4 sm:px-6 lg:px-8 pt-8 lg:pt-16">
         <div className="max-w-[900px] mx-auto bg-white rounded-3xl shadow-sm md:p-10 p-6">
           <article className="min-w-0 space-y-12 animate-fade-in w-full overflow-visible">
