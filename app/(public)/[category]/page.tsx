@@ -1,6 +1,5 @@
 import React from 'react';
 import { notFound } from "next/navigation";
-import Script from 'next/script';
 import { Metadata } from 'next';
 import prisma from "@/lib/prisma";
 import { BlogCard } from "@/app/components/public/BlogCard";
@@ -124,9 +123,8 @@ export default async function CategoryPage({
 
   return (
     <div className="space-y-12 pb-20 font-sans mt-8 lg:mt-12">
-      {/* BreadcrumbList Schema — BTTH4/Bài 2a */}
-      <Script
-        id="breadcrumb-schema"
+      {/* BreadcrumbList Schema */}
+      <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({

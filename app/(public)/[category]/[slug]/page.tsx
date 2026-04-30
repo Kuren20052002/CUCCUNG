@@ -2,7 +2,6 @@ import { notFound, redirect } from 'next/navigation';
 import { Metadata } from 'next';
 import prisma from '@/lib/prisma';
 import Image from 'next/image';
-import Script from 'next/script';
 import Link from 'next/link';
 import clsx from 'clsx';
 import { cache } from 'react';
@@ -144,8 +143,7 @@ export default async function ArticlePage(
     <div className="pb-20 font-sans relative overflow-x-hidden">
       <ProgressBar />
 
-      <Script
-        id="article-schema"
+      <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
@@ -175,8 +173,7 @@ export default async function ArticlePage(
         }}
       />
 
-      <Script
-        id="breadcrumb-schema"
+      <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
@@ -205,12 +202,11 @@ export default async function ArticlePage(
         }}
       />
 
-      {/* Product + Review Schema for product review posts — BTTH4 Bài 2a */}
+      {/* Product + Review Schema for product review posts */}
       {post.reviewData && (() => {
         const review = post.reviewData as { rating?: number; pros?: string[]; cons?: string[]; affiliateLink?: string; productName?: string };
         return (
-          <Script
-            id="product-review-schema"
+          <script
             type="application/ld+json"
             dangerouslySetInnerHTML={{
               __html: JSON.stringify({

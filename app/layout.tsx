@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { Be_Vietnam_Pro } from "next/font/google";
-import Script from "next/script";
 import { LazyGA } from "@/app/components/LazyGA";
 import { LazyToaster } from "@/app/components/LazyToaster";
 import "./globals.css";
@@ -94,9 +93,8 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
-      {/* Organization Schema — BTTH4 Bài 2a */}
-      <Script
-        id="organization-schema"
+      {/* Organization Schema */}
+      <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
@@ -112,9 +110,8 @@ export default function RootLayout({
           }),
         }}
       />
-      {/* WebSite Schema with SearchAction — BTTH4 Bài 2a */}
-      <Script
-        id="website-schema"
+      {/* WebSite Schema with SearchAction */}
+      <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({

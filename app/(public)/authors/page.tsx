@@ -1,7 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import Script from 'next/script';
 import prisma from "@/lib/prisma";
 import { User, MessageCircle, Globe, ArrowRight } from 'lucide-react';
 import { Metadata } from 'next';
@@ -32,11 +31,10 @@ export default async function AuthorsPage() {
 
   return (
     <div className="space-y-20 pb-20 font-sans mt-8 lg:mt-16">
-      {/* ProfilePage Schema for each author — BTTH4 Bài 2a */}
+      {/* ProfilePage Schema for each author */}
       {authors.map((author) => (
-        <Script
+        <script
           key={`schema-${author.id}`}
-          id={`profile-schema-${author.id}`}
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
