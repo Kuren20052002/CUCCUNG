@@ -44,7 +44,7 @@ renderer.image = function({ href, title, text }) {
   // Normal image — render with alt and title
   const altAttr = text ? ` alt="${text}"` : '';
   const titleAttr = title ? ` title="${title}"` : '';
-  return `<img src="${href}"${altAttr}${titleAttr} loading="lazy" decoding="async" />\n`;
+  return `<img src="${href}"${altAttr}${titleAttr} loading="lazy" decoding="async">\n`;
 };
 
 renderer.heading = function({ tokens, depth, text }) {
