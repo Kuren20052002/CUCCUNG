@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Be_Vietnam_Pro } from "next/font/google";
-import { LazyGA } from "@/app/components/LazyGA";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { LazyToaster } from "@/app/components/LazyToaster";
 import "./globals.css";
 
@@ -132,8 +132,7 @@ export default function RootLayout({
           {children}
         </Providers>
         <LazyToaster />
-        {/* GA lazy-loaded on first interaction — saves ~300ms on mobile 4G */}
-        <LazyGA gaId="G-GKH65E4DSG" />
+        <GoogleAnalytics gaId="G-GKH65E4DSG" />
       </body>
     </html>
   );
