@@ -13,6 +13,8 @@ export function LazyGA({ gaId }: { gaId: string }) {
   const loaded = useRef(false);
 
   useEffect(() => {
+    const events = ["scroll", "click", "touchstart", "keydown"] as const;
+
     function loadGA() {
       if (loaded.current) return;
       loaded.current = true;
@@ -20,24 +22,23 @@ export function LazyGA({ gaId }: { gaId: string }) {
       // Remove listeners once loaded
       events.forEach((e) => window.removeEventListener(e, loadGA));
 
-      // Inject gtag script
+      // Initialize dataLayer and gtag BEFORE loading the script.
+      // gtag.js reads from dataLayer immediately on execution,
+      // so it must already exist when the script loads.
+      (window as any).dataLayer = (window as any).dataLayer || [];
+      function gtag(...args: any[]) {
+        (window as any).dataLayer.push(args);
+      }
+      gtag("js", new Date());
+      gtag("config", gaId);
+
+      // Now inject the gtag.js script
       const script = document.createElement("script");
       script.src = `https://www.googletagmanager.com/gtag/js?id=${gaId}`;
       script.async = true;
       document.head.appendChild(script);
-
-      // Initialize gtag
-      script.onload = () => {
-        (window as any).dataLayer = (window as any).dataLayer || [];
-        function gtag(...args: any[]) {
-          (window as any).dataLayer.push(args);
-        }
-        gtag("js", new Date());
-        gtag("config", gaId);
-      };
     }
 
-    const events = ["scroll", "click", "touchstart", "keydown"] as const;
     events.forEach((e) => window.addEventListener(e, loadGA, { once: true, passive: true }));
 
     // Fallback: load after 5s if no interaction
