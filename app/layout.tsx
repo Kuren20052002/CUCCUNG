@@ -87,39 +87,43 @@ export default function RootLayout({
       data-scroll-behavior="smooth"
       className={`${beVietnamPro.variable} antialiased`}
     >
-      {/*
-        D68: Merged Organization + WebSite JSON-LD into a single @graph script
-        — saves 1 <script> tag and 1 DOM parse/execute cycle.
-        dns-prefetch/preconnect hints removed — next/font handles font
-        preconnection automatically, so the manual hints were redundant requests.
-      */}
+      <head>
+        {/* Preconnect to critical origins — saves ~100-200ms connection setup on first visit */}
+        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+      </head>
+      {/* Organization Schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             "@context": "https://schema.org",
-            "@graph": [
-              {
-                "@type": "Organization",
-                "name": "Ngoan Xinh Yêu",
-                "url": "https://ngoanxinhyeu.app",
-                "logo": "https://ngoanxinhyeu.app/ngoanxinhyeu_logo.webp",
-                "description": "Cộng đồng chia sẻ kiến thức chăm sóc mẹ và bé từ A-Z: thai kỳ, trẻ sơ sinh, dinh dưỡng và nuôi dạy con thông minh.",
-                "sameAs": [
-                  "https://facebook.com/ngoanxinhyeu"
-                ]
-              },
-              {
-                "@type": "WebSite",
-                "name": "Ngoan Xinh Yêu",
-                "url": "https://ngoanxinhyeu.app",
-                "potentialAction": {
-                  "@type": "SearchAction",
-                  "target": "https://ngoanxinhyeu.app/search?q={search_term_string}",
-                  "query-input": "required name=search_term_string"
-                }
-              }
+            "@type": "Organization",
+            "name": "Ngoan Xinh Yêu",
+            "url": "https://ngoanxinhyeu.app",
+            "logo": "https://ngoanxinhyeu.app/ngoanxinhyeu_logo.webp",
+            "description": "Cộng đồng chia sẻ kiến thức chăm sóc mẹ và bé từ A-Z: thai kỳ, trẻ sơ sinh, dinh dưỡng và nuôi dạy con thông minh.",
+            "sameAs": [
+              "https://facebook.com/ngoanxinhyeu"
             ]
+          }),
+        }}
+      />
+      {/* WebSite Schema with SearchAction */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "Ngoan Xinh Yêu",
+            "url": "https://ngoanxinhyeu.app",
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": "https://ngoanxinhyeu.app/search?q={search_term_string}",
+              "query-input": "required name=search_term_string"
+            }
           }),
         }}
       />

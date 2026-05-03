@@ -59,36 +59,15 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
-        // F0: Add Vary header to ALL responses for proper gzip/brotli cache negotiation
-        // Without this, proxies may serve wrong encoding to clients
-        source: '/:path*',
-        headers: [
-          {
-            key: 'Vary',
-            value: 'Accept-Encoding',
-          },
-        ],
-      },
-      {
-        // F40 + D68: Static assets — aggressive cache + cookie-free
-        // Cache-Control: immutable tells browser to never revalidate (saves conditional GETs)
-        // Set-Cookie: '' header prevents server from setting cookies on static responses
-        source: '/:path*.(woff2|woff|ttf|ico|png|jpg|jpeg|webp|avif|svg|css|js|map)',
+        // Cache static assets aggressively (fonts, images, JS, CSS)
+        source: '/:path*.(woff2|woff|ttf|ico|png|jpg|jpeg|webp|avif|svg|css|js)',
         headers: [
           {
             key: 'Cache-Control',
             value: 'public, max-age=31536000, immutable',
           },
-          {
-            // F40: Prevent cookies from being set on static asset responses
-            key: 'Set-Cookie',
-            value: '',
-          },
         ],
       },
-      // Note: _next/static and _next/image are handled by Next.js automatically
-      // with optimal Cache-Control headers. Cookie-free delivery for .js/.css
-      // files is already covered by the general static asset matcher above.
     ];
   },
 
