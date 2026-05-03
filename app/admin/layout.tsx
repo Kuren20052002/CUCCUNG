@@ -23,12 +23,12 @@ export default async function AdminLayout({
           <Link href="/" className="flex items-center space-x-2 group">
             <div className="w-9 h-9 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-emerald-500/20 group-hover:scale-110 transition-transform">
               <Image
-                src="/ngoanxinhyeu_logo.png" // Đường dẫn tính từ thư mục public
-                alt="Logo Cục Cưng - Cộng đồng Mẹ & Bé uy tín" // ALT text chuẩn SEO
-                width={250} // Chiều rộng thực tế bạn muốn hiển thị (pixel)
-                height={100} // Chiều cao tương ứng để giữ tỷ lệ
-                priority // Thuộc tính quan trọng: Ưu tiên load logo ngay lập tức (LCP)
-                className="object-contain" // Giúp ảnh không bị méo trong khung
+                src="/ngoanxinhyeu_logo.webp"
+                alt="Logo Ngoan Xinh Yêu - Cộng đồng Mẹ & Bé uy tín"
+                width={36}
+                height={36}
+                priority
+                className="object-contain w-full h-full"
               />
             </div>
             <span className="text-xl font-extrabold text-slate-800 tracking-tight">NgoanXinhYeu</span>

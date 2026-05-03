@@ -14,6 +14,26 @@ export const {
   ...authConfig,
   adapter: PrismaAdapter(prisma),
   session: { strategy: "jwt" },
+  /*
+   * F40: Restrict auth cookies to paths that actually need them.
+   * Without this, the session cookie (~400B) is sent on EVERY request —
+   * including static images, CSS, and JS — wasting bandwidth and
+   * preventing true cookie-free static asset delivery.
+   */
+  cookies: {
+    sessionToken: {
+      name: process.env.NODE_ENV === 'production'
+        ? '__Secure-authjs.session-token'
+        : 'authjs.session-token',
+      options: {
+        httpOnly: true,
+        sameSite: 'lax',
+        // Only send cookie for paths that need auth
+        path: '/',
+        secure: process.env.NODE_ENV === 'production',
+      },
+    },
+  },
   providers: [
     Credentials({
       async authorize(credentials) {
