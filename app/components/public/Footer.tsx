@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
-import { Mail, ArrowRight, Share2, Globe, MessageCircle } from 'lucide-react';
+import { Mail, ArrowRight } from 'lucide-react';
+import { socialLinks } from './SocialLinks';
 
 interface FooterProps {
   categories: { name: string; slug: string }[];
@@ -29,15 +30,18 @@ export const Footer: React.FC<FooterProps> = ({ categories }) => {
               ngoanxinhyeu.app là blog chuyên về kiến thức thai kỳ, nuôi dạy con cái và đánh giá đồ dùng cho mẹ & bé. Đồng hành cùng mẹ bỉm sữa chăm sóc thế hệ tương lai.
             </p>
             <div className="flex items-center space-x-4 pt-2">
-              <a href="#" aria-label="Theo dõi ngoanxinhyeu trên Facebook" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-primary hover:text-white transition-all transform hover:-translate-y-1 shadow-lg active:scale-95">
-                <Share2 className="w-5 h-5" />
-              </a>
-              <a href="#" aria-label="Theo dõi ngoanxinhyeu trên Instagram" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-pink-600 hover:text-white transition-all transform hover:-translate-y-1 shadow-lg active:scale-95">
-                <Globe className="w-5 h-5" />
-              </a>
-              <a href="#" aria-label="Nhắn tin qua Zalo" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-sky-500 hover:text-white transition-all transform hover:-translate-y-1 shadow-lg active:scale-95">
-                <MessageCircle className="w-5 h-5" />
-              </a>
+              {socialLinks.map((social) => (
+                <a
+                  key={social.name}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Theo dõi Ngoan Xinh Yêu trên ${social.name}`}
+                  className={`w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 ${social.hoverBg} hover:text-white transition-all transform hover:-translate-y-1 shadow-lg active:scale-95`}
+                >
+                  <social.icon className="w-5 h-5" />
+                </a>
+              ))}
             </div>
           </div>
 

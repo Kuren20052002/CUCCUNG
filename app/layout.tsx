@@ -69,8 +69,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    site: "@ngoanxinhyeu",
-    creator: "@ngoanxinhyeu",
+    site: "@NgoanXinhlU",
+    creator: "@NgoanXinhlU",
   },
 };
 
@@ -105,7 +105,9 @@ export default function RootLayout({
             "logo": "https://ngoanxinhyeu.app/ngoanxinhyeu_logo.webp",
             "description": "Cộng đồng chia sẻ kiến thức chăm sóc mẹ và bé từ A-Z: thai kỳ, trẻ sơ sinh, dinh dưỡng và nuôi dạy con thông minh.",
             "sameAs": [
-              "https://facebook.com/ngoanxinhyeu"
+              "https://www.facebook.com/ngoanxinhlU",
+              "https://x.com/NgoanXinhlU",
+              "https://www.tiktok.com/@ngoanxinhlu"
             ]
           }),
         }}

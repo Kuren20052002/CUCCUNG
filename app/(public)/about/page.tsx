@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { Heart, ShieldCheck, Sparkles, Users, Award, BookOpen } from 'lucide-react';
+import { socialLinks } from '@/app/components/public/SocialLinks';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -27,6 +28,22 @@ export default function AboutPage() {
             <p className="text-xl text-slate-400 leading-relaxed font-medium">
               ngoanxinhyeu.app ra đời với mong muốn trở thành người bạn đồng hành đáng tin cậy nhất của mọi bà mẹ Việt trên hành trình nuôi dạy con cái đầy hạnh phúc nhưng cũng không ít thử thách.
             </p>
+
+            {/* Social Links Row */}
+            <div className="flex items-center space-x-6 pt-4">
+              {socialLinks.map((social) => (
+                <a
+                  key={social.name}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-slate-400 border border-white/10 ${social.hoverBg} hover:text-white transition-all transform hover:-translate-y-1 active:scale-95`}
+                  aria-label={social.name}
+                >
+                  <social.icon className="w-6 h-6" />
+                </a>
+              ))}
+            </div>
           </div>
         </div>
       </section>

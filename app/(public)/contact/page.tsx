@@ -1,5 +1,6 @@
 import React from 'react';
 import { Mail, Phone, MapPin, MessageCircle, Send, Globe, MessageSquare } from 'lucide-react';
+import { socialLinks } from '@/app/components/public/SocialLinks';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -20,8 +21,24 @@ export default function ContactPage() {
           Kết nối với <span className="text-primary underline decoration-emerald-500/20">ngay hôm nay</span>.
         </h1>
         <p className="text-lg text-slate-500 leading-relaxed max-w-2xl mx-auto font-medium">
-          Bạn có thắc mắc, ý tưởng hợp tác hay đơn giản là muốn chia sẻ trải nghiệm của mình? Hãy liên hệ với chúng tôi qua form dưới đây.
+          Bạn có thắc mắc, ý tưởng hợp tác hay đơn giản là muốn chia sẻ trải nghiệm của mình? Hãy liên hệ với chúng tôi qua các kênh dưới đây.
         </p>
+
+        {/* Social Links Row */}
+        <div className="flex items-center justify-center space-x-6 pt-4">
+          {socialLinks.map((social) => (
+            <a
+              key={social.name}
+              href={social.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`w-12 h-12 rounded-full bg-white flex items-center justify-center text-slate-400 border border-slate-100 shadow-sm ${social.hoverBg} hover:text-white transition-all transform hover:-translate-y-1 active:scale-95`}
+              aria-label={social.name}
+            >
+              <social.icon className="w-6 h-6" />
+            </a>
+          ))}
+        </div>
       </section>
 
       {/* Container Section */}
