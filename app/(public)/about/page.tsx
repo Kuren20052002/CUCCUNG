@@ -53,7 +53,7 @@ export default function AboutPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
           <div className="relative aspect-square rounded-[3rem] overflow-hidden shadow-2xl">
             <Image
-              src="/hero-mom-baby.png"
+              src="/hero-mom-baby.webp"
               alt="Mẹ và bé hạnh phúc"
               fill
               className="object-cover"
