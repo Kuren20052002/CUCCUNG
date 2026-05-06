@@ -49,8 +49,21 @@ export async function generateMetadata(
       description,
       type: 'website',
       url: canonicalUrl,
-      siteName: 'ngoanxinhyeu',
+      siteName: 'Ngoan Xinh Yêu',
       locale: 'vi_VN',
+      images: [
+        {
+          url: 'https://ngoanxinhyeu.app/ngoanxinhyeu_logo.webp',
+          width: 1200,
+          height: 630,
+          alt: `${category.name} - Ngoan Xinh Yêu`,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
     },
   };
 }
@@ -143,6 +156,26 @@ export default async function CategoryPage({
                 "name": category.name
               }
             ]
+          }),
+        }}
+      />
+      {/* CollectionPage Schema — marks this as an article listing page */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            "name": category.name,
+            "description": category.description || `Khám phá các bài viết hữu ích về chủ đề ${category.name}`,
+            "url": `https://ngoanxinhyeu.app/${categorySlug}`,
+            "isPartOf": {
+              "@type": "WebSite",
+              "name": "Ngoan Xinh Yêu",
+              "url": "https://ngoanxinhyeu.app"
+            },
+            "inLanguage": "vi",
+            "numberOfItems": totalPosts
           }),
         }}
       />

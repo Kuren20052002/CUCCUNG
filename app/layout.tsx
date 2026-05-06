@@ -58,12 +58,17 @@ export const metadata: Metadata = {
     siteName: "Ngoan Xinh Yêu",
     locale: "vi_VN",
     type: "website",
+    url: "https://ngoanxinhyeu.app",
+    title: "Ngoan Xinh Yêu - Cộng đồng Mẹ & Bé",
+    description:
+      "Hướng dẫn chăm sóc mẹ và bé từ A–Z: giấc ngủ, dinh dưỡng, sức khỏe trẻ sơ sinh. Kinh nghiệm thực tế giúp mẹ nuôi con dễ dàng và đúng cách.",
     images: [
       {
-        url: "/ngoanxinhyeu_logo.webp",
-        width: 200,
-        height: 200,
-        alt: "Ngoan Xinh Yêu Logo",
+        url: "https://ngoanxinhyeu.app/ngoanxinhyeu_logo.webp",
+        width: 1200,
+        height: 630,
+        alt: "Ngoan Xinh Yêu - Cộng đồng Mẹ & Bé",
+        type: "image/webp",
       },
     ],
   },
@@ -71,6 +76,10 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     site: "@NgoanXinhlU",
     creator: "@NgoanXinhlU",
+    title: "Ngoan Xinh Yêu - Cộng đồng Mẹ & Bé",
+    description:
+      "Hướng dẫn chăm sóc mẹ và bé từ A–Z: giấc ngủ, dinh dưỡng, sức khỏe trẻ sơ sinh.",
+    images: ["https://ngoanxinhyeu.app/ngoanxinhyeu_logo.webp"],
   },
 };
 
@@ -93,7 +102,7 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
-      {/* Organization Schema */}
+      {/* Organization Schema — enhanced with contactPoint & founding info for E-E-A-T */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -101,9 +110,22 @@ export default function RootLayout({
             "@context": "https://schema.org",
             "@type": "Organization",
             "name": "Ngoan Xinh Yêu",
+            "alternateName": "ngoanxinhyeu",
             "url": "https://ngoanxinhyeu.app",
-            "logo": "https://ngoanxinhyeu.app/ngoanxinhyeu_logo.webp",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://ngoanxinhyeu.app/ngoanxinhyeu_logo.webp",
+              "width": 200,
+              "height": 200
+            },
             "description": "Cộng đồng chia sẻ kiến thức chăm sóc mẹ và bé từ A-Z: thai kỳ, trẻ sơ sinh, dinh dưỡng và nuôi dạy con thông minh.",
+            "foundingDate": "2025",
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "contactType": "customer service",
+              "url": "https://ngoanxinhyeu.app/contact",
+              "availableLanguage": "Vietnamese"
+            },
             "sameAs": [
               "https://www.facebook.com/ngoanxinhlU",
               "https://x.com/NgoanXinhlU",
@@ -120,10 +142,21 @@ export default function RootLayout({
             "@context": "https://schema.org",
             "@type": "WebSite",
             "name": "Ngoan Xinh Yêu",
+            "alternateName": "ngoanxinhyeu",
             "url": "https://ngoanxinhyeu.app",
+            "description": "Cộng đồng chia sẻ kiến thức chăm sóc mẹ và bé từ A-Z.",
+            "inLanguage": "vi",
+            "publisher": {
+              "@type": "Organization",
+              "name": "Ngoan Xinh Yêu",
+              "url": "https://ngoanxinhyeu.app"
+            },
             "potentialAction": {
               "@type": "SearchAction",
-              "target": "https://ngoanxinhyeu.app/search?q={search_term_string}",
+              "target": {
+                "@type": "EntryPoint",
+                "urlTemplate": "https://ngoanxinhyeu.app/search?q={search_term_string}"
+              },
               "query-input": "required name=search_term_string"
             }
           }),

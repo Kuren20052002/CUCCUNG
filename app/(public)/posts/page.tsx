@@ -35,6 +35,27 @@ export async function generateMetadata(
     description,
     alternates: { canonical: canonicalUrl },
     other: otherMeta,
+    openGraph: {
+      title,
+      description,
+      type: 'website',
+      url: canonicalUrl,
+      siteName: 'Ngoan Xinh Yêu',
+      locale: 'vi_VN',
+      images: [
+        {
+          url: 'https://ngoanxinhyeu.app/ngoanxinhyeu_logo.webp',
+          width: 1200,
+          height: 630,
+          alt: 'Kho bài viết - Ngoan Xinh Yêu',
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+    },
   };
 }
 
@@ -82,6 +103,49 @@ export default async function PostsPage({
 
   return (
     <div className="space-y-12 pb-20 font-sans mt-8 lg:mt-12">
+      {/* BreadcrumbList Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Trang chủ",
+                "item": "https://ngoanxinhyeu.app"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Tất cả bài viết"
+              }
+            ]
+          }),
+        }}
+      />
+      {/* CollectionPage Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            "name": "Kho bài viết",
+            "description": "Duyệt qua tất cả các bài viết về chủ đề chăm sóc mẹ và bé.",
+            "url": "https://ngoanxinhyeu.app/posts",
+            "isPartOf": {
+              "@type": "WebSite",
+              "name": "Ngoan Xinh Yêu",
+              "url": "https://ngoanxinhyeu.app"
+            },
+            "inLanguage": "vi",
+            "numberOfItems": totalPosts
+          }),
+        }}
+      />
       {/* Archive Header */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-slate-900 p-12 lg:p-20 rounded-[3rem] shadow-2xl relative overflow-hidden group border-b-4 border-emerald-500">

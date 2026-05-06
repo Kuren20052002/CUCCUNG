@@ -6,6 +6,27 @@ import { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Liên hệ - Ngoan Xinh Yêu sẵn sàng lắng nghe bạn',
   description: 'Liên hệ với đội ngũ ngoanxinhyeu.app để hợp tác quảng cáo, đóng góp ý kiến hoặc được giải đáp các thắc mắc về chăm sóc mẹ và bé.',
+  openGraph: {
+    title: 'Liên hệ - Ngoan Xinh Yêu',
+    description: 'Liên hệ với đội ngũ ngoanxinhyeu.app để hợp tác, đóng góp ý kiến hoặc giải đáp thắc mắc.',
+    type: 'website',
+    url: 'https://ngoanxinhyeu.app/contact',
+    siteName: 'Ngoan Xinh Yêu',
+    locale: 'vi_VN',
+    images: [
+      {
+        url: 'https://ngoanxinhyeu.app/ngoanxinhyeu_logo.webp',
+        width: 1200,
+        height: 630,
+        alt: 'Liên hệ Ngoan Xinh Yêu',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Liên hệ - Ngoan Xinh Yêu',
+    description: 'Liên hệ với đội ngũ ngoanxinhyeu.app.',
+  },
 };
 
 export default function ContactPage() {

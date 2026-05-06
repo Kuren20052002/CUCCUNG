@@ -15,6 +15,19 @@ export const metadata: Metadata = {
     url: 'https://ngoanxinhyeu.app/authors',
     siteName: 'Ngoan Xinh Yêu',
     locale: 'vi_VN',
+    images: [
+      {
+        url: 'https://ngoanxinhyeu.app/ngoanxinhyeu_logo.webp',
+        width: 1200,
+        height: 630,
+        alt: 'Đội ngũ tác giả Ngoan Xinh Yêu',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Đội ngũ tác giả - Ngoan Xinh Yêu',
+    description: 'Gặp gỡ đội ngũ chuyên gia và các tác giả tâm huyết tại ngoanxinhyeu.app.',
   },
 };
 
@@ -40,17 +53,47 @@ export default async function AuthorsPage() {
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "ProfilePage",
+              "name": `Hồ sơ ${author.name}`,
+              "url": "https://ngoanxinhyeu.app/authors",
               "mainEntity": {
                 "@type": "Person",
                 "name": author.name,
                 "image": author.avatar || undefined,
                 "description": author.bio || undefined,
-                "url": "https://ngoanxinhyeu.app/authors"
+                "url": "https://ngoanxinhyeu.app/authors",
+                "worksFor": {
+                  "@type": "Organization",
+                  "name": "Ngoan Xinh Yêu",
+                  "url": "https://ngoanxinhyeu.app"
+                }
               }
             }),
           }}
         />
       ))}
+      {/* BreadcrumbList Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Trang chủ",
+                "item": "https://ngoanxinhyeu.app"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Đội ngũ tác giả"
+              }
+            ]
+          }),
+        }}
+      />
       {/* Header */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
         <h1 className="text-5xl lg:text-7xl font-black text-slate-900 leading-tight">

@@ -77,11 +77,24 @@ export async function generateMetadata(
       siteName: 'Ngoan Xinh Yêu',
       locale: 'vi_VN',
       images: post.metaImage
-        ? [{ url: post.metaImage, alt: post.featuredImageAlt || title }]
+        ? [{
+            url: post.metaImage,
+            alt: post.featuredImageAlt || title,
+            width: 1200,
+            height: 630,
+          }]
         : [],
       publishedTime: post.createdAt.toISOString(),
       modifiedTime: post.updatedAt.toISOString(),
       authors: post.author?.name ? [post.author.name] : undefined,
+      section: post.category?.name || undefined,
+      tags: post.tags?.map((t: { name: string }) => t.name) || undefined,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description: description ?? undefined,
+      images: post.metaImage ? [post.metaImage] : [],
     },
   };
 }
@@ -151,24 +164,38 @@ export default async function ArticlePage(
             "@type": "Article",
             "headline": post.title,
             "description": post.metaDescription || post.excerpt || '',
-            "image": post.metaImage || undefined,
+            "image": post.metaImage ? {
+              "@type": "ImageObject",
+              "url": post.metaImage,
+              "width": 1200,
+              "height": 630
+            } : undefined,
             "author": {
               "@type": "Person",
               "name": post.author.name,
               "image": post.author.avatar || undefined,
-              "description": post.author.bio || undefined
+              "description": post.author.bio || undefined,
+              "url": "https://ngoanxinhyeu.app/authors"
             },
             "publisher": {
               "@type": "Organization",
               "name": "Ngoan Xinh Yêu",
-              "url": "https://ngoanxinhyeu.app"
+              "url": "https://ngoanxinhyeu.app",
+              "logo": {
+                "@type": "ImageObject",
+                "url": "https://ngoanxinhyeu.app/ngoanxinhyeu_logo.webp"
+              }
             },
             "datePublished": post.createdAt.toISOString(),
             "dateModified": post.updatedAt.toISOString(),
             "mainEntityOfPage": {
               "@type": "WebPage",
               "@id": `https://ngoanxinhyeu.app/${post.category.slug}/${post.slug}`
-            }
+            },
+            "articleSection": post.category.name,
+            "inLanguage": "vi",
+            "keywords": post.tags.map((t: { name: string }) => t.name).join(', '),
+            "wordCount": (post.content || '').split(/\s+/).length
           }),
         }}
       />

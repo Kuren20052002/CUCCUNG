@@ -7,6 +7,27 @@ import { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Về Ngoan Xinh Yêu - Sứ mệnh đồng hành cùng Mẹ & Bé',
   description: 'Khám phá câu chuyện đằng sau ngoanxinhyeu.app - Nơi chia sẻ kiến thức chăm sóc mẹ và bé dựa trên nền tảng khoa học và tình yêu thương.',
+  openGraph: {
+    title: 'Về Ngoan Xinh Yêu - Sứ mệnh đồng hành cùng Mẹ & Bé',
+    description: 'Khám phá câu chuyện đằng sau ngoanxinhyeu.app - Nơi chia sẻ kiến thức chăm sóc mẹ và bé.',
+    type: 'website',
+    url: 'https://ngoanxinhyeu.app/about',
+    siteName: 'Ngoan Xinh Yêu',
+    locale: 'vi_VN',
+    images: [
+      {
+        url: 'https://ngoanxinhyeu.app/ngoanxinhyeu_logo.webp',
+        width: 1200,
+        height: 630,
+        alt: 'Về Ngoan Xinh Yêu',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Về Ngoan Xinh Yêu - Sứ mệnh đồng hành cùng Mẹ & Bé',
+    description: 'Khám phá câu chuyện đằng sau ngoanxinhyeu.app.',
+  },
 };
 
 export default function AboutPage() {
