@@ -27,7 +27,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ tags, popularPosts, activeCate
   return (
     <aside className="space-y-12 h-fit pb-10 lg:sticky lg:top-24 lg:self-start sidebar-sticky">
       {/* Search Widget */}
-      <div className="bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-sm shadow-slate-200/50">
+      <div className="hidden lg:block bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-sm shadow-slate-200/50">
         <h3 className="text-xs font-black text-slate-800 uppercase tracking-[0.2em] mb-6 flex items-center gap-2">
           <Search className="w-4 h-4 text-primary" />
           Tìm kiếm bài viết

@@ -1,11 +1,12 @@
 import React from 'react';
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { LayoutGrid, ScrollText, ChevronRight } from 'lucide-react';
+import { LayoutGrid, ScrollText, ChevronRight, Search } from 'lucide-react';
 import prisma from "@/lib/prisma";
 import { BlogCard } from "@/app/components/public/BlogCard";
 import { Sidebar } from "@/app/components/public/Sidebar";
 import { Pagination } from "@/app/components/public/Pagination";
+import { SearchWidget } from "@/app/components/public/SearchWidget";
 
 export async function generateMetadata(
   { searchParams }: { searchParams: Promise<{ page?: string }> }
@@ -180,6 +181,15 @@ export default async function PostsPage({
                   <LayoutGrid className="w-5 h-5 text-emerald-500 shrink-0" />
                   <span className="text-sm font-black text-slate-900 uppercase tracking-widest">Tất cả bài viết</span>
                </div>
+            </div>
+
+            {/* Mobile Search Widget */}
+            <div className="block lg:hidden bg-white p-6 rounded-[2.5rem] border border-slate-100 shadow-sm shadow-slate-200/50">
+              <h3 className="text-xs font-black text-slate-800 uppercase tracking-[0.2em] mb-4 flex items-center gap-2">
+                <Search className="w-4 h-4 text-primary" />
+                Tìm kiếm bài viết
+              </h3>
+              <SearchWidget />
             </div>
 
             <div className="flex flex-col gap-8">

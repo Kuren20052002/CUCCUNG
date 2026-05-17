@@ -4,7 +4,8 @@ import Link from "next/link";
 import prisma from "@/lib/prisma";
 import { BlogCard } from "@/app/components/public/BlogCard";
 import { Sidebar } from "@/app/components/public/Sidebar";
-import { ArrowRight, Sparkles, Zap, ShieldCheck } from "lucide-react";
+import { ArrowRight, Sparkles, Zap, ShieldCheck, Search } from "lucide-react";
+import { SearchWidget } from "@/app/components/public/SearchWidget";
 
 export const revalidate = 3600; // fallback revalidate every hour
 
@@ -115,6 +116,15 @@ export default async function HomePage() {
                 Tất cả bài viết <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1" />
               </Link>
             </header>
+
+            {/* Mobile Search Widget */}
+            <div className="block lg:hidden bg-white p-6 rounded-[2.5rem] border border-slate-100 shadow-sm shadow-slate-200/50">
+              <h3 className="text-xs font-black text-slate-800 uppercase tracking-[0.2em] mb-4 flex items-center gap-2">
+                <Search className="w-4 h-4 text-primary" />
+                Tìm kiếm bài viết
+              </h3>
+              <SearchWidget />
+            </div>
 
             <div className="flex flex-col gap-8">
               {posts.map((post, index) => (
