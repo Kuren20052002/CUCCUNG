@@ -43,6 +43,9 @@ export const metadata: Metadata = {
     "ngoan xinh yêu",
     "ngoanxinhyeu.app",
   ],
+  alternates: {
+    canonical: "https://ngoanxinhyeu.app",
+  },
   robots: {
     index: true,
     follow: true,

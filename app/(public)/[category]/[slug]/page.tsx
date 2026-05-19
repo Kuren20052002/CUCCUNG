@@ -19,8 +19,13 @@ export const revalidate = 60;
 // ----------------------
 // Cached DB query
 // ----------------------
-const getPost = cache(async (slug: string) => {
-  return prisma.post.findUnique({
+interface GetPostResult {
+  post: any;
+  redirectUrl: string | null;
+}
+
+const getPost = cache(async (slug: string): Promise<GetPostResult> => {
+  const post = await prisma.post.findUnique({
     where: { slug },
     include: {
       category: true,
@@ -30,6 +35,31 @@ const getPost = cache(async (slug: string) => {
       tags: true
     },
   });
+
+  if (post) {
+    return { post, redirectUrl: null };
+  }
+
+  // Check slug history for redirects
+  const history = await prisma.slugHistory.findUnique({
+    where: { oldSlug: slug },
+    include: {
+      post: {
+        include: {
+          category: true,
+        }
+      }
+    }
+  });
+
+  if (history?.post?.category) {
+    return {
+      post: null,
+      redirectUrl: `/${history.post.category.slug}/${history.post.slug}`
+    };
+  }
+
+  return { post: null, redirectUrl: null };
 });
 
 // ----------------------
@@ -50,7 +80,11 @@ export async function generateMetadata(
   { params }: { params: Promise<{ category: string; slug: string }> }
 ): Promise<Metadata> {
   const { slug, category } = await params;
-  const post = await getPost(slug);
+  const { post, redirectUrl } = await getPost(slug);
+
+  if (redirectUrl) {
+    redirect(redirectUrl);
+  }
 
   if (!post) return { robots: { index: false, follow: false } };
 
@@ -106,7 +140,11 @@ export default async function ArticlePage(
   { params }: { params: Promise<{ category: string; slug: string }> }
 ) {
   const { slug, category } = await params;
-  const post = await getPost(slug);
+  const { post, redirectUrl } = await getPost(slug);
+
+  if (redirectUrl) {
+    redirect(redirectUrl);
+  }
 
   if (!post || !post.category || !post.author) return notFound();
 
@@ -222,7 +260,8 @@ export default async function ArticlePage(
               {
                 "@type": "ListItem",
                 "position": 3,
-                "name": post.title
+                "name": post.title,
+                "item": `https://ngoanxinhyeu.app/${post.category.slug}/${post.slug}`
               }
             ]
           }),
@@ -350,7 +389,7 @@ export default async function ArticlePage(
               <div className="border-t border-slate-100 space-y-10 ">
                 <div className="flex items-center gap-4">
                   <div className="flex flex-wrap gap-2">
-                    {post.tags.map(tag => (
+                    {post.tags.map((tag: any) => (
                       <Link key={tag.id} href={`/tag/${tag.slug}`} className="px-4 py-1.5 bg-slate-50 text-[10px] font-bold text-slate-500 rounded-lg hover:bg-emerald-500 hover:text-white transition-all">
                         #{tag.name}
                       </Link>

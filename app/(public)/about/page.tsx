@@ -7,6 +7,9 @@ import { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Về Ngoan Xinh Yêu - Sứ mệnh đồng hành cùng Mẹ & Bé',
   description: 'Khám phá câu chuyện đằng sau ngoanxinhyeu.app - Nơi chia sẻ kiến thức chăm sóc mẹ và bé dựa trên nền tảng khoa học và tình yêu thương.',
+  alternates: {
+    canonical: 'https://ngoanxinhyeu.app/about',
+  },
   openGraph: {
     title: 'Về Ngoan Xinh Yêu - Sứ mệnh đồng hành cùng Mẹ & Bé',
     description: 'Khám phá câu chuyện đằng sau ngoanxinhyeu.app - Nơi chia sẻ kiến thức chăm sóc mẹ và bé.',

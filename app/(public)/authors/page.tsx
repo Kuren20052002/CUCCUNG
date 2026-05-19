@@ -8,6 +8,9 @@ import { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Đội ngũ tác giả - Ngoan Xinh Yêu',
   description: 'Gặp gỡ đội ngũ chuyên gia và các tác giả tâm huyết tại ngoanxinhyeu.app - Những người mang đến kiến thức tin cậy cho Mẹ & Bé.',
+  alternates: {
+    canonical: 'https://ngoanxinhyeu.app/authors',
+  },
   openGraph: {
     title: 'Đội ngũ tác giả - Ngoan Xinh Yêu',
     description: 'Gặp gỡ đội ngũ chuyên gia và các tác giả tâm huyết tại ngoanxinhyeu.app.',
@@ -88,7 +91,8 @@ export default async function AuthorsPage() {
               {
                 "@type": "ListItem",
                 "position": 2,
-                "name": "Đội ngũ tác giả"
+                "name": "Đội ngũ tác giả",
+                "item": "https://ngoanxinhyeu.app/authors"
               }
             ]
           }),

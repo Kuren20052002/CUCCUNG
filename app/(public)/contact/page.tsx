@@ -6,6 +6,9 @@ import { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Liên hệ - Ngoan Xinh Yêu sẵn sàng lắng nghe bạn',
   description: 'Liên hệ với đội ngũ ngoanxinhyeu.app để hợp tác quảng cáo, đóng góp ý kiến hoặc được giải đáp các thắc mắc về chăm sóc mẹ và bé.',
+  alternates: {
+    canonical: 'https://ngoanxinhyeu.app/contact',
+  },
   openGraph: {
     title: 'Liên hệ - Ngoan Xinh Yêu',
     description: 'Liên hệ với đội ngũ ngoanxinhyeu.app để hợp tác, đóng góp ý kiến hoặc giải đáp thắc mắc.',

@@ -5,6 +5,9 @@ import { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Điều khoản sử dụng - Ngoan Xinh Yêu',
   description: 'Điều khoản sử dụng của ngoanxinhyeu.app - Các quy định và điều kiện khi sử dụng trang web và dịch vụ của chúng tôi.',
+  alternates: {
+    canonical: 'https://ngoanxinhyeu.app/terms',
+  },
 };
 
 export default function TermsPage() {

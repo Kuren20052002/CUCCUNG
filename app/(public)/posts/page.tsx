@@ -121,7 +121,8 @@ export default async function PostsPage({
               {
                 "@type": "ListItem",
                 "position": 2,
-                "name": "Tất cả bài viết"
+                "name": "Tất cả bài viết",
+                "item": "https://ngoanxinhyeu.app/posts"
               }
             ]
           }),

@@ -5,6 +5,9 @@ import { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Chính sách bảo mật - Ngoan Xinh Yêu',
   description: 'Chính sách bảo mật của ngoanxinhyeu.app - Cam kết bảo vệ thông tin cá nhân và dữ liệu riêng tư của người dùng.',
+  alternates: {
+    canonical: 'https://ngoanxinhyeu.app/privacy',
+  },
 };
 
 export default function PrivacyPage() {
