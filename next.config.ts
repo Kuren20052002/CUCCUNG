@@ -26,6 +26,17 @@ const nextConfig: NextConfig = {
         destination: '/goc-review-cho-me-va-be/cam-nang-xe-day-em-be',
         permanent: true,
       },
+      // Redirect old đồ chơi thông minh articles → consolidated toy guide
+      {
+        source: '/goc-review-cho-me-va-be/do-choi-thong-minh-5-6-tuoi',
+        destination: '/giao-duc-som-va-vui-choi/top-15-do-choi-thong-minh-cho-be-phat-trien-tri-tue-tot-nhat-theo-tung-do-tuoi#giai-doan-tu-1-den-3-tuoi-kham-pha-khong-gian-va-van-dong-tinh',
+        permanent: true,
+      },
+      {
+        source: '/goc-review-cho-me-va-be/do-choi-thong-minh-1-2-tuoi',
+        destination: '/giao-duc-som-va-vui-choi/top-15-do-choi-thong-minh-cho-be-phat-trien-tri-tue-tot-nhat-theo-tung-do-tuoi#giai-doan-tu-1-den-3-tuoi-kham-pha-khong-gian-va-van-dong-tinh',
+        permanent: true,
+      },
     ];
   },
 
